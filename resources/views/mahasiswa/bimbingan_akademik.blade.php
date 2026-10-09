@@ -4,36 +4,11 @@
 @section('page-title', 'Bimbingan Akademik')
 
 @section('content')
-<!-- 1. Header Banner Bimbingan Akademik -->
-<div class="card card-custom bg-body border border-gray-200 shadow-sm mb-7">
-    <div class="card-body p-6">
-        <div class="d-flex flex-wrap align-items-center justify-content-between gap-4">
-            <div class="d-flex align-items-center gap-4">
-                <div class="symbol symbol-60px symbol-circle bg-light-info">
-                    <span class="symbol-label">
-                        <i class="fas fa-user-graduate text-info fs-1"></i>
-                    </span>
-                </div>
-                <div>
-                    <h1 class="text-dark fw-bolder mb-1 fs-3">Bimbingan Akademik Mahasiswa</h1>
-                    <div class="d-flex flex-wrap align-items-center gap-2 text-muted fs-7 fw-bold">
-                        <span class="text-dark fw-bold me-1">
-                            <i class="fas fa-user-shield me-1 text-success"></i> Dosen Wali: {{ $dosen_wali['nama'] }}
-                        </span>
-                        <span class="bullet bullet-dot bg-gray-400"></span>
-                        <span>IPK: <strong class="text-dark">{{ $ringkasan['ipk_kumulatif'] }}</strong> ({{ $ringkasan['sks_lulus'] }} SKS)</span>
-                        <span class="bullet bullet-dot bg-gray-400"></span>
-                        <span class="badge badge-light-success fw-bolder px-2.5 py-1 fs-8">{{ $ringkasan['status_krs'] }}</span>
-                    </div>
-                </div>
-            </div>
-            <div class="d-flex align-items-center gap-2">
-                <button type="button" class="btn btn-primary fw-bolder px-4 py-2.5 fs-7 shadow-sm" data-bs-toggle="modal" data-bs-target="#modal_ajukan_akademik">
-                    <i class="fas fa-calendar-plus me-2 fs-6"></i> Ajukan Bimbingan Akademik
-                </button>
-            </div>
-        </div>
-    </div>
+<!-- Tombol Akses Ajukan Bimbingan Akademik (Pojok Kanan Atas Konten) -->
+<div class="d-flex justify-content-end mb-6">
+    <button type="button" class="btn btn-primary fw-bolder px-5 py-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#modal_ajukan_akademik">
+        <i class="fas fa-calendar-plus fs-4 me-2"></i> Ajukan Bimbingan Akademik
+    </button>
 </div>
 
 <!-- 2. Ringkasan Kartu Statistik (4 Cards) -->
