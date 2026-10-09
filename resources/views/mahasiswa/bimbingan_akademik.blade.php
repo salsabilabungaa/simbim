@@ -99,8 +99,10 @@
                         <i class="fas fa-map-marker-alt me-1 text-warning"></i> {{ $jadwal_terdekat['tempat'] }}
                     </span>
                     @if (!empty($jadwal_terdekat['is_h1']))
-                        <button type="button" class="btn btn-warning btn-sm fw-bolder px-2.5 py-1 fs-9" onclick="remindDosenWali(this)">
-                            <i class="fas fa-bell me-1"></i> REMIND DOSEN
+                        <button type="button" class="btn btn-warning fw-bolder px-3 py-2 d-flex flex-column align-items-center justify-content-center lh-1 text-white shadow-sm" style="border-radius: 10px;" onclick="remindDosenWali(this)">
+                            <i class="fas fa-bell text-white fs-5 mb-1"></i>
+                            <span class="fs-9 text-uppercase text-white fw-bolder d-block" style="letter-spacing: 0.5px;">REMIND</span>
+                            <span class="fs-9 text-uppercase text-white fw-bolder d-block" style="letter-spacing: 0.5px;">DOSEN</span>
                         </button>
                     @endif
                 </div>
@@ -419,8 +421,12 @@
     function remindDosenWali(btn) {
         if (!btn) return;
         btn.disabled = true;
-        btn.className = "btn btn-success btn-sm fw-bolder px-2.5 py-1 fs-9";
-        btn.innerHTML = '<i class="fas fa-check me-1"></i> TERKIRIM';
+        btn.className = "btn btn-success fw-bolder px-3 py-2 d-flex flex-column align-items-center justify-content-center lh-1 text-white shadow-sm";
+        btn.style.borderRadius = "10px";
+        btn.innerHTML = `
+            <i class="fas fa-check text-white fs-5 mb-1"></i>
+            <span class="fs-9 text-uppercase text-white fw-bolder d-block">TERKIRIM</span>
+        `;
         alert("Notifikasi pengingat bimbingan akademik H-1 telah dikirimkan kepada Prof. Dr. Ir. Ahmad Rizal, M.T.!");
     }
 
