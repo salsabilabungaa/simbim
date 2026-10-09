@@ -37,7 +37,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link {{ request()->routeIs('mahasiswa.bimbingan-skripsi*') ? 'active' : '' }}" href="#">
+                    <a class="menu-link {{ request()->routeIs('mahasiswa.bimbingan-skripsi*') ? 'active' : '' }}" href="{{ route('mahasiswa.bimbingan-skripsi') }}">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -50,7 +50,7 @@
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link {{ request()->routeIs('mahasiswa.bimbingan-akademik*') ? 'active' : '' }}" href="#">
+                    <a class="menu-link {{ request()->routeIs('mahasiswa.bimbingan-akademik*') ? 'active' : '' }}" href="{{ route('mahasiswa.bimbingan-akademik') }}">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">

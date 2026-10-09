@@ -33,10 +33,10 @@
     </div>
 </div>
 
-<!-- 2. Ringkasan Utama: Progres Skripsi %, Rekapan Bimbingan Bulan Ini, & Jadwal Terdekat -->
+<!-- 2. Ringkasan Utama: Progres Skripsi %, Rekapan Bimbingan Bulan Ini -->
 <div class="row g-5 g-xl-8 mb-7">
     <!-- Kartu 1: Progres Skripsi di Skala Persen -->
-    <div class="col-xl-4 col-md-6">
+    <div class="col-xl-6 col-md-6">
         <div class="card card-custom bg-body border border-gray-200 shadow-sm h-100">
             <div class="card-body p-6 d-flex flex-column justify-content-between">
                 <div>
@@ -71,7 +71,7 @@
     </div>
 
     <!-- Kartu 2: Rekapan Bimbingan Bulan Ini (Skripsi & Akademik) -->
-    <div class="col-xl-4 col-md-6">
+    <div class="col-xl-6 col-md-6">
         <div class="card card-custom bg-body border border-gray-200 shadow-sm h-100">
             <div class="card-body p-6 d-flex flex-column justify-content-between">
                 <div>
@@ -114,48 +114,6 @@
                             <div class="progress-bar bg-info rounded-pill" style="width: 100%"></div>
                         </div>
                     </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Kartu 3: Informasi Jadwal Terdekat -->
-    <div class="col-xl-4 col-md-12">
-        <div class="card card-custom bg-body border border-gray-200 shadow-sm h-100">
-            <div class="card-body p-6 d-flex flex-column justify-content-between">
-                <div>
-                    <div class="d-flex align-items-center justify-content-between mb-3">
-                        <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">JADWAL BIMBINGAN TERDEKAT</span>
-                        <div class="symbol symbol-45px bg-light-warning">
-                            <span class="symbol-label">
-                                <i class="fas fa-calendar-alt text-warning fs-2"></i>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="fs-5 fw-bolder text-dark">{{ $pertemuan['tanggal'] }}</span>
-                        <span class="badge badge-danger fw-bolder fs-8 px-2 py-1">{{ $pertemuan['sisa'] }}</span>
-                    </div>
-                    <div class="text-primary fw-bolder fs-6 mb-2">
-                        <i class="far fa-clock me-1"></i> {{ $pertemuan['waktu'] }}
-                    </div>
-                    <div class="text-dark fw-bold fs-7 mb-3">
-                        <i class="fas fa-clipboard-list text-muted me-2"></i> {{ $pertemuan['judul'] }}
-                    </div>
-                </div>
-                <div class="pt-3 border-top border-gray-200 d-flex align-items-center justify-content-between flex-wrap gap-2">
-                    <span class="badge badge-light-warning fw-bolder fs-8">
-                        <i class="fas fa-map-marker-alt me-1 text-warning"></i> {{ $pertemuan['tempat'] }}
-                    </span>
-                    @if (!empty($pertemuan['is_h1']))
-                        <button type="button" class="btn btn-warning btn-sm fw-bolder px-3 py-1.5 fs-8" id="btn_remind_dosen" onclick="remindDosen(this)">
-                            <i class="fas fa-bell me-1"></i> REMIND DOSEN
-                        </button>
-                    @else
-                        <button type="button" class="btn btn-light btn-sm fw-bold px-3 py-1.5 fs-8 text-muted" disabled title="Tombol hanya aktif H-1 sebelum jadwal bimbingan">
-                            <i class="fas fa-bell-slash me-1"></i> REMIND DOSEN
-                        </button>
-                    @endif
                 </div>
             </div>
         </div>
