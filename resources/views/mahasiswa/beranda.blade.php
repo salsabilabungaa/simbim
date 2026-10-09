@@ -21,7 +21,7 @@
                     </span>
                 </div>
                 <h1 class="text-white fw-bolder fs-2x mb-1">
-                    {{ $mahasiswa['nama'] }} 
+                    {{ $mahasiswa['nama'] }}
                 </h1>
                 <p class="text-gray-400 fs-6 fw-semibold mb-0">
                     NIM: <span class="text-white fw-bold me-4">{{ $mahasiswa['nim'] }}</span>
