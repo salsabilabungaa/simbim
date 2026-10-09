@@ -1,23 +1,17 @@
-<?php namespace Jackiedo\LogReader;
+<?php
+
+namespace Jackiedo\LogReader;
 
 use Illuminate\Support\ServiceProvider;
-use Jackiedo\LogReader\Console\Commands\LogReaderDeleteCommand;
-use Jackiedo\LogReader\Console\Commands\LogReaderDetailCommand;
-use Jackiedo\LogReader\Console\Commands\LogReaderFileListCommand;
-use Jackiedo\LogReader\Console\Commands\LogReaderGetCommand;
-use Jackiedo\LogReader\Console\Commands\LogReaderRemoveFileCommand;
 
 /**
  * LogReaderServiceProvider
  *
- * @package Jackiedo\LogReader
  * @author Jackie Do <anhvudo@gmail.com>
  * @copyright 2017
- * @access public
  */
 class LogReaderServiceProvider extends ServiceProvider
 {
-
     /**
      * Indicates if loading of the provider is deferred.
      *
@@ -35,8 +29,8 @@ class LogReaderServiceProvider extends ServiceProvider
         /**
          * Publishing package's config
          */
-        $packageConfigPath = __DIR__ . '/../../config/config.php';
-        $appconfigPath     = config_path('log-reader.php');
+        $packageConfigPath = __DIR__.'/../../config/config.php';
+        $appconfigPath = config_path('log-reader.php');
 
         $this->mergeConfigFrom($packageConfigPath, 'log-reader');
 

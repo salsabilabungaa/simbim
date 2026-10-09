@@ -33,24 +33,11 @@
                                 </svg>
                             </span>
                         </span>
-                        <span class="menu-title">Beranda</span>
+                        <span class="menu-title">Dashboard</span>
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="#">
-                        <span class="menu-icon">
-                            <span class="svg-icon svg-icon-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path d="M6.5 11C8.98528 11 11 8.98528 11 6.5C11 4.01472 8.98528 2 6.5 2C4.01472 2 2 4.01472 2 6.5C2 8.98528 4.01472 11 6.5 11Z" fill="black" />
-                                    <path opacity="0.3" d="M13 13.6993H16.8C17.4 13.6993 17.9 13.1993 17.9 12.5993V6.49931C17.9 5.89931 17.4 5.39931 16.8 5.39931H13C12.4 5.39931 11.9 5.89931 11.9 6.49931V12.5993C12 13.1993 12.5 13.6993 13 13.6993ZM13 21.6993H16.8C17.4 21.6993 17.9 21.1993 17.9 20.5993V16.4993C17.9 15.8993 17.4 15.3993 16.8 15.3993H13C12.4 15.3993 11.9 15.8993 11.9 16.4993V20.5993C12 21.1993 12.5 21.6993 13 21.6993ZM6.2 21.6993H10C10.6 21.6993 11.1 21.1993 11.1 20.5993V12.5993C11.1 11.9993 10.6 11.4993 10 11.4993H6.2C5.6 11.4993 5.1 11.9993 5.1 12.5993V20.5993C5.1 21.1993 5.6 21.6993 6.2 21.6993Z" fill="black" />
-                                </svg>
-                            </span>
-                        </span>
-                        <span class="menu-title">Jadwal Bimbingan</span>
-                    </a>
-                </div>
-                <div class="menu-item">
-                    <a class="menu-link" href="#">
+                    <a class="menu-link {{ request()->routeIs('mahasiswa.bimbingan-skripsi*') ? 'active' : '' }}" href="#">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -59,36 +46,33 @@
                                 </svg>
                             </span>
                         </span>
-                        <span class="menu-title">Dokumen Skripsi</span>
+                        <span class="menu-title">Bimbingan Skripsi</span>
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="#">
+                    <a class="menu-link {{ request()->routeIs('mahasiswa.bimbingan-akademik*') ? 'active' : '' }}" href="#">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <path opacity="0.3" d="M20 3H4C2.89543 3 2 3.89543 2 5V16C2 17.1046 2.89543 18 4 18H4.5C5.05228 18 5.5 18.4477 5.5 19V21.5052C5.5 22.1441 6.21212 22.5253 6.74376 22.1708L11.4885 19.0077C12.4741 18.3506 13.6321 18 14.8167 18H20C21.1046 18 22 17.1046 22 16V5C22 3.89543 21.1046 3 20 3Z" fill="black" />
-                                    <rect x="6" y="12" width="7" height="2" rx="1" fill="black" />
-                                    <rect x="6" y="7" width="12" height="2" rx="1" fill="black" />
+                                    <path opacity="0.3" d="M22 12C22 17.5 17.5 22 12 22C6.5 22 2 17.5 2 12C2 6.5 6.5 2 12 2C17.5 2 22 6.5 22 12ZM12 7C9.2 7 7 9.2 7 12C7 14.8 9.2 17 12 17C14.8 17 17 14.8 17 12C17 9.2 14.8 7 12 7Z" fill="black" />
+                                    <path d="M12 9C10.3 9 9 10.3 9 12C9 13.7 10.3 15 12 15C13.7 15 15 13.7 15 12C15 10.3 13.7 9 12 9Z" fill="black" />
                                 </svg>
                             </span>
                         </span>
-                        <span class="menu-title">Diskusi</span>
+                        <span class="menu-title">Bimbingan Akademik</span>
                     </a>
                 </div>
                 <div class="menu-item">
-                    <a class="menu-link" href="#">
+                    <a class="menu-link {{ request()->routeIs('mahasiswa.riwayat-bimbingan*') ? 'active' : '' }}" href="#">
                         <span class="menu-icon">
                             <span class="svg-icon svg-icon-2">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
-                                    <rect x="8" y="9" width="3" height="10" rx="1.5" fill="black" />
-                                    <rect opacity="0.5" x="13" y="5" width="3" height="14" rx="1.5" fill="black" />
-                                    <rect x="18" y="11" width="3" height="8" rx="1.5" fill="black" />
-                                    <rect x="3" y="13" width="3" height="6" rx="1.5" fill="black" />
+                                    <path opacity="0.3" d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="black" />
+                                    <path d="M13 7H11V13H17V11H13V7Z" fill="black" />
                                 </svg>
                             </span>
                         </span>
-                        <span class="menu-title">Progres</span>
+                        <span class="menu-title">Riwayat Bimbingan</span>
                     </a>
                 </div>
             </div>

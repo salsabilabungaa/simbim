@@ -6,8 +6,6 @@ namespace App\Core\Adapters;
  * Adapter class to make the Metronic core lib compatible with the Laravel functions
  *
  * Class Menu
- *
- * @package App\Core\Adapters
  */
 class Menu extends \App\Core\Menu
 {
@@ -22,12 +20,10 @@ class Menu extends \App\Core\Menu
 
     /**
      * Filter menu item based on the user permission using Spatie plugin
-     *
-     * @param $array
      */
     public static function filterMenuPermissions(&$array)
     {
-        if (!is_array($array)) {
+        if (! is_array($array)) {
             return;
         }
 
@@ -37,7 +33,7 @@ class Menu extends \App\Core\Menu
         if (auth()->check()) {
             // check if the spatie plugin functions exist
             $checkPermission = method_exists($user, 'hasAnyPermission');
-            $checkRole       = method_exists($user, 'hasAnyRole');
+            $checkRole = method_exists($user, 'hasAnyRole');
         }
 
         foreach ($array as $key => &$value) {
@@ -45,11 +41,11 @@ class Menu extends \App\Core\Menu
                 continue;
             }
 
-            if ($checkPermission && isset($value['permission']) && !$user->hasAnyPermission((array) $value['permission'])) {
+            if ($checkPermission && isset($value['permission']) && ! $user->hasAnyPermission((array) $value['permission'])) {
                 unset($array[$key]);
             }
 
-            if ($checkRole && isset($value['role']) && !$user->hasAnyRole((array) $value['role'])) {
+            if ($checkRole && isset($value['role']) && ! $user->hasAnyRole((array) $value['role'])) {
                 unset($array[$key]);
             }
 

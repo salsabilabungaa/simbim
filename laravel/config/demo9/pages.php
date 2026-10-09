@@ -1,16 +1,17 @@
 <?php
-return array(
-   '' => array(
-      'title' => 'Dashboard',
-      'view' => 'index',
-      'layout' => array(
-         'page-title' => array(
-            'description' => true,
-            'breadcrumb' => false
-         ),
-         'toolbar' => array(
-            'display' => true,
-         ),
-      ),
-   ),
-);
+
+return [
+    '' => [
+        'title' => 'Dashboard',
+        'view' => 'index',
+        'layout' => [
+            'page-title' => [
+                'description' => true,
+                'breadcrumb' => false,
+            ],
+            'toolbar' => [
+                'display' => true,
+            ],
+        ],
+    ],
+];

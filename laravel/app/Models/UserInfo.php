@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Core\Traits\SpatieLogsActivity;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Support\Facades\Storage;
 
 class UserInfo extends Model
@@ -36,7 +37,7 @@ class UserInfo extends Model
     /**
      * User info relation to user model
      *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return BelongsTo
      */
     public function user()
     {
@@ -46,7 +47,6 @@ class UserInfo extends Model
     /**
      * Unserialize values by default
      *
-     * @param $value
      *
      * @return mixed|null
      */

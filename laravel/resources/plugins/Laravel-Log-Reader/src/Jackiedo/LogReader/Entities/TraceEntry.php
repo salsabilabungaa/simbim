@@ -1,14 +1,14 @@
-<?php namespace Jackiedo\LogReader\Entities;
+<?php
+
+namespace Jackiedo\LogReader\Entities;
 
 use Jackiedo\LogReader\Contracts\LogParser;
 
 /**
  * The TraceEntry class.
  *
- * @package Jackiedo\LogReader
  * @author Jackie Do <anhvudo@gmail.com>
  * @copyright 2017
- * @access public
  */
 class TraceEntry
 {
@@ -52,12 +52,11 @@ class TraceEntry
      *
      * @param  object  $parser
      * @param  string  $content
-     *
      * @return void
      */
     public function __construct(LogParser $parser, $content)
     {
-        $this->parser  = $parser;
+        $this->parser = $parser;
         $this->content = $content;
 
         $this->assignAttributes();

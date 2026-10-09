@@ -4,16 +4,19 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Password;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 
 class PasswordResetLinkController extends Controller
 {
     /**
      * Display the password reset link request view.
      *
-     * @return \Illuminate\View\View
+     * @return View
      */
     public function create()
     {
@@ -23,11 +26,10 @@ class PasswordResetLinkController extends Controller
     /**
      * Handle an incoming password reset link request.
      *
-     * @param  \Illuminate\Http\Request  $request
      *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function store(Request $request)
     {
@@ -51,11 +53,10 @@ class PasswordResetLinkController extends Controller
     /**
      * Handle an incoming api password reset link request.
      *
-     * @param  \Illuminate\Http\Request  $request
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      *
-     * @throws \Illuminate\Validation\ValidationException
+     * @throws ValidationException
      */
     public function apiStore(Request $request)
     {
@@ -65,9 +66,9 @@ class PasswordResetLinkController extends Controller
 
         $user = User::where('email', $request->email)->first();
 
-        if(!$user){
+        if (! $user) {
             throw ValidationException::withMessages([
-                'email' => ['User with such email doesn\'t exist']
+                'email' => ['User with such email doesn\'t exist'],
             ]);
         }
 

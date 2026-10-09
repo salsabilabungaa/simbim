@@ -1,4 +1,6 @@
-<?php namespace Jackiedo\LogReader\Console\Traits;
+<?php
+
+namespace Jackiedo\LogReader\Console\Traits;
 
 use Jackiedo\LogReader\LogReader;
 
@@ -7,7 +9,7 @@ trait CreateCommandInstanceTrait
     /**
      * The LogReader instance.
      *
-     * @var \Jackiedo\LogReader\LogReader
+     * @var LogReader
      */
     protected $reader;
 

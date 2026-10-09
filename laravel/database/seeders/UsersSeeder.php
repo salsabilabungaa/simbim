@@ -18,20 +18,20 @@ class UsersSeeder extends Seeder
     public function run(Generator $faker)
     {
         $demoUser = User::create([
-            'first_name'        => $faker->firstName,
-            'last_name'         => $faker->lastName,
-            'email'             => 'demo@demo.com',
-            'password'          => Hash::make('demo'),
+            'first_name' => $faker->firstName,
+            'last_name' => $faker->lastName,
+            'email' => 'demo@demo.com',
+            'password' => Hash::make('demo'),
             'email_verified_at' => now(),
         ]);
 
         $this->addDummyInfo($faker, $demoUser);
 
         $demoUser2 = User::create([
-            'first_name'        => $faker->firstName,
-            'last_name'         => $faker->lastName,
-            'email'             => 'admin@demo.com',
-            'password'          => Hash::make('demo'),
+            'first_name' => $faker->firstName,
+            'last_name' => $faker->lastName,
+            'email' => 'admin@demo.com',
+            'password' => Hash::make('demo'),
             'email_verified_at' => now(),
         ]);
 
@@ -45,14 +45,14 @@ class UsersSeeder extends Seeder
     private function addDummyInfo(Generator $faker, User $user)
     {
         $dummyInfo = [
-            'company'  => $faker->company,
-            'phone'    => $faker->phoneNumber,
-            'website'  => $faker->url,
+            'company' => $faker->company,
+            'phone' => $faker->phoneNumber,
+            'website' => $faker->url,
             'language' => $faker->languageCode,
-            'country'  => $faker->countryCode,
+            'country' => $faker->countryCode,
         ];
 
-        $info = new UserInfo();
+        $info = new UserInfo;
         foreach ($dummyInfo as $key => $value) {
             $info->$key = $value;
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Logs;
 
 use App\DataTables\Logs\AuditLogsDataTable;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Spatie\Activitylog\Models\Activity;
 
 class AuditLogsController extends Controller
@@ -11,7 +12,7 @@ class AuditLogsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(AuditLogsDataTable $dataTable)
     {
@@ -22,8 +23,7 @@ class AuditLogsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id)
     {

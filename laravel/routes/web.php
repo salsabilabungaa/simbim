@@ -30,7 +30,7 @@ array_walk($menu, function ($val) {
         $route = Route::get($val['path'], [PagesController::class, 'index']);
 
         // Exclude documentation from auth middleware
-        if (!Str::contains($val['path'], 'documentation')) {
+        if (! Str::contains($val['path'], 'documentation')) {
             $route->middleware('auth');
         }
     }

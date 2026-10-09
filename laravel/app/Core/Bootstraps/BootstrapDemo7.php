@@ -6,16 +6,19 @@ use App\Core\Adapters\BootstrapBase;
 use App\Core\Adapters\Menu;
 use App\Core\Adapters\Theme;
 
-class BootstrapDemo7 extends BootstrapBase {
+class BootstrapDemo7 extends BootstrapBase
+{
     // Private Properties
     private static $menu;
 
     // Private Methods
-    private static function initPage() {
-        Theme::addHtmlAttribute('body', 'style', 'background-image: url(' . Theme::getOption('layout', 'main/body/background-image') . ')');
+    private static function initPage()
+    {
+        Theme::addHtmlAttribute('body', 'style', 'background-image: url('.Theme::getOption('layout', 'main/body/background-image').')');
     }
 
-    private static function initHeader() {
+    private static function initHeader()
+    {
         if (Theme::getOption('layout', 'header/width') == 'fluid') {
             Theme::addHtmlClass('header-container', 'container-fluid');
         } else {
@@ -31,10 +34,11 @@ class BootstrapDemo7 extends BootstrapBase {
         }
     }
 
-    private static function initContent() {
+    private static function initContent()
+    {
         if (Theme::getOption('layout', 'content/width') == 'fluid') {
             Theme::addHtmlClass('content-container', 'container-fluid');
-        } else if (Theme::getOption('layout', 'content/width') == 'fixed') {
+        } elseif (Theme::getOption('layout', 'content/width') == 'fixed') {
             Theme::addHtmlClass('content-container', 'container');
         }
 
@@ -47,7 +51,8 @@ class BootstrapDemo7 extends BootstrapBase {
         }
     }
 
-    private static function initAside() {
+    private static function initAside()
+    {
         // Fixed aside
         if (Theme::getOption('layout', 'aside/fixed')) {
             Theme::addHtmlClass('body', 'aside-fixed');
@@ -67,8 +72,9 @@ class BootstrapDemo7 extends BootstrapBase {
         }
     }
 
-    private static function initMenu() {
-        self::$menu = new Menu( Theme::getOption('menu', 'main'), Theme::getPagePath() );
+    private static function initMenu()
+    {
+        self::$menu = new Menu(Theme::getOption('menu', 'main'), Theme::getPagePath());
 
         if (Theme::getOption('layout', 'aside/menu-icons-display') === false) {
             self::$menu->displayIcons(false);
@@ -77,7 +83,8 @@ class BootstrapDemo7 extends BootstrapBase {
         self::$menu->setIconType(Theme::getOption('layout', 'aside/menu-icon'));
     }
 
-    private static function initFooter() {
+    private static function initFooter()
+    {
         if (Theme::getOption('layout', 'footer/width') == 'fluid') {
             Theme::addHtmlClass('footer-container', 'container-fluid');
         } else {
@@ -85,7 +92,8 @@ class BootstrapDemo7 extends BootstrapBase {
         }
     }
 
-    private static function initScripts() {
+    private static function initScripts()
+    {
         Theme::addPageJs('js/custom/widgets.js');
         Theme::addPageJs('js/custom/apps/chat/chat.js');
         Theme::addPageJs('js/custom/modals/create-app.js');
@@ -97,19 +105,22 @@ class BootstrapDemo7 extends BootstrapBase {
     }
 
     // Public Methods
-    public static function getMenu() {
+    public static function getMenu()
+    {
         return self::$menu;
     }
 
-    public static function getBreadcrumb() {
-        $options = array(
-            'skip-active' => false
-        );
+    public static function getBreadcrumb()
+    {
+        $options = [
+            'skip-active' => false,
+        ];
 
         return self::getMenu()->getBreadcrumb($options);
     }
 
-    public static function initLayout() {
+    public static function initLayout()
+    {
         self::initPage();
         self::initHeader();
         self::initContent();

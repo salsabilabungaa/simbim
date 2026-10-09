@@ -7,6 +7,11 @@ use App\Http\Requests\Account\SettingsEmailRequest;
 use App\Http\Requests\Account\SettingsInfoRequest;
 use App\Http\Requests\Account\SettingsPasswordRequest;
 use App\Models\UserInfo;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,7 +20,7 @@ class SettingsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -28,17 +33,16 @@ class SettingsController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  Request  $request
      * @param  int  $user
-     *
-     * @return \Illuminate\Http\RedirectResponse
+     * @return RedirectResponse
      */
     public function update(SettingsInfoRequest $request)
     {
         // save user name
         $validated = $request->validate([
             'first_name' => 'required|string|max:255',
-            'last_name'  => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
         ]);
 
         auth()->user()->update($validated);
@@ -48,7 +52,7 @@ class SettingsController extends Controller
 
         if ($info === null) {
             // create new model
-            $info = new UserInfo();
+            $info = new UserInfo;
         }
 
         // attach this info to the current user
@@ -82,7 +86,6 @@ class SettingsController extends Controller
      * @param  string  $folder
      * @param  string  $key
      * @param  string  $validation
-     *
      * @return false|string|null
      */
     public function upload($folder = 'images', $key = 'avatar', $validation = 'image|mimes:jpeg,png,jpg,gif,svg|max:2048|sometimes')
@@ -99,8 +102,6 @@ class SettingsController extends Controller
 
     /**
      * Function to accept request for change email
-     *
-     * @param  SettingsEmailRequest  $request
      */
     public function changeEmail(SettingsEmailRequest $request)
     {
@@ -120,8 +121,6 @@ class SettingsController extends Controller
 
     /**
      * Function to accept request for change password
-     *
-     * @param  SettingsPasswordRequest  $request
      */
     public function changePassword(SettingsPasswordRequest $request)
     {

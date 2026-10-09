@@ -6,14 +6,16 @@ use App\Core\Adapters\BootstrapBase;
 use App\Core\Adapters\Menu;
 use App\Core\Adapters\Theme;
 
-class BootstrapDemo1 extends BootstrapBase {
+class BootstrapDemo1 extends BootstrapBase
+{
     // Private Properties
     private static $asideMenu;
 
     private static $horizontalMenu;
 
     // Private Methods
-    private static function initHeader() {
+    private static function initHeader()
+    {
         if (Theme::getOption('layout', 'header/width') == 'fluid') {
             Theme::addHtmlClass('header-container', 'container-fluid');
         } else {
@@ -29,7 +31,8 @@ class BootstrapDemo1 extends BootstrapBase {
         }
     }
 
-    private static function initToolbar() {
+    private static function initToolbar()
+    {
         if (Theme::getOption('layout', 'toolbar/display') === false) {
             return;
         }
@@ -52,7 +55,7 @@ class BootstrapDemo1 extends BootstrapBase {
 
         // Height setup
         $type = Theme::getOption('layout', 'toolbar/layout');
-        $typeOptions = Theme::getOption('layout', 'toolbar/layouts/' . $type);
+        $typeOptions = Theme::getOption('layout', 'toolbar/layouts/'.$type);
 
         if ($typeOptions) {
             if (isset($typeOptions['height'])) {
@@ -65,7 +68,8 @@ class BootstrapDemo1 extends BootstrapBase {
         }
     }
 
-    private static function initPageTitle() {
+    private static function initPageTitle()
+    {
         if (Theme::getOption('layout', 'page-title/display') === false) {
             return;
         }
@@ -83,19 +87,20 @@ class BootstrapDemo1 extends BootstrapBase {
         if (Theme::getOption('layout', 'page-title/responsive') === true) {
             Theme::addHtmlClass('page-title', 'mb-5 mb-lg-0');
 
-            $attr = array();
+            $attr = [];
             $attr['data-kt-swapper'] = 'true';
             $attr['data-kt-swapper-mode'] = 'prepend';
-            $attr['data-kt-swapper-parent'] = "{default: '#kt_content_container', '" . Theme::getOption('layout', 'page-title/responsive-breakpoint') . "': '" . Theme::getOption('layout', 'page-title/responsive-target') . "'}";
+            $attr['data-kt-swapper-parent'] = "{default: '#kt_content_container', '".Theme::getOption('layout', 'page-title/responsive-breakpoint')."': '".Theme::getOption('layout', 'page-title/responsive-target')."'}";
 
             Theme::addHtmlAttributes('page-title', $attr);
         }
     }
 
-    private static function initContent() {
+    private static function initContent()
+    {
         if (Theme::getOption('layout', 'content/width') == 'fluid') {
             Theme::addHtmlClass('content-container', 'container-fluid');
-        } else if (Theme::getOption('layout', 'content/width') == 'fixed') {
+        } elseif (Theme::getOption('layout', 'content/width') == 'fixed') {
             Theme::addHtmlClass('content-container', 'container-xxl');
         }
 
@@ -108,14 +113,15 @@ class BootstrapDemo1 extends BootstrapBase {
         }
     }
 
-    private static function initAside() {
+    private static function initAside()
+    {
         // Check if aside is displayed
         if (Theme::getOption('layout', 'aside/display') != true) {
             return;
         }
 
         Theme::addHtmlClass('body', 'aside-enabled');
-        Theme::addHtmlClass('aside', 'aside-' . Theme::getOption('layout', 'aside/theme'));
+        Theme::addHtmlClass('aside', 'aside-'.Theme::getOption('layout', 'aside/theme'));
 
         // Fixed aside
         if (Theme::getOption('layout', 'aside/fixed')) {
@@ -133,8 +139,9 @@ class BootstrapDemo1 extends BootstrapBase {
         }
     }
 
-    private static function initAsideMenu() {
-        self::$asideMenu = new Menu( Theme::getOption('menu', 'main'), Theme::getPagePath() );
+    private static function initAsideMenu()
+    {
+        self::$asideMenu = new Menu(Theme::getOption('menu', 'main'), Theme::getPagePath());
 
         if (Theme::getOption('layout', 'aside/menu-icons-display') === false) {
             self::$asideMenu->displayIcons(false);
@@ -143,13 +150,15 @@ class BootstrapDemo1 extends BootstrapBase {
         self::$asideMenu->setIconType(Theme::getOption('layout', 'aside/menu-icon'));
     }
 
-    private static function initHorizontalMenu() {
-        self::$horizontalMenu = new Menu( Theme::getOption('menu', 'horizontal'), Theme::getPagePath() );
+    private static function initHorizontalMenu()
+    {
+        self::$horizontalMenu = new Menu(Theme::getOption('menu', 'horizontal'), Theme::getPagePath());
         self::$horizontalMenu->setItemLinkClass('py-3');
         self::$horizontalMenu->setIconType(Theme::getOption('layout', 'header/menu-icon', 'svg'));
     }
 
-    private static function initFooter() {
+    private static function initFooter()
+    {
         if (Theme::getOption('layout', 'footer/width') == 'fluid') {
             Theme::addHtmlClass('footer-container', 'container-fluid');
         } else {
@@ -158,7 +167,8 @@ class BootstrapDemo1 extends BootstrapBase {
     }
 
     // Public Methods
-    public static function initLayout() {
+    public static function initLayout()
+    {
         self::initHeader();
         self::initPageTitle();
         self::initToolbar();
@@ -169,18 +179,21 @@ class BootstrapDemo1 extends BootstrapBase {
         self::initHorizontalMenu();
     }
 
-    public static function getAsideMenu() {
+    public static function getAsideMenu()
+    {
         return self::$asideMenu;
     }
 
-    public static function getHorizontalMenu() {
+    public static function getHorizontalMenu()
+    {
         return self::$horizontalMenu;
     }
 
-    public static function getBreadcrumb() {
-        $options = array(
-            'skip-active' => false
-        );
+    public static function getBreadcrumb()
+    {
+        $options = [
+            'skip-active' => false,
+        ];
 
         return self::getAsideMenu()->getBreadcrumb($options);
     }

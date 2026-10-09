@@ -1,4 +1,6 @@
-<?php namespace Jackiedo\LogReader\Console\Traits;
+<?php
+
+namespace Jackiedo\LogReader\Console\Traits;
 
 trait SetLogReaderParamTrait
 {

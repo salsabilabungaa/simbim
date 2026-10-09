@@ -1,290 +1,291 @@
 <?php
-return array(
-    '' => array(
-        'title'       => 'Dashboard',
+
+return [
+    '' => [
+        'title' => 'Dashboard',
         'description' => '',
-        'view'        => 'index',
-        'layout'      => array(
-            'page-title' => array(
+        'view' => 'index',
+        'layout' => [
+            'page-title' => [
                 'description' => true,
-                'breadcrumb'  => false,
-            ),
-        ),
-        'assets'      => array(
-            'custom' => array(
-                'js' => array(),
-            ),
-        ),
-    ),
+                'breadcrumb' => false,
+            ],
+        ],
+        'assets' => [
+            'custom' => [
+                'js' => [],
+            ],
+        ],
+    ],
 
-    'login'           => array(
-        'title'  => 'Login',
-        'assets' => array(
-            'custom' => array(
-                'js' => array(
+    'login' => [
+        'title' => 'Login',
+        'assets' => [
+            'custom' => [
+                'js' => [
                     'js/custom/authentication/sign-in/general.js',
-                ),
-            ),
-        ),
-        'layout' => array(
-            'main' => array(
+                ],
+            ],
+        ],
+        'layout' => [
+            'main' => [
                 'type' => 'blank', // Set blank layout
-                'body' => array(
+                'body' => [
                     'class' => theme()->isDarkMode() ? '' : 'bg-body',
-                ),
-            ),
-        ),
-    ),
-    'register'        => array(
-        'title'  => 'Register',
-        'assets' => array(
-            'custom' => array(
-                'js' => array(
+                ],
+            ],
+        ],
+    ],
+    'register' => [
+        'title' => 'Register',
+        'assets' => [
+            'custom' => [
+                'js' => [
                     'js/custom/authentication/sign-up/general.js',
-                ),
-            ),
-        ),
-        'layout' => array(
-            'main' => array(
+                ],
+            ],
+        ],
+        'layout' => [
+            'main' => [
                 'type' => 'blank', // Set blank layout
-                'body' => array(
+                'body' => [
                     'class' => theme()->isDarkMode() ? '' : 'bg-body',
-                ),
-            ),
-        ),
-    ),
-    'forgot-password' => array(
-        'title'  => 'Forgot Password',
-        'assets' => array(
-            'custom' => array(
-                'js' => array(
+                ],
+            ],
+        ],
+    ],
+    'forgot-password' => [
+        'title' => 'Forgot Password',
+        'assets' => [
+            'custom' => [
+                'js' => [
                     'js/custom/authentication/password-reset/password-reset.js',
-                ),
-            ),
-        ),
-        'layout' => array(
-            'main' => array(
+                ],
+            ],
+        ],
+        'layout' => [
+            'main' => [
                 'type' => 'blank', // Set blank layout
-                'body' => array(
+                'body' => [
                     'class' => theme()->isDarkMode() ? '' : 'bg-body',
-                ),
-            ),
-        ),
-    ),
+                ],
+            ],
+        ],
+    ],
 
-    'log' => array(
-        'audit'  => array(
-            'title'  => 'Audit Log',
-            'assets' => array(
-                'custom' => array(
-                    'css' => array(
+    'log' => [
+        'audit' => [
+            'title' => 'Audit Log',
+            'assets' => [
+                'custom' => [
+                    'css' => [
                         'plugins/custom/datatables/datatables.bundle.css',
-                    ),
-                    'js'  => array(
+                    ],
+                    'js' => [
                         'plugins/custom/datatables/datatables.bundle.js',
-                    ),
-                ),
-            ),
-        ),
-        'system' => array(
-            'title'  => 'System Log',
-            'assets' => array(
-                'custom' => array(
-                    'css' => array(
+                    ],
+                ],
+            ],
+        ],
+        'system' => [
+            'title' => 'System Log',
+            'assets' => [
+                'custom' => [
+                    'css' => [
                         'plugins/custom/datatables/datatables.bundle.css',
-                    ),
-                    'js'  => array(
+                    ],
+                    'js' => [
                         'plugins/custom/datatables/datatables.bundle.js',
-                    ),
-                ),
-            ),
-        ),
-    ),
+                    ],
+                ],
+            ],
+        ],
+    ],
 
-    'account' => array(
-        'overview' => array(
-            'title'  => 'Account Overview',
-            'view'   => 'account/overview/overview',
-            'assets' => array(
-                'custom' => array(
-                    'js' => array(
+    'account' => [
+        'overview' => [
+            'title' => 'Account Overview',
+            'view' => 'account/overview/overview',
+            'assets' => [
+                'custom' => [
+                    'js' => [
                         'js/custom/widgets.js',
-                    ),
-                ),
-            ),
-        ),
+                    ],
+                ],
+            ],
+        ],
 
-        'settings' => array(
-            'title'  => 'Account Settings',
-            'assets' => array(
-                'custom' => array(
-                    'js' => array(
+        'settings' => [
+            'title' => 'Account Settings',
+            'assets' => [
+                'custom' => [
+                    'js' => [
                         'js/custom/account/settings/profile-details.js',
                         'js/custom/account/settings/signin-methods.js',
                         'js/custom/modals/two-factor-authentication.js',
-                    ),
-                ),
-            ),
-        ),
-    ),
+                    ],
+                ],
+            ],
+        ],
+    ],
 
-    'users'         => array(
+    'users' => [
         'title' => 'User List',
 
-        '*' => array(
+        '*' => [
             'title' => 'Show User',
 
-            'edit' => array(
+            'edit' => [
                 'title' => 'Edit User',
-            ),
-        ),
-    ),
+            ],
+        ],
+    ],
 
     // Documentation pages
-    'documentation' => array(
-        '*' => array(
-            'assets' => array(
-                'vendors' => array(
-                    'css' => array(
+    'documentation' => [
+        '*' => [
+            'assets' => [
+                'vendors' => [
+                    'css' => [
                         'plugins/custom/prismjs/prismjs.bundle.css',
-                    ),
-                    'js'  => array(
+                    ],
+                    'js' => [
                         'plugins/custom/prismjs/prismjs.bundle.js',
-                    ),
-                ),
-                'custom'  => array(
-                    'js' => array(
+                    ],
+                ],
+                'custom' => [
+                    'js' => [
                         'js/custom/documentation/documentation.js',
-                    ),
-                ),
-            ),
+                    ],
+                ],
+            ],
 
-            'layout' => array(
-                'base'    => 'docs', // Set base layout: default|docs
+            'layout' => [
+                'base' => 'docs', // Set base layout: default|docs
 
                 // Content
-                'content' => array(
-                    'width'  => 'fixed', // Set fixed|fluid to change width type
-                    'layout' => 'documentation'  // Set content type
-                ),
-            ),
-        ),
+                'content' => [
+                    'width' => 'fixed', // Set fixed|fluid to change width type
+                    'layout' => 'documentation',  // Set content type
+                ],
+            ],
+        ],
 
-        'getting-started' => array(
-            'overview' => array(
-                'title'       => 'Overview',
+        'getting-started' => [
+            'overview' => [
+                'title' => 'Overview',
                 'description' => '',
-                'view'        => 'documentation/getting-started/overview',
-            ),
+                'view' => 'documentation/getting-started/overview',
+            ],
 
-            'build' => array(
-                'title'       => 'Gulp',
+            'build' => [
+                'title' => 'Gulp',
                 'description' => '',
-                'view'        => 'documentation/getting-started/build/build',
-            ),
+                'view' => 'documentation/getting-started/build/build',
+            ],
 
-            'multi-demo' => array(
-                'overview' => array(
-                    'title'       => 'Overview',
+            'multi-demo' => [
+                'overview' => [
+                    'title' => 'Overview',
                     'description' => '',
-                    'view'        => 'documentation/getting-started/multi-demo/overview',
-                ),
-                'build'    => array(
-                    'title'       => 'Multi-demo Build',
+                    'view' => 'documentation/getting-started/multi-demo/overview',
+                ],
+                'build' => [
+                    'title' => 'Multi-demo Build',
                     'description' => '',
-                    'view'        => 'documentation/getting-started/multi-demo/build',
-                ),
-            ),
+                    'view' => 'documentation/getting-started/multi-demo/build',
+                ],
+            ],
 
-            'file-structure' => array(
-                'title'       => 'File Structure',
+            'file-structure' => [
+                'title' => 'File Structure',
                 'description' => '',
-                'view'        => 'documentation/getting-started/file-structure',
-            ),
+                'view' => 'documentation/getting-started/file-structure',
+            ],
 
-            'customization' => array(
-                'sass'       => array(
-                    'title'       => 'SASS',
+            'customization' => [
+                'sass' => [
+                    'title' => 'SASS',
                     'description' => '',
-                    'view'        => 'documentation/getting-started/customization/sass',
-                ),
-                'javascript' => array(
-                    'title'       => 'Javascript',
+                    'view' => 'documentation/getting-started/customization/sass',
+                ],
+                'javascript' => [
+                    'title' => 'Javascript',
                     'description' => '',
-                    'view'        => 'documentation/getting-started/customization/javascript',
-                ),
-            ),
+                    'view' => 'documentation/getting-started/customization/javascript',
+                ],
+            ],
 
-            'dark-mode' => array(
+            'dark-mode' => [
                 'title' => 'Dark Mode Version',
-                'view'  => 'documentation/getting-started/dark-mode',
-            ),
+                'view' => 'documentation/getting-started/dark-mode',
+            ],
 
-            'rtl' => array(
+            'rtl' => [
                 'title' => 'RTL Version',
-                'view'  => 'documentation/getting-started/rtl',
-            ),
+                'view' => 'documentation/getting-started/rtl',
+            ],
 
-            'troubleshoot' => array(
+            'troubleshoot' => [
                 'title' => 'Troubleshoot',
-                'view'  => 'documentation/getting-started/troubleshoot',
-            ),
+                'view' => 'documentation/getting-started/troubleshoot',
+            ],
 
-            'changelog' => array(
-                'title'       => 'Changelog',
+            'changelog' => [
+                'title' => 'Changelog',
                 'description' => 'version and update info',
-                'view'        => 'documentation/getting-started/changelog/changelog',
-            ),
+                'view' => 'documentation/getting-started/changelog/changelog',
+            ],
 
-            'updates' => array(
-                'title'       => 'Updates',
+            'updates' => [
+                'title' => 'Updates',
                 'description' => 'components preview and usage',
-                'view'        => 'documentation/getting-started/updates',
-            ),
+                'view' => 'documentation/getting-started/updates',
+            ],
 
-            'references' => array(
-                'title'       => 'References',
+            'references' => [
+                'title' => 'References',
                 'description' => '',
-                'view'        => 'documentation/getting-started/references',
-            ),
-        ),
+                'view' => 'documentation/getting-started/references',
+            ],
+        ],
 
-        'general' => array(
-            'datatables'   => array(
-                'overview' => array(
-                    'title'       => 'Overview',
+        'general' => [
+            'datatables' => [
+                'overview' => [
+                    'title' => 'Overview',
                     'description' => 'plugin overview',
-                    'view'        => 'documentation/general/datatables/overview/overview',
-                ),
-            ),
-            'remove-demos' => array(
-                'title'       => 'Remove Demos',
+                    'view' => 'documentation/general/datatables/overview/overview',
+                ],
+            ],
+            'remove-demos' => [
+                'title' => 'Remove Demos',
                 'description' => 'How to remove unused demos',
-                'view'        => 'documentation/general/remove-demos/index',
-            ),
-        ),
+                'view' => 'documentation/general/remove-demos/index',
+            ],
+        ],
 
-        'configuration' => array(
-            'general'     => array(
-                'title'       => 'General Configuration',
+        'configuration' => [
+            'general' => [
+                'title' => 'General Configuration',
                 'description' => '',
-                'view'        => 'documentation/configuration/general',
-            ),
-            'menu'        => array(
-                'title'       => 'Menu Configuration',
+                'view' => 'documentation/configuration/general',
+            ],
+            'menu' => [
+                'title' => 'Menu Configuration',
                 'description' => '',
-                'view'        => 'documentation/configuration/menu',
-            ),
-            'page'        => array(
-                'title'       => 'Page Configuration',
+                'view' => 'documentation/configuration/menu',
+            ],
+            'page' => [
+                'title' => 'Page Configuration',
                 'description' => '',
-                'view'        => 'documentation/configuration/page',
-            ),
-            'npm-plugins' => array(
-                'title'       => 'Add NPM Plugin',
+                'view' => 'documentation/configuration/page',
+            ],
+            'npm-plugins' => [
+                'title' => 'Add NPM Plugin',
                 'description' => 'Add new NPM plugins and integrate within webpack mix',
-                'view'        => 'documentation/configuration/npm-plugins',
-            ),
-        ),
-    ),
-);
+                'view' => 'documentation/configuration/npm-plugins',
+            ],
+        ],
+    ],
+];

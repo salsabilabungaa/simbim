@@ -1,13 +1,14 @@
 <?php
-return array(
-    'index' => array(
-        'title'  => 'Dashboard',
-        'view'   => 'index',
-        'layout' => array(
-            'page-title' => array(
+
+return [
+    'index' => [
+        'title' => 'Dashboard',
+        'view' => 'index',
+        'layout' => [
+            'page-title' => [
                 'description' => false,
-                'breadcrumb'  => true,
-            ),
-        ),
-    ),
-);
+                'breadcrumb' => true,
+            ],
+        ],
+    ],
+];

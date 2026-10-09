@@ -52,21 +52,21 @@ class SocialiteLoginController extends Controller
         return redirect()->to(Cookie::get('redirect_uri'));
     }
 
-    function createUser(SocialiteUser $social_info)
+    public function createUser(SocialiteUser $social_info)
     {
         $user = User::where('email', $social_info->email)->first();
 
         $name = explode(' ', $social_info->name);
 
-        if (!$user) {
+        if (! $user) {
             $user = User::create([
                 'first_name' => $name[0] ?? '',
-                'last_name'  => $name[1] ?? '',
-                'email'      => $social_info->email,
-                'password'   => Hash::make($social_info->id),
+                'last_name' => $name[1] ?? '',
+                'email' => $social_info->email,
+                'password' => Hash::make($social_info->id),
             ]);
 
-            $user_info         = new UserInfo;
+            $user_info = new UserInfo;
             $user_info->avatar = $social_info->getAvatar();
             $user_info->user()->associate($user);
             $user_info->save();

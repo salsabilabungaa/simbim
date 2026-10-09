@@ -4,11 +4,10 @@ namespace App\Core;
 
 class Components
 {
-
     public static function getAvatar($options)
     {
-        $avatarClasses         = array();
-        $avatarInitialsClasses = array();
+        $avatarClasses = [];
+        $avatarInitialsClasses = [];
 
         // Set default options
         if (isset($options['circle']) === false) {

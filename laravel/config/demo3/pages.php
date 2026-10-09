@@ -1,46 +1,47 @@
 <?php
-return array(
-   '' => array(
-      'title' => 'Hello, Paul',
-      'description' => 'You’ve got 24 New Sales',
-      'view' => 'index',
-      'layout' => array(
-         'page-title' => array(
-            'description' => true,
-            'breadcrumb' => false
-         )
-      )
-   ),
 
-   'dashboards' => array(
-      'compact' => null,
-      'header' => null
-   ),
+return [
+    '' => [
+        'title' => 'Hello, Paul',
+        'description' => 'You’ve got 24 New Sales',
+        'view' => 'index',
+        'layout' => [
+            'page-title' => [
+                'description' => true,
+                'breadcrumb' => false,
+            ],
+        ],
+    ],
 
-   'apps' => array(
-      'support-center' => array(
-         '*' => array(
-            // Layout
-            'layout' => array(
-               'main' => array(
-                  'body' => array(
-                     'class' => 'page-bg-image-lg'
-                  )
-               )
-            ),
+    'dashboards' => [
+        'compact' => null,
+        'header' => null,
+    ],
 
-            // Aside
-            'aside' => array(
-               'display' => false,
-            ),
+    'apps' => [
+        'support-center' => [
+            '*' => [
+                // Layout
+                'layout' => [
+                    'main' => [
+                        'body' => [
+                            'class' => 'page-bg-image-lg',
+                        ],
+                    ],
+                ],
 
-            // Toolbar
-            'toolbar' => array(
-               'display' => false,
-            )
-         )
-      )
-   ),
+                // Aside
+                'aside' => [
+                    'display' => false,
+                ],
 
-   'layouts' => null
-);
+                // Toolbar
+                'toolbar' => [
+                    'display' => false,
+                ],
+            ],
+        ],
+    ],
+
+    'layouts' => null,
+];
