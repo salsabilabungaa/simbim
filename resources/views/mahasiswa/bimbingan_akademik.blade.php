@@ -41,15 +41,22 @@
     <!-- Kartu 1: Total Sesi Terlaksana -->
     <div class="col-xl-3 col-md-6">
         <div class="card card-custom bg-body border border-gray-200 shadow-sm h-100">
-            <div class="card-body p-5 d-flex align-items-center justify-content-between">
-                <div>
-                    <span class="text-gray-500 fw-bold fs-7 d-block text-uppercase ls-1">TOTAL SESI AKADEMIK</span>
-                    <span class="fs-2hx fw-bolder text-dark">{{ $ringkasan['total_sesi'] }}</span>
-                    <span class="fs-8 text-muted d-block">Sesi Konsultasi DPA</span>
+            <div class="card-body p-6">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">TOTAL SESI AKADEMIK</span>
+                    <div class="symbol symbol-45px bg-light-primary">
+                        <span class="symbol-label">
+                            <i class="fas fa-user-clock text-primary fs-2"></i>
+                        </span>
+                    </div>
                 </div>
-                <div class="symbol symbol-50px bg-light-primary">
-                    <span class="symbol-label"><i class="fas fa-user-clock text-primary fs-2"></i></span>
+                <div class="d-flex align-items-baseline mb-2">
+                    <span class="fs-2x fw-bolder text-dark me-2">{{ $ringkasan['total_sesi'] }}</span>
+                    <span class="fs-7 text-muted fw-bold">Sesi Konsultasi DPA</span>
                 </div>
+                <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1">
+                    <i class="fas fa-check me-1"></i> Target Sesi Terpenuhi
+                </span>
             </div>
         </div>
     </div>
@@ -57,18 +64,22 @@
     <!-- Kartu 2: IPK Kumulatif & SKS -->
     <div class="col-xl-3 col-md-6">
         <div class="card card-custom bg-body border border-gray-200 shadow-sm h-100">
-            <div class="card-body p-5 d-flex align-items-center justify-content-between">
-                <div>
-                    <span class="text-gray-500 fw-bold fs-7 d-block text-uppercase ls-1">IPK KUMULATIF</span>
-                    <div class="d-flex align-items-baseline">
-                        <span class="fs-2hx fw-bolder text-warning">{{ $ringkasan['ipk_kumulatif'] }}</span>
-                        <span class="fs-8 text-muted ms-1">/ 4.00</span>
+            <div class="card-body p-6">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">IPK KUMULATIF</span>
+                    <div class="symbol symbol-45px bg-light-warning">
+                        <span class="symbol-label">
+                            <i class="fas fa-award text-warning fs-2"></i>
+                        </span>
                     </div>
-                    <span class="fs-8 text-muted d-block">{{ $ringkasan['sks_lulus'] }} SKS Lulus</span>
                 </div>
-                <div class="symbol symbol-50px bg-light-warning">
-                    <span class="symbol-label"><i class="fas fa-award text-warning fs-2"></i></span>
+                <div class="d-flex align-items-baseline mb-2">
+                    <span class="fs-2x fw-bolder text-dark me-2">{{ $ringkasan['ipk_kumulatif'] }}</span>
+                    <span class="fs-7 text-muted fw-bold">/ 4.00</span>
                 </div>
+                <span class="badge badge-light-warning fw-bolder fs-8 px-2 py-1">
+                    <i class="fas fa-book me-1"></i> {{ $ringkasan['sks_lulus'] }} SKS Lulus
+                </span>
             </div>
         </div>
     </div>
@@ -76,15 +87,20 @@
     <!-- Kartu 3: Status KRS -->
     <div class="col-xl-3 col-md-6">
         <div class="card card-custom bg-body border border-gray-200 shadow-sm h-100">
-            <div class="card-body p-5 d-flex align-items-center justify-content-between">
-                <div>
-                    <span class="text-gray-500 fw-bold fs-7 d-block text-uppercase ls-1">STATUS KRS SEMESTER 7</span>
-                    <span class="fs-6 fw-bolder text-success d-block mb-1">{{ $ringkasan['status_krs'] }}</span>
-                    <span class="fs-8 text-muted d-block">Disetujui 21 SKS</span>
+            <div class="card-body p-6">
+                <div class="d-flex align-items-center justify-content-between mb-3">
+                    <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">STATUS KRS SEMESTER 7</span>
+                    <div class="symbol symbol-45px bg-light-success">
+                        <span class="symbol-label">
+                            <i class="fas fa-file-signature text-success fs-2"></i>
+                        </span>
+                    </div>
                 </div>
-                <div class="symbol symbol-50px bg-light-success">
-                    <span class="symbol-label"><i class="fas fa-file-signature text-success fs-2"></i></span>
-                </div>
+                <div class="fw-bolder text-dark fs-6 mb-1 text-truncate">{{ $ringkasan['status_krs'] }}</div>
+                <div class="text-muted fs-8 mb-2">Disetujui 21 SKS</div>
+                <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1">
+                    <i class="fas fa-check-circle me-1"></i> Disetujui Dosen Wali
+                </span>
             </div>
         </div>
     </div>
@@ -92,14 +108,14 @@
     <!-- Kartu 4: Jadwal Bimbingan Terdekat -->
     <div class="col-xl-3 col-md-6">
         <div class="card card-custom bg-body border border-gray-200 shadow-sm h-100">
-            <div class="card-body p-5 d-flex flex-column justify-content-between">
+            <div class="card-body p-6 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="d-flex align-items-center justify-content-between mb-1">
-                        <span class="text-gray-500 fw-bold fs-7 d-block text-uppercase ls-1">JADWAL TERDEKAT</span>
-                        <span class="badge badge-light-danger fw-bolder fs-9">{{ $jadwal_terdekat['sisa'] }}</span>
+                    <div class="d-flex align-items-center justify-content-between mb-2">
+                        <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">JADWAL TERDEKAT</span>
+                        <span class="badge badge-danger fw-bolder fs-9">{{ $jadwal_terdekat['sisa'] }}</span>
                     </div>
-                    <div class="fw-bolder text-dark fs-7">{{ $jadwal_terdekat['tanggal'] }}</div>
-                    <div class="text-primary fw-bold fs-8 mb-2">
+                    <div class="fw-bolder text-dark fs-6 mb-1">{{ $jadwal_terdekat['tanggal'] }}</div>
+                    <div class="text-primary fw-bold fs-7 mb-2">
                         <i class="far fa-clock me-1"></i> {{ $jadwal_terdekat['waktu'] }}
                     </div>
                 </div>
@@ -108,8 +124,8 @@
                         <i class="fas fa-map-marker-alt me-1 text-warning"></i> {{ $jadwal_terdekat['tempat'] }}
                     </span>
                     @if (!empty($jadwal_terdekat['is_h1']))
-                        <button type="button" class="btn btn-warning btn-sm fw-bolder px-2 py-1 fs-9" onclick="remindDosenWali(this)">
-                            <i class="fas fa-bell me-1"></i> REMIND
+                        <button type="button" class="btn btn-warning btn-sm fw-bolder px-2.5 py-1 fs-9" onclick="remindDosenWali(this)">
+                            <i class="fas fa-bell me-1"></i> REMIND DOSEN
                         </button>
                     @endif
                 </div>
