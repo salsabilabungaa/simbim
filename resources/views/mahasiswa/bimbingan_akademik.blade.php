@@ -4,11 +4,36 @@
 @section('page-title', 'Bimbingan Akademik')
 
 @section('content')
-<!-- Tombol Aksos Ajukan Bimbingan Akademik (Pojok Kanan Atas Konten) -->
-<div class="d-flex justify-content-end mb-6">
-    <button type="button" class="btn btn-primary fw-bolder px-5 py-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#modal_ajukan_akademik">
-        <i class="fas fa-calendar-plus fs-4 me-2"></i> Ajukan Bimbingan Akademik
-    </button>
+<!-- 1. Header Banner Bimbingan Akademik -->
+<div class="card card-custom bg-body border border-gray-200 shadow-sm mb-7">
+    <div class="card-body p-6">
+        <div class="d-flex flex-wrap align-items-center justify-content-between gap-4">
+            <div class="d-flex align-items-center gap-4">
+                <div class="symbol symbol-60px symbol-circle bg-light-info">
+                    <span class="symbol-label">
+                        <i class="fas fa-user-graduate text-info fs-1"></i>
+                    </span>
+                </div>
+                <div>
+                    <h1 class="text-dark fw-bolder mb-1 fs-3">Bimbingan Akademik Mahasiswa</h1>
+                    <div class="d-flex flex-wrap align-items-center gap-2 text-muted fs-7 fw-bold">
+                        <span class="text-dark fw-bold me-1">
+                            <i class="fas fa-user-shield me-1 text-success"></i> Dosen Wali: {{ $dosen_wali['nama'] }}
+                        </span>
+                        <span class="bullet bullet-dot bg-gray-400"></span>
+                        <span>IPK: <strong class="text-dark">{{ $ringkasan['ipk_kumulatif'] }}</strong> ({{ $ringkasan['sks_lulus'] }} SKS)</span>
+                        <span class="bullet bullet-dot bg-gray-400"></span>
+                        <span class="badge badge-light-success fw-bolder px-2.5 py-1 fs-8">{{ $ringkasan['status_krs'] }}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="d-flex align-items-center gap-2">
+                <button type="button" class="btn btn-primary fw-bolder px-4 py-2.5 fs-7 shadow-sm" data-bs-toggle="modal" data-bs-target="#modal_ajukan_akademik">
+                    <i class="fas fa-calendar-plus me-2 fs-6"></i> Ajukan Bimbingan Akademik
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
 
 <!-- 2. Ringkasan Kartu Statistik (4 Cards) -->
@@ -16,22 +41,15 @@
     <!-- Kartu 1: Total Sesi Terlaksana -->
     <div class="col-xl-3 col-md-6">
         <div class="card card-custom bg-body border border-gray-200 shadow-sm h-100">
-            <div class="card-body p-6">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">TOTAL SESI AKADEMIK</span>
-                    <div class="symbol symbol-45px bg-light-primary">
-                        <span class="symbol-label">
-                            <i class="fas fa-user-clock text-primary fs-2"></i>
-                        </span>
-                    </div>
+            <div class="card-body p-5 d-flex align-items-center justify-content-between">
+                <div>
+                    <span class="text-gray-500 fw-bold fs-7 d-block text-uppercase ls-1">TOTAL SESI AKADEMIK</span>
+                    <span class="fs-2hx fw-bolder text-dark">{{ $ringkasan['total_sesi'] }}</span>
+                    <span class="fs-8 text-muted d-block">Sesi Konsultasi DPA</span>
                 </div>
-                <div class="d-flex align-items-baseline mb-2">
-                    <span class="fs-2x fw-bolder text-dark me-2">{{ $ringkasan['total_sesi'] }}</span>
-                    <span class="fs-7 text-muted fw-bold">Sesi Terlaksana</span>
+                <div class="symbol symbol-50px bg-light-primary">
+                    <span class="symbol-label"><i class="fas fa-user-clock text-primary fs-2"></i></span>
                 </div>
-                <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1">
-                    <i class="fas fa-check me-1"></i> Target Sesi Terpenuhi
-                </span>
             </div>
         </div>
     </div>
@@ -39,22 +57,18 @@
     <!-- Kartu 2: IPK Kumulatif & SKS -->
     <div class="col-xl-3 col-md-6">
         <div class="card card-custom bg-body border border-gray-200 shadow-sm h-100">
-            <div class="card-body p-6">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">IPK KUMULATIF</span>
-                    <div class="symbol symbol-45px bg-light-warning">
-                        <span class="symbol-label">
-                            <i class="fas fa-award text-warning fs-2"></i>
-                        </span>
+            <div class="card-body p-5 d-flex align-items-center justify-content-between">
+                <div>
+                    <span class="text-gray-500 fw-bold fs-7 d-block text-uppercase ls-1">IPK KUMULATIF</span>
+                    <div class="d-flex align-items-baseline">
+                        <span class="fs-2hx fw-bolder text-warning">{{ $ringkasan['ipk_kumulatif'] }}</span>
+                        <span class="fs-8 text-muted ms-1">/ 4.00</span>
                     </div>
+                    <span class="fs-8 text-muted d-block">{{ $ringkasan['sks_lulus'] }} SKS Lulus</span>
                 </div>
-                <div class="d-flex align-items-baseline mb-2">
-                    <span class="fs-2x fw-bolder text-dark me-2">{{ $ringkasan['ipk_kumulatif'] }}</span>
-                    <span class="fs-7 text-muted fw-bold">/ 4.00</span>
+                <div class="symbol symbol-50px bg-light-warning">
+                    <span class="symbol-label"><i class="fas fa-award text-warning fs-2"></i></span>
                 </div>
-                <span class="badge badge-light-warning fw-bolder fs-8 px-2 py-1">
-                    <i class="fas fa-book me-1"></i> {{ $ringkasan['sks_lulus'] }} SKS Lulus
-                </span>
             </div>
         </div>
     </div>
@@ -62,21 +76,15 @@
     <!-- Kartu 3: Status KRS -->
     <div class="col-xl-3 col-md-6">
         <div class="card card-custom bg-body border border-gray-200 shadow-sm h-100">
-            <div class="card-body p-6">
-                <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">STATUS KRS SEMESTER 7</span>
-                    <div class="symbol symbol-45px bg-light-success">
-                        <span class="symbol-label">
-                            <i class="fas fa-file-signature text-success fs-2"></i>
-                        </span>
-                    </div>
+            <div class="card-body p-5 d-flex align-items-center justify-content-between">
+                <div>
+                    <span class="text-gray-500 fw-bold fs-7 d-block text-uppercase ls-1">STATUS KRS SEMESTER 7</span>
+                    <span class="fs-6 fw-bolder text-success d-block mb-1">{{ $ringkasan['status_krs'] }}</span>
+                    <span class="fs-8 text-muted d-block">Disetujui 21 SKS</span>
                 </div>
-                <div class="d-flex align-items-baseline mb-2">
-                    <span class="fs-5 fw-bolder text-dark me-2">{{ $ringkasan['status_krs'] }}</span>
+                <div class="symbol symbol-50px bg-light-success">
+                    <span class="symbol-label"><i class="fas fa-file-signature text-success fs-2"></i></span>
                 </div>
-                <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1">
-                    <i class="fas fa-check-circle me-1"></i> Disetujui 21 SKS
-                </span>
             </div>
         </div>
     </div>
@@ -84,14 +92,14 @@
     <!-- Kartu 4: Jadwal Bimbingan Terdekat -->
     <div class="col-xl-3 col-md-6">
         <div class="card card-custom bg-body border border-gray-200 shadow-sm h-100">
-            <div class="card-body p-6 d-flex flex-column justify-content-between">
+            <div class="card-body p-5 d-flex flex-column justify-content-between">
                 <div>
-                    <div class="d-flex align-items-center justify-content-between mb-2">
-                        <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">JADWAL TERDEKAT</span>
-                        <span class="badge badge-danger fw-bolder fs-9">{{ $jadwal_terdekat['sisa'] }}</span>
+                    <div class="d-flex align-items-center justify-content-between mb-1">
+                        <span class="text-gray-500 fw-bold fs-7 d-block text-uppercase ls-1">JADWAL TERDEKAT</span>
+                        <span class="badge badge-light-danger fw-bolder fs-9">{{ $jadwal_terdekat['sisa'] }}</span>
                     </div>
-                    <div class="fw-bolder text-dark fs-6 mb-1">{{ $jadwal_terdekat['tanggal'] }}</div>
-                    <div class="text-primary fw-bold fs-7 mb-2">
+                    <div class="fw-bolder text-dark fs-7">{{ $jadwal_terdekat['tanggal'] }}</div>
+                    <div class="text-primary fw-bold fs-8 mb-2">
                         <i class="far fa-clock me-1"></i> {{ $jadwal_terdekat['waktu'] }}
                     </div>
                 </div>
@@ -100,35 +108,40 @@
                         <i class="fas fa-map-marker-alt me-1 text-warning"></i> {{ $jadwal_terdekat['tempat'] }}
                     </span>
                     @if (!empty($jadwal_terdekat['is_h1']))
-                        <button type="button" class="btn btn-warning btn-sm fw-bolder px-2.5 py-1 fs-9" onclick="remindDosenWali(this)">
-                            <i class="fas fa-bell me-1"></i> REMIND DOSEN
+                        <button type="button" class="btn btn-warning btn-sm fw-bolder px-2 py-1 fs-9" onclick="remindDosenWali(this)">
+                            <i class="fas fa-bell me-1"></i> REMIND
                         </button>
                     @endif
                 </div>
             </div>
         </div>
+    </div>
 </div>
 
-<!-- 3. Tabel Bimbingan Akademik (Di Atas Catatan & Evaluasi SKS) -->
+<!-- 3. Tabel Bimbingan Akademik -->
 <div class="card card-custom bg-body border border-gray-200 shadow-sm mb-7">
     <div class="card-header border-0 pt-6">
         <h3 class="card-title align-items-start flex-column">
-            <span class="card-label fw-bolder fs-4 text-dark">Tabel Bimbingan Akademik</span>
+            <span class="card-label fw-bolder fs-4 text-dark">Daftar Sesi Bimbingan Akademik</span>
+            <span class="text-muted mt-1 fw-bold fs-7">Rekam konsultasi kartu rencana studi dan evaluasi akademik</span>
         </h3>
+        <div class="card-toolbar">
+            <span class="badge badge-light-primary fw-bolder fs-7">Total {{ count($riwayat_bimbingan) }} Sesi</span>
+        </div>
     </div>
-    <div class="card-body py-3">
+    <div class="card-body pt-3">
         <div class="table-responsive">
-            <table class="table table-row-dashed table-row-gray-300 align-middle gs-0 gy-4">
+            <table class="table align-middle table-row-dashed fs-7 gy-4">
                 <thead>
-                    <tr class="fw-bolder text-muted bg-light">
-                        <th class="ps-4 min-w-140px rounded-start">Tanggal & Waktu</th>
-                        <th class="min-w-220px">Topik Bimbingan</th>
-                        <th class="min-w-120px text-center">Status</th>
-                        <th class="min-w-180px text-center">Dokumentasi (Webcam)</th>
-                        <th class="min-w-140px text-end pe-4 rounded-end">Aksi</th>
+                    <tr class="text-start text-muted fw-bolder fs-8 text-uppercase ls-1 bg-light">
+                        <th class="ps-4 min-w-150px rounded-start">TANGGAL & WAKTU</th>
+                        <th class="min-w-250px">TOPIK / AGENDA CONSULTATION</th>
+                        <th class="min-w-110px text-center">STATUS</th>
+                        <th class="min-w-160px text-center">DOKUMENTASI WEBCAM</th>
+                        <th class="text-end pe-4 min-w-140px rounded-end">AKSI</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody class="text-gray-800 fw-bold">
                     @foreach ($riwayat_bimbingan as $item)
                     <tr>
                         <td class="ps-4">
@@ -138,25 +151,26 @@
                                 </span>
                             @else
                                 <div class="d-flex flex-column">
-                                    <span class="text-dark fw-bolder fs-6">{{ $item['tanggal'] }}</span>
-                                    <span class="text-muted fs-8">{{ $item['waktu'] }}</span>
+                                    <span class="text-dark fw-bolder fs-7">{{ $item['tanggal'] }}</span>
+                                    <span class="text-muted fs-8"><i class="far fa-clock me-1 text-primary"></i>{{ $item['waktu'] }}</span>
                                 </div>
                             @endif
                         </td>
                         <td>
-                            <span class="text-dark fw-bold fs-7">{{ $item['topik'] }}</span>
+                            <div class="fw-bolder text-dark fs-7 mb-0.5">{{ $item['topik'] }}</div>
+                            <div class="text-muted fs-8"><i class="fas fa-user-shield me-1 text-success"></i>Dosen Wali: {{ $dosen_wali['nama'] }}</div>
                         </td>
                         <td class="text-center">
                             @if ($item['status'] === 'Proses')
-                                <span class="badge badge-light-warning fw-bolder px-3 py-2 fs-8">
+                                <span class="badge badge-light-warning fw-bolder px-3 py-1.5 fs-8">
                                     <i class="fas fa-spinner fa-spin me-1 text-warning"></i> Proses
                                 </span>
                             @elseif ($item['status'] === 'ACC')
-                                <span class="badge badge-light-primary fw-bolder px-3 py-2 fs-8">
+                                <span class="badge badge-light-primary fw-bolder px-3 py-1.5 fs-8">
                                     <i class="fas fa-check-double me-1 text-primary"></i> ACC
                                 </span>
                             @else
-                                <span class="badge badge-light-success fw-bolder px-3 py-2 fs-8">
+                                <span class="badge badge-light-success fw-bolder px-3 py-1.5 fs-8">
                                     <i class="fas fa-check-circle me-1 text-success"></i> Selesai
                                 </span>
                             @endif
@@ -180,11 +194,11 @@
                                         <i class="fas fa-camera me-1 opacity-50"></i> Ambil Foto
                                     </button>
                                 @elseif (!empty($item['foto']))
-                                    <button type="button" class="btn btn-sm btn-light-success fw-bolder px-3 py-1.5" onclick="viewDokumentasi('{{ asset($item['foto']) }}', '{{ addslashes($item['topik']) }}')">
+                                    <button type="button" class="btn btn-sm btn-light-success fw-bolder px-3 py-1.5 fs-8" onclick="viewDokumentasi('{{ asset($item['foto']) }}', '{{ addslashes($item['topik']) }}')">
                                         <i class="fas fa-check-circle me-1"></i> Dokumentasi Terkirim
                                     </button>
                                 @else
-                                    <button type="button" class="btn btn-sm btn-light-primary fw-bolder px-3 py-1.5" onclick="openWebcamModal({{ $item['id'] }}, '{{ addslashes($item['topik']) }}')">
+                                    <button type="button" class="btn btn-sm btn-light-primary fw-bolder px-3 py-1.5 fs-8" onclick="openWebcamModal({{ $item['id'] }}, '{{ addslashes($item['topik']) }}')">
                                         <i class="fas fa-camera me-1"></i> Ambil Foto
                                     </button>
                                 @endif
@@ -207,7 +221,7 @@
             <div class="card-header border-0 pt-6">
                 <h3 class="card-title align-items-start flex-column">
                     <span class="card-label fw-bolder fs-4 text-dark">Catatan & Arahan Dosen Wali</span>
-                    <span class="text-muted mt-1 fw-bold fs-7">Rekomendasi dan masukan akademik dari Dosen Wali</span>
+                    <span class="text-muted mt-1 fw-bold fs-7">Rekomendasi dan masukan akademik resmi dari Dosen Wali</span>
                 </h3>
             </div>
             <div class="card-body pt-3">
@@ -216,8 +230,8 @@
                     <div class="p-5 rounded-3 bg-light border border-gray-200">
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <div class="d-flex align-items-center">
-                                <div class="symbol symbol-35px me-3">
-                                    <span class="symbol-label bg-light-success">
+                                <div class="symbol symbol-35px symbol-circle me-3 bg-light-success">
+                                    <span class="symbol-label">
                                         <i class="fas fa-user-shield text-success fs-5"></i>
                                     </span>
                                 </div>
@@ -226,7 +240,7 @@
                                     <span class="text-muted fs-8">{{ $c['topik'] }} • {{ $c['tanggal'] }}</span>
                                 </div>
                             </div>
-                            <span class="badge badge-light-{{ $c['badge'] }} fw-bolder px-3 py-2 fs-8">
+                            <span class="badge badge-light-{{ $c['badge'] }} fw-bolder px-3 py-1.5 fs-8">
                                 Terverifikasi
                             </span>
                         </div>
@@ -242,7 +256,6 @@
 
     <!-- Right Column (4 Columns): Evaluasi Studi -->
     <div class="col-xl-4">
-
         <!-- Card Progress Evaluasi Studi SKS -->
         <div class="card card-custom bg-body border border-gray-200 shadow-sm mb-7">
             <div class="card-header border-0 pt-6">
@@ -253,7 +266,7 @@
             </div>
             <div class="card-body pt-2">
                 <div class="d-flex align-items-baseline mb-2">
-                    <span class="fs-2x fw-bolder text-dark me-2">118</span>
+                    <span class="fs-2x fw-bolder text-dark me-2">{{ $ringkasan['sks_lulus'] }}</span>
                     <span class="fs-7 text-muted fw-bold">/ 144 SKS Kelulusan</span>
                     <span class="badge badge-light-primary ms-auto fw-bolder fs-8">82% Selesai</span>
                 </div>
@@ -261,17 +274,17 @@
                     <div class="progress-bar bg-primary rounded-pill" role="progressbar" style="width: 82%"></div>
                 </div>
 
-                <div class="d-flex flex-column gap-2">
-                    <div class="d-flex justify-content-between align-items-center fs-7 text-gray-700">
-                        <span><i class="fas fa-check text-success me-2"></i> Matakuliah Wajib Program Studi</span>
+                <div class="d-flex flex-column gap-3">
+                    <div class="d-flex justify-content-between align-items-center fs-7 text-gray-700 p-2.5 rounded bg-light">
+                        <span><i class="fas fa-check-circle text-success me-2"></i> Wajib Program Studi</span>
                         <strong class="text-dark">100 SKS</strong>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center fs-7 text-gray-700">
-                        <span><i class="fas fa-check text-success me-2"></i> Matakuliah Pilihan & MBKM</span>
+                    <div class="d-flex justify-content-between align-items-center fs-7 text-gray-700 p-2.5 rounded bg-light">
+                        <span><i class="fas fa-check-circle text-success me-2"></i> Pilihan & MBKM</span>
                         <strong class="text-dark">18 SKS</strong>
                     </div>
-                    <div class="d-flex justify-content-between align-items-center fs-7 text-gray-700">
-                        <span><i class="fas fa-clock text-warning me-2"></i> Skripsi & Tugas Akhir (Progres)</span>
+                    <div class="d-flex justify-content-between align-items-center fs-7 text-gray-700 p-2.5 rounded bg-light">
+                        <span><i class="fas fa-clock text-warning me-2"></i> Skripsi (Dalam Proses)</span>
                         <strong class="text-dark">6 SKS</strong>
                     </div>
                 </div>
@@ -447,7 +460,6 @@
                 })
                 .catch(function(err) {
                     console.log("Webcam access warning / fallback mode:", err);
-                    // Standard fallback stream visualization for preview
                     simulateWebcamFeed();
                 });
         } else {
@@ -472,7 +484,6 @@
             context.drawImage(video, 0, 0, 640, 480);
             capturedDataUrl = canvas.toDataURL('image/jpeg');
         } else {
-            // Generate fallback clean canvas screenshot snapshot with timestamp
             context.fillStyle = "#1e1e2d";
             context.fillRect(0, 0, 640, 480);
 
@@ -489,7 +500,6 @@
             capturedDataUrl = canvas.toDataURL('image/jpeg');
         }
 
-        // Show result preview
         const resultImg = document.getElementById('captured_result_img');
         resultImg.src = capturedDataUrl;
         resultImg.style.display = 'block';
@@ -528,7 +538,6 @@
     function saveDokumentasiPhoto() {
         if (!capturedDataUrl || !activeBimbinganId) return;
 
-        // Update target table preview cell
         const targetContainer = document.getElementById('doc_preview_container_' + activeBimbinganId);
         if (targetContainer) {
             targetContainer.innerHTML = `
@@ -539,7 +548,6 @@
             `;
         }
 
-        // Lock action button cell so documentation cannot be retaken
         const actionContainer = document.getElementById('doc_action_container_' + activeBimbinganId);
         if (actionContainer) {
             actionContainer.innerHTML = `
