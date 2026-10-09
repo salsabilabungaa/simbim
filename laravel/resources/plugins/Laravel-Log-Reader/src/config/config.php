@@ -1,6 +1,6 @@
 <?php
 
-return array(
+return [
 
     /*
     |--------------------------------------------------------------------------
@@ -88,6 +88,6 @@ return array(
     |
     */
 
-    'default_log_parser' => null
+    'default_log_parser' => null,
 
-);
+];

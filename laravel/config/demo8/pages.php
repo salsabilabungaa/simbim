@@ -1,29 +1,30 @@
 <?php
-return array(
-    '' => array(
-        'title'       => 'Dashboard',
+
+return [
+    '' => [
+        'title' => 'Dashboard',
         'description' => '#XRS-45670',
-        'view'        => 'index',
-        'layout'      => array(
-            'page-title' => array(
+        'view' => 'index',
+        'layout' => [
+            'page-title' => [
                 'description' => false,
-                'breadcrumb'  => true,
-            ),
-        ),
-        'assets'      => array(
-            'vendors' => array(
-                'css' => array(
+                'breadcrumb' => true,
+            ],
+        ],
+        'assets' => [
+            'vendors' => [
+                'css' => [
                     'plugins/custom/fullcalendar/fullcalendar.bundle.css',
-                ),
-                'js'  => array(
+                ],
+                'js' => [
                     'plugins/custom/fullcalendar/fullcalendar.bundle.js',
-                ),
-            ),
-            'layout'  => array(
-                'js' => array(
+                ],
+            ],
+            'layout' => [
+                'js' => [
                     'js/layout/toolbar.js',
-                ),
-            ),
-        ),
-    ),
-);
+                ],
+            ],
+        ],
+    ],
+];

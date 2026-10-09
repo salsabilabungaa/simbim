@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Collection;
 
 class SampleDataController extends Controller
 {
     /**
      * Sample data calculation and formatting
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
     public function profits()
     {
-        $months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+        $months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 
         $data = collect(json_decode(file_get_contents(resource_path('samples/sales.json'))));
 
@@ -22,7 +23,7 @@ class SampleDataController extends Controller
             return Carbon::parse($data->datetime)->format('Y-m');
         })->map(function ($data) {
             return [
-                'profit'  => number_format($data->sum('profit') / 11, 2),
+                'profit' => number_format($data->sum('profit') / 11, 2),
                 'revenue' => number_format($data->sum('revenue') / 13, 2),
             ];
         })->sortKeys()->mapWithKeys(function ($data, $key) use ($months) {

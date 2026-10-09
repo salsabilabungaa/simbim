@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Logs;
 
 use App\DataTables\Logs\SystemLogsDataTable;
 use App\Http\Controllers\Controller;
+use Illuminate\Http\Response;
 use Jackiedo\LogReader\LogReader;
 
 class SystemLogsController extends Controller
@@ -11,7 +12,7 @@ class SystemLogsController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function index(SystemLogsDataTable $dataTable)
     {
@@ -22,8 +23,7 @@ class SystemLogsController extends Controller
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
     public function destroy($id, LogReader $logReader)
     {

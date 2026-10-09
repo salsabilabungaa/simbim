@@ -1,101 +1,102 @@
 <?php
-return array(
+
+return [
     // Assets
-    'assets' => array(
+    'assets' => [
         'favicon' => 'media/logos/favicon.ico',
-        'fonts' => array(
-            'google' => array(
-                'Poppins:300,400,500,600,700'
-            )
-        ),
-        'css' => array(
+        'fonts' => [
+            'google' => [
+                'Poppins:300,400,500,600,700',
+            ],
+        ],
+        'css' => [
             'plugins/global/plugins.bundle.css',
             'plugins/global/plugins-custom.bundle.css',
             'css/style.bundle.css',
-        ),
-        'js' => array(
+        ],
+        'js' => [
             'plugins/global/plugins.bundle.js',
             'js/scripts.bundle.js',
             'js/custom/widgets.js',
-        ),
-    ),
+        ],
+    ],
 
     // Layout
-    'layout' => array(
+    'layout' => [
         // Main
-        'main' => array(
+        'main' => [
             'type' => 'default', // Set layout type: default|blank|none
             'dark-mode-enabled' => true, // Enable optioanl dark mode mode
             'primary-color' => '#7239EA', // Primary color used in email templates
             'page-bg-white' => false, // Set true if page background color is white
-        ),
+        ],
 
         // Docs
-        'docs' => array(
-            'logo-path' => array(
+        'docs' => [
+            'logo-path' => [
                 'default' => 'logos/logo-1.svg',
-                'dark' => 'logos/logo-1-dark.svg'
-            ),
+                'dark' => 'logos/logo-1-dark.svg',
+            ],
             'logo-path-mobile' => 'logos/logo-2.svg',
             'logo-class' => 'h-25px',
             'logo-class-mobile' => 'h-35px',
-        ),
+        ],
 
         // Illustration
-        'illustrations' => array(
-            'set' => 'sigma-1'
-        ),
+        'illustrations' => [
+            'set' => 'sigma-1',
+        ],
 
         // Loader
-        'loader' => array(
+        'loader' => [
             'display' => false,
-            'type' => 'default' // Set default|spinner-message|spinner-logo to hide or show page loader
-        ),
+            'type' => 'default', // Set default|spinner-message|spinner-logo to hide or show page loader
+        ],
 
         // Scrolltop
-        'scrolltop' => array(
-            'display' => true // Enable scrolltop
-        ),
+        'scrolltop' => [
+            'display' => true, // Enable scrolltop
+        ],
 
         // Header
-        'header' => array(
+        'header' => [
             'display' => true, // Set true|false to show or hide Header
             'width' => 'fixed', // Set fixed|fluid to change width type
-            'fixed' => array(
+            'fixed' => [
                 'desktop' => true,  // Set true|false to set fixed Header for desktop mode
-                'tablet-and-mobile' => true // Set true|false to set fixed Header for tablet and mobile modes
-            ),
+                'tablet-and-mobile' => true, // Set true|false to set fixed Header for tablet and mobile modes
+            ],
             'menu-icon' => 'svg', // Menu icon type(svg|font)
-            'menu' => true
-        ),
+            'menu' => true,
+        ],
 
         // Page title
-        'page-title' => array(
+        'page-title' => [
             'display' => true,
             'description' => false,
-            'breadcrumb' => true
-        ),
+            'breadcrumb' => true,
+        ],
 
         // Toolbar
-        'toolbar' => array(
+        'toolbar' => [
             'display' => false,
-        ),
+        ],
 
         // Aside
-        'aside' => array(
+        'aside' => [
             'fixed' => true,
             'menu-icon' => 'svg', // Menu icon type(svg|font)
-        ),
+        ],
 
         // Content
-        'content' => array(
+        'content' => [
             'width' => 'fixed', // Set fixed|fluid to change width type
             'layout' => 'default',  // Set content type,
-        ),
+        ],
 
         // Footer
-        'footer' => array(
-            'width' => 'fixed' // Set fixed|fluid to change width type
-        )
-    )
-);
+        'footer' => [
+            'width' => 'fixed', // Set fixed|fluid to change width type
+        ],
+    ],
+];

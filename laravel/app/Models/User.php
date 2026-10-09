@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Core\Traits\SpatieLogsActivity;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -12,8 +13,8 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
-    use SpatieLogsActivity;
     use HasRoles;
+    use SpatieLogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -84,7 +85,7 @@ class User extends Authenticatable implements MustVerifyEmail
     /**
      * User relation to info model
      *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     * @return HasOne
      */
     public function info()
     {

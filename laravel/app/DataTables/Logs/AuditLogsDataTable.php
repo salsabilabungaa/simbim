@@ -2,7 +2,9 @@
 
 namespace App\DataTables\Logs;
 
+use Illuminate\Database\Eloquent\Builder;
 use Spatie\Activitylog\Models\Activity;
+use Yajra\DataTables\DataTableAbstract;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
@@ -12,8 +14,7 @@ class AuditLogsDataTable extends DataTable
      * Build DataTable class.
      *
      * @param  mixed  $query  Results from query() method.
-     *
-     * @return \Yajra\DataTables\DataTableAbstract
+     * @return DataTableAbstract
      */
     public function dataTable($query)
     {
@@ -24,7 +25,7 @@ class AuditLogsDataTable extends DataTable
                 return $model->id;
             })
             ->editColumn('subject_id', function (Activity $model) {
-                if (!isset($model->subject)) {
+                if (! isset($model->subject)) {
                     return '';
                 }
 
@@ -53,9 +54,8 @@ class AuditLogsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param  Activity  $model
      *
-     * @return \Illuminate\Database\Eloquent\Builder
+     * @return Builder
      */
     public function query(Activity $model)
     {
@@ -78,7 +78,7 @@ class AuditLogsDataTable extends DataTable
             ->responsive()
             ->autoWidth(false)
             ->parameters([
-                'scrollX'      => true,
+                'scrollX' => true,
                 'drawCallback' => 'function() { KTMenu.createInstances(); }',
             ])
             ->addTableClass('align-middle table-row-dashed fs-6 gy-5');

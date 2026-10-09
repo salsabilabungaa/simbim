@@ -1,33 +1,34 @@
 <?php
-return array(
-    'documentation' => array(
+
+return [
+    'documentation' => [
         // Apply for all documentation pages
-        '*' => array(
+        '*' => [
             // Layout
-            'layout' => array(
+            'layout' => [
                 // Aside
-                'aside' => array(
-                    'display'  => true, // Display aside
-                    'theme'    => 'light', // Set aside theme(dark|light)
+                'aside' => [
+                    'display' => true, // Display aside
+                    'theme' => 'light', // Set aside theme(dark|light)
                     'minimize' => false, // Allow aside minimize toggle
-                    'menu'     => 'documentation' // Set aside menu type(main|documentation)
-                ),
+                    'menu' => 'documentation', // Set aside menu type(main|documentation)
+                ],
 
-                'header' => array(
+                'header' => [
                     'left' => 'page-title',
-                ),
+                ],
 
-                'toolbar' => array(
+                'toolbar' => [
                     'display' => false,
-                ),
+                ],
 
-                'page-title' => array(
-                    'layout'            => 'documentation',
-                    'description'       => false,
-                    'responsive'        => true,
-                    'responsive-target' => '#kt_header_nav' // Responsive target selector
-                ),
-            ),
-        ),
-    ),
-);
+                'page-title' => [
+                    'layout' => 'documentation',
+                    'description' => false,
+                    'responsive' => true,
+                    'responsive-target' => '#kt_header_nav', // Responsive target selector
+                ],
+            ],
+        ],
+    ],
+];

@@ -1,5 +1,5 @@
 <?php
 
-return array(
+return [
     // Refer to config/global/menu.php
-);
+];

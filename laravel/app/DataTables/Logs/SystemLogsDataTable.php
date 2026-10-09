@@ -6,6 +6,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Jackiedo\LogReader\Exceptions\UnableToRetrieveLogFilesException;
 use Jackiedo\LogReader\LogReader;
+use Yajra\DataTables\DataTableAbstract;
+use Yajra\DataTables\Html\Builder;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
@@ -15,8 +17,7 @@ class SystemLogsDataTable extends DataTable
      * Build DataTable class.
      *
      * @param  mixed  $query  Results from query() method.
-     *
-     * @return \Yajra\DataTables\DataTableAbstract
+     * @return DataTableAbstract
      */
     public function dataTable($query)
     {
@@ -38,15 +39,15 @@ class SystemLogsDataTable extends DataTable
             ->editColumn('level', function (Collection $model) {
                 $styles = [
                     'emergency' => 'danger',
-                    'alert'     => 'warning',
-                    'critical'  => 'danger',
-                    'error'     => 'danger',
-                    'warning'   => 'warning',
-                    'notice'    => 'success',
-                    'info'      => 'info',
-                    'debug'     => 'primary',
+                    'alert' => 'warning',
+                    'critical' => 'danger',
+                    'error' => 'danger',
+                    'warning' => 'warning',
+                    'notice' => 'success',
+                    'info' => 'info',
+                    'debug' => 'primary',
                 ];
-                $style  = 'info';
+                $style = 'info';
                 if (isset($styles[$model->get('level')])) {
                     $style = $styles[$model->get('level')];
                 }
@@ -67,7 +68,6 @@ class SystemLogsDataTable extends DataTable
     /**
      * Get query source of dataTable.
      *
-     * @param  LogReader  $model
      *
      * @return Collection
      */
@@ -83,7 +83,7 @@ class SystemLogsDataTable extends DataTable
         }
 
         $data = $data->map(function ($a) {
-            return (collect($a))->only(['id', 'date', 'environment', 'level', 'file_path', 'context']);
+            return collect($a)->only(['id', 'date', 'environment', 'level', 'file_path', 'context']);
         });
 
         return $data;
@@ -92,7 +92,7 @@ class SystemLogsDataTable extends DataTable
     /**
      * Optional method if you want to use html builder.
      *
-     * @return \Yajra\DataTables\Html\Builder
+     * @return Builder
      */
     public function html()
     {

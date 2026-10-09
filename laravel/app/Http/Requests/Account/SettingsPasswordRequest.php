@@ -27,7 +27,7 @@ class SettingsPasswordRequest extends FormRequest
     {
         return [
             'current_password' => ['required', new MatchOldPassword],
-            'password'         => ['required', 'confirmed', Rules\Password::defaults()],
+            'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ];
     }
 }

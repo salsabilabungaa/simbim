@@ -1,6 +1,10 @@
 <?php
 
-if (!function_exists('get_svg_icon')) {
+use App\Core\Adapters\Theme;
+use App\Core\Adapters\Util;
+use Illuminate\Contracts\Foundation\Application;
+
+if (! function_exists('get_svg_icon')) {
     function get_svg_icon($path, $class = null, $svgClass = null)
     {
         if (strpos($path, 'media') === false) {
@@ -9,7 +13,7 @@ if (!function_exists('get_svg_icon')) {
 
         $file_path = public_path($path);
 
-        if (!file_exists($file_path)) {
+        if (! file_exists($file_path)) {
             return '';
         }
 
@@ -19,7 +23,7 @@ if (!function_exists('get_svg_icon')) {
             return '';
         }
 
-        $dom = new DOMDocument();
+        $dom = new DOMDocument;
         $dom->loadXML($svg_content);
 
         // remove unwanted comments
@@ -29,7 +33,7 @@ if (!function_exists('get_svg_icon')) {
         }
 
         // add class to svg
-        if (!empty($svgClass)) {
+        if (! empty($svgClass)) {
             foreach ($dom->getElementsByTagName('svg') as $element) {
                 $element->setAttribute('class', $svgClass);
             }
@@ -88,9 +92,9 @@ if (!function_exists('get_svg_icon')) {
         // remove empty lines
         $string = preg_replace("/(^[\r\n]*|[\r\n]+)[\s\t]*[\r\n]+/", "\n", $string);
 
-        $cls = array('svg-icon');
+        $cls = ['svg-icon'];
 
-        if (!empty($class)) {
+        if (! empty($class)) {
             $cls = array_merge($cls, explode(' ', $class));
         }
 
@@ -107,43 +111,44 @@ if (!function_exists('get_svg_icon')) {
     }
 }
 
-if (!function_exists('theme')) {
+if (! function_exists('theme')) {
     /**
      * Get the instance of Theme class core
      *
-     * @return \App\Core\Adapters\Theme|\Illuminate\Contracts\Foundation\Application|mixed
+     * @return Theme|Application|mixed
      */
     function theme()
     {
-        return app(\App\Core\Adapters\Theme::class);
+        return app(Theme::class);
     }
 }
 
-if (!function_exists('util')) {
+if (! function_exists('util')) {
     /**
      * Get the instance of Util class core
      *
-     * @return \App\Core\Adapters\Util|\Illuminate\Contracts\Foundation\Application|mixed
+     * @return Util|Application|mixed
      */
     function util()
     {
-        return app(\App\Core\Adapters\Util::class);
+        return app(Util::class);
     }
 }
 
-if (!function_exists('bootstrap')) {
+if (! function_exists('bootstrap')) {
     /**
      * Get the instance of Util class core
      *
-     * @return \App\Core\Adapters\Util|\Illuminate\Contracts\Foundation\Application|mixed
+     * @return Util|Application|mixed
+     *
      * @throws Throwable
      */
     function bootstrap()
     {
-        $demo      = ucwords(theme()->getDemo());
+        $demo = ucwords(theme()->getDemo());
         $bootstrap = "\App\Core\Bootstraps\Bootstrap$demo";
 
-        if (!class_exists($bootstrap)) {
+        if (! class_exists($bootstrap)) {
             abort(404, 'Demo has not been set or '.$bootstrap.' file is not found.');
         }
 
@@ -151,13 +156,11 @@ if (!function_exists('bootstrap')) {
     }
 }
 
-if (!function_exists('assetCustom')) {
+if (! function_exists('assetCustom')) {
     /**
      * Get the asset path of RTL if this is an RTL request
      *
-     * @param $path
      * @param  null  $secure
-     *
      * @return string
      */
     function assetCustom($path)
@@ -180,7 +183,7 @@ if (!function_exists('assetCustom')) {
     }
 }
 
-if (!function_exists('isRTL')) {
+if (! function_exists('isRTL')) {
     /**
      * Check if the request has RTL param
      *
@@ -192,7 +195,7 @@ if (!function_exists('isRTL')) {
     }
 }
 
-if (!function_exists('preloadCss')) {
+if (! function_exists('preloadCss')) {
     /**
      * Preload CSS file
      *

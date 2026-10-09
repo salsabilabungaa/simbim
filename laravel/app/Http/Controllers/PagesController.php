@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\File;
 
 class PagesController extends Controller
@@ -9,7 +12,7 @@ class PagesController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
+     * @return Application|Factory|View
      */
     public function index()
     {
@@ -31,22 +34,22 @@ class PagesController extends Controller
     public function replaceIcons()
     {
         $fileContent = file_get_contents(public_path('icon_replacement.txt'));
-        $lines       = explode("\n", $fileContent);
+        $lines = explode("\n", $fileContent);
 
-        $patterns     = [];
+        $patterns = [];
         $replacements = [];
         foreach ($lines as $line) {
             $el = explode(' - ', $line);
             if (empty($line)) {
                 continue;
             }
-            $patterns[]     = trim($el[0]);
+            $patterns[] = trim($el[0]);
             $replacements[] = trim($el[1]);
         }
 
-        $files    = File::allFiles(resource_path());
+        $files = File::allFiles(resource_path());
         $filtered = array_filter($files, function ($str) {
-            return strpos($str, ".php") !== false;
+            return strpos($str, '.php') !== false;
         });
 
         foreach ($filtered as $file) {

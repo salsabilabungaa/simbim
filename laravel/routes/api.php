@@ -33,4 +33,3 @@ Route::post('/forgot_password', [PasswordResetLinkController::class, 'apiStore']
 Route::post('/verify_token', [AuthenticatedSessionController::class, 'apiVerifyToken']);
 
 Route::get('/users', [SampleDataController::class, 'getUsers']);
-

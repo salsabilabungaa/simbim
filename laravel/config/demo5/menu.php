@@ -1,21 +1,22 @@
 <?php
-return array(
-    'main' => array(
-        array(
+
+return [
+    'main' => [
+        [
             'title' => 'Ask Question',
-            'path'  => 'apps/devs/ask',
-        ),
-        array(
+            'path' => 'apps/devs/ask',
+        ],
+        [
             'title' => 'Search',
-            'path'  => 'apps/devs/search',
-        ),
-        array(
+            'path' => 'apps/devs/search',
+        ],
+        [
             'title' => 'Tags',
-            'path'  => 'apps/devs/tag',
-        ),
-        array(
+            'path' => 'apps/devs/tag',
+        ],
+        [
             'title' => 'Question',
-            'path'  => 'apps/devs/question',
-        ),
-    ),
-);
+            'path' => 'apps/devs/question',
+        ],
+    ],
+];

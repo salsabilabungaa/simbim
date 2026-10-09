@@ -10,16 +10,12 @@ use Illuminate\Support\Str;
  * Adapter class to make the Metronic core lib compatible with the Laravel functions
  *
  * Class Theme
- *
- * @package App\Core\Adapters
  */
 class Theme extends \App\Core\Theme
 {
     public static $page = '';
 
-    public function __construct()
-    {
-    }
+    public function __construct() {}
 
     /**
      * Set demo to initialize
@@ -34,9 +30,7 @@ class Theme extends \App\Core\Theme
     /**
      * Print HTML classes in the HTML class attribute
      *
-     * @param $scope
      * @param  bool  $full
-     *
      * @return false|string
      */
     public static function printHtmlClasses($scope, $full = true)
@@ -53,10 +47,8 @@ class Theme extends \App\Core\Theme
      * Print the SVG icon content as HTML
      * Use {!! getSvgIcon !!} in blade template file
      *
-     * @param $path
      * @param  string  $class
      * @param  string  $svgClass
-     *
      * @return mixed
      */
     public static function getSvgIcon($path, $class = '', $svgClass = '')
@@ -68,9 +60,7 @@ class Theme extends \App\Core\Theme
     /**
      * Get the route or URL
      *
-     * @param $path
      * @param  string  $demo
-     *
      * @return string
      */
     public static function getPageUrl($path, $demo = '', $mode = null)
@@ -91,7 +81,7 @@ class Theme extends \App\Core\Theme
             $params['mode'] = $_REQUEST['mode'];
         }
 
-        if (!empty($demo)) {
+        if (! empty($demo)) {
             $params['demo'] = $demo;
         }
 
@@ -113,7 +103,6 @@ class Theme extends \App\Core\Theme
     /**
      * Print HTML attributes
      *
-     * @param $scope
      *
      * @return false|string
      */
@@ -130,7 +119,6 @@ class Theme extends \App\Core\Theme
     /**
      * Print CSS variables
      *
-     * @param $scope
      *
      * @return false|string
      */
@@ -148,12 +136,10 @@ class Theme extends \App\Core\Theme
      * This function is wrapper function of Laravel view()
      * All view files under "layout" has a demo, this helps to append the demo name into the path
      *
-     * @param $path
      * @param  array  $params
-     *
      * @return View
      */
-    public static function getView($path, $params = array(), $once = false)
+    public static function getView($path, $params = [], $once = false)
     {
         // Check if the layout file exist
         if (view()->exists($path)) {
@@ -192,9 +178,7 @@ class Theme extends \App\Core\Theme
     /**
      * Check if the option has a value
      *
-     * @param $scope
      * @param  false  $path
-     *
      * @return bool
      */
     public static function hasOption($scope, $path = false)
@@ -205,10 +189,8 @@ class Theme extends \App\Core\Theme
     /**
      * Get the option's value from config
      *
-     * @param $scope
      * @param  false  $path
      * @param  null  $default
-     *
      * @return mixed|string
      */
     public static function getOption($scope, $path = false, $default = null)
@@ -221,14 +203,14 @@ class Theme extends \App\Core\Theme
         }
 
         if (in_array($scope, ['page', 'pages'])) {
-            $scope    = 'pages';
+            $scope = 'pages';
             $segments = request()->segments();
-            $scope    .= '.'.implode('.', $segments);
+            $scope .= '.'.implode('.', $segments);
         }
 
         // Get current page path
         $deepPath = '';
-        if (!empty($path)) {
+        if (! empty($path)) {
             $deepPath = '.'.str_replace('/', '.', $path);
         }
 
@@ -236,7 +218,7 @@ class Theme extends \App\Core\Theme
         $demoConfig = config($demo.'.'.$scope.$deepPath, $default);
 
         // check if it is a callback
-        if (is_callable($demoConfig) && !is_string($demoConfig)) {
+        if (is_callable($demoConfig) && ! is_string($demoConfig)) {
             $demoConfig = $demoConfig();
         }
 
@@ -303,7 +285,6 @@ class Theme extends \App\Core\Theme
     /**
      * Get current route name and replace with a new route name
      *
-     * @param $name
      *
      * @return string
      */
@@ -317,7 +298,7 @@ class Theme extends \App\Core\Theme
         return $parent.'.'.$name;
     }
 
-    public static function putProVersionTooltip($attr = array())
+    public static function putProVersionTooltip($attr = [])
     {
         ob_start();
 
@@ -331,9 +312,9 @@ class Theme extends \App\Core\Theme
     {
         if ($dark === true) {
             if (self::isDarkMode()) {
-                $file = str_replace(".svg", "-dark.svg", $file);
-                $file = str_replace(".png", "-dark.png", $file);
-                $file = str_replace(".jpg", "-dark.jpg", $file);
+                $file = str_replace('.svg', '-dark.svg', $file);
+                $file = str_replace('.png', '-dark.png', $file);
+                $file = str_replace('.jpg', '-dark.jpg', $file);
             }
         }
 
@@ -390,9 +371,9 @@ class Theme extends \App\Core\Theme
     {
         if ($dark) {
             if (self::isDarkMode()) {
-                $file = str_replace(".svg", "-dark.svg", $file);
-                $file = str_replace(".png", "-dark.png", $file);
-                $file = str_replace(".jpg", "-dark.jpg", $file);
+                $file = str_replace('.svg', '-dark.svg', $file);
+                $file = str_replace('.png', '-dark.png', $file);
+                $file = str_replace('.jpg', '-dark.jpg', $file);
             }
         }
 
@@ -404,8 +385,8 @@ class Theme extends \App\Core\Theme
      */
     public function initConfig()
     {
-        $mainConfig   = collect(config('global'));
-        $demoConfig   = config(Theme::$demo);
+        $mainConfig = collect(config('global'));
+        $demoConfig = config(Theme::$demo);
         $mergedConfig = $mainConfig->replaceRecursive($demoConfig);
         config([Theme::$demo => $mergedConfig->all()]);
 
@@ -436,7 +417,7 @@ class Theme extends \App\Core\Theme
     {
         // Override page path
         $segments = request()->segments();
-        if (!empty($segments)) {
+        if (! empty($segments)) {
             \App\Core\Theme::$page = implode('/', $segments);
         }
 
@@ -465,13 +446,10 @@ class Theme extends \App\Core\Theme
 
     /**
      * Iterate menu array for self::getMenu() function
-     *
-     * @param $menus
-     * @param $output
      */
     private function iterateMenu($menus, &$output)
     {
-        if (!is_array($menus)) {
+        if (! is_array($menus)) {
             return;
         }
 
@@ -498,5 +476,4 @@ class Theme extends \App\Core\Theme
 
         return $total;
     }
-
 }
