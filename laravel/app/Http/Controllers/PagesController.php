@@ -16,15 +16,17 @@ class PagesController extends Controller
      */
     public function index()
     {
-        // Get view file location from menu config
-        $view = theme()->getOption('page', 'view');
+        // Langsung arahkan ke view pages.index
+        if (view()->exists('pages.index')) {
+            return view('pages.index');
+        }
 
-        // Check if the page view file exist
+        // Jika halaman utama tidak ada, coba panggil berdasarkan theme option
+        $view = theme()->getOption('page', 'view');
         if (view()->exists('pages.'.$view)) {
             return view('pages.'.$view);
         }
 
-        // Get the default inner page
         return redirect('/');
     }
 
@@ -39,12 +41,14 @@ class PagesController extends Controller
         $patterns = [];
         $replacements = [];
         foreach ($lines as $line) {
-            $el = explode(' - ', $line);
             if (empty($line)) {
                 continue;
             }
-            $patterns[] = trim($el[0]);
-            $replacements[] = trim($el[1]);
+            $el = explode(' ', $line);
+            if (isset($el[0], $el[1])) {
+                $patterns[] = trim($el[0]);
+                $replacements[] = trim($el[1]);
+            }
         }
 
         $files = File::allFiles(resource_path());
@@ -54,9 +58,7 @@ class PagesController extends Controller
 
         foreach ($filtered as $file) {
             $bladeFileContent = file_get_contents($file->getPathname());
-
             $bladeFileContent = str_replace($patterns, $replacements, $bladeFileContent);
-
             file_put_contents($file->getPathname(), $bladeFileContent);
         }
     }

@@ -33,10 +33,10 @@
                             <h3 class="text-white fw-bolder mb-1 fs-5">
                                 <i class="fas fa-bell text-warning me-2"></i> Notifikasi
                             </h3>
-                            <span class="text-gray-400 fs-7">{{ count($notifikasi) }} pemberitahuan terbaru</span>
+                            <span class="text-gray-400 fs-7">{{ count($notifikasi ?? []) }} pemberitahuan terbaru</span>
                         </div>
                         <div class="scroll-y mh-325px my-3 px-6">
-                            @foreach ($notifikasi as $item)
+                            @foreach (($notifikasi ?? []) as $item)
                                 <div class="d-flex align-items-center py-3 border-bottom border-gray-100">
                                     <div class="symbol symbol-35px me-3">
                                         <span class="symbol-label bg-light-primary">
@@ -55,22 +55,25 @@
 
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     <div class="cursor-pointer d-flex align-items-center px-2 py-1 text-hover-primary" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <span class="text-gray-700 fw-bold fs-7 text-uppercase ls-1">{{ $mahasiswa['nama'] }}</span>
+                        <div class="symbol symbol-30px me-2">
+                            <img src="{{ auth()->user()?->avatar_url ?? asset('assets/media/avatars/300-1.jpg') }}" alt="{{ $mahasiswa['nama'] ?? auth()->user()?->name ?? 'Mahasiswa' }}" class="rounded-circle" style="width: 30px; height: 30px; object-fit: cover;" />
+                        </div>
+                        <span class="text-gray-700 fw-bold fs-7 text-uppercase ls-1">{{ $mahasiswa['nama'] ?? auth()->user()?->name ?? 'Mahasiswa' }}</span>
                     </div>
                     <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
                         <div class="menu-item px-3">
                             <div class="menu-content d-flex flex-column px-3 py-2">
-                                <div class="fw-bolder text-dark fs-6 mb-1">{{ $mahasiswa['nama'] }}</div>
-                                <div class="text-muted fs-7 fw-bold mb-1">NIM: {{ $mahasiswa['nim'] }}</div>
+                                <div class="fw-bolder text-dark fs-6 mb-1">{{ $mahasiswa['nama'] ?? auth()->user()?->name ?? 'Mahasiswa' }}</div>
+                                <div class="text-muted fs-7 fw-bold mb-1">NIM: {{ $mahasiswa['nim'] ?? auth()->user()?->nim ?? '-' }}</div>
                                 <div class="badge badge-light-primary fw-bolder fs-8 align-self-start mt-1">
-                                    <i class="fas fa-graduation-cap me-1 text-primary"></i> Program Studi {{ $mahasiswa['program_studi'] }}
+                                    <i class="fas fa-graduation-cap me-1 text-primary"></i> Program Studi {{ $mahasiswa['program_studi'] ?? auth()->user()?->program_studi ?? '-' }}
                                 </div>
                             </div>
                         </div>
                         <div class="separator my-2"></div>
                         <div class="menu-item px-5">
-                            <a href="#" class="menu-link px-5">
-                                <i class="fas fa-user-edit me-2 text-gray-600"></i> Edit Profile
+                            <a href="{{ route('profile.edit') }}" class="menu-link px-5">
+                                <i class="fas fa-user-edit me-2 text-primary"></i> Edit Profile
                             </a>
                         </div>
                         <div class="menu-item px-5">

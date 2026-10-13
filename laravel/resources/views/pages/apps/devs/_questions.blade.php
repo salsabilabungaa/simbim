@@ -1,224 +1,126 @@
-<?php
-    $questions = array(
-        array(
-            'title' => 'How to use Metronic with Django Framework ?',
-            'summary' => 'I’ve been doing some ajax request, to populate a inside drawer, the content of that drawer has a sub menu, that you are using in list and all card toolbar.',
-            'author' => 'James Hunt',
-            'date' => '24 minutes ago',
-            'avatar' => false,
-            'answers' => '16',
-            'upvotes' => '23',
-            'icons' => array(
-                array(
-                    'path' => 'icons/duotune/general/gen045.svg',
-                    'class' => 'svg-icon-primary',
-                    'tooltip' => 'New question'
-                ),
-                array(
-                    'path' => 'icons/duotune/communication/com010.svg',
-                    'class' => 'svg-icon-danger',
-                    'tooltip' => 'User replied'
-                )
-            ),
-            'tags' => array('Metronic')
-        ),
+<!--begin::Content Wrapper-->
+<div class="d-flex flex-column flex-column-fluid">
+    <!--begin::Content-->
+    <div id="kt_app_content" class="app-content flex-column-fluid">
+        <!--begin::Content container-->
+        <div id="kt_app_content_container" class="app-container container-fluid">
 
-        array(
-            'title' => 'When to expect new version of Laravel ?',
-            'summary' => 'When approx. is the next update for the Laravel version planned? Waiting for the CRUD, 2nd factor etc. features before starting my project. Also can we expect the Laravel + Vue version in the next update ?',
-            'author' => 'Sandra Piquet',
-            'date' => '1 day ago',
-            'avatar' => 'avatars/300-2.jpg',
-            'answers' => '2',
-            'upvotes' => '4',
-            'icons' => array(
-                array(
-                    'path' => 'icons/duotune/general/gen044.svg',
-                    'class' => 'svg-icon-warning',
-                    'tooltip' => 'In-process'
-                )
-            ),
-            'tags' => array('Pre-sale')
-        ),
-
-        array(
-            'title' => 'Could not get Demo 7 working',
-            'summary' => 'could not get demo7 working from latest metronic version. Had a lot of issues installing, I had to downgrade my npm to 6.14.4 as someone else recommended here in the comments, this goot it to compile but when I ran it, the browser showed errors TypeErr..',
-            'author' => 'Niko Roseberg',
-            'date' => '2 days ago',
-            'avatar' => false,
-            'answers' => '4',
-            'upvotes' => '',
-            'icons' => array(
-                array(
-                    'path' => 'icons/duotune/general/gen044.svg',
-                    'class' => 'svg-icon-warning',
-                    'tooltip' => 'In-process'
-                )
-            ),
-            'tags' => array('Angular')
-        ),
-
-        array(
-            'title' => 'I want to get refund',
-            'summary' => 'Your Metronic theme is so good but the reactjs version is typescript only. The description did not write any warn about it. Since I only know javascript, I can not do anything with your theme. I want to refund.',
-            'author' => 'Alex Bold',
-            'date' => '1 day ago',
-            'avatar' => 'avatars/300-23.jpg',
-            'answers' => '22',
-            'upvotes' => '11',
-            'icons' => array(
-                array(
-                    'path' => 'icons/duotune/general/gen043.svg',
-                    'class' => 'svg-icon-success',
-                    'tooltip' => 'Resolved'
-                )
-            ),
-            'tags' => array('React', 'Demo 1')
-        ),
-
-        array(
-            'title' => 'How to integrate Metronic with Blazor Server Side ?',
-            'summary' => 'could not get demo7 working from latest metronic version. Had a lot of issues installing, I had to downgrade my npm to 6.14.4 as someone else recommended here in the comments, this goot it to compile but when I ran it, the browser showed errors TypeErr..',
-            'author' => 'Tim Nilson',
-            'date' => '3 days ago',
-            'avatar' => false,
-            'answers' => '44',
-            'upvotes' => '3',
-            'icons' => array(
-                array(
-                    'path' => 'icons/duotune/general/gen043.svg',
-                    'class' => 'svg-icon-success',
-                    'tooltip' => 'In-process'
-                )
-            ),
-            'tags' => array('Blazor')
-        ),
-
-        array(
-            'title' => 'Using Metronic with .NET multi tenant application',
-            'summary' => 'When approx. is the next update for the Laravel version planned? Waiting for the CRUD, 2nd factor etc. features before starting my project. Also can we expect the Laravel + Vue version in the next update ?',
-            'author' => 'Ana Quil',
-            'date' => '5 days ago',
-            'avatar' => 'avatars/300-10.jpg',
-            'answers' => '2',
-            'upvotes' => '4',
-            'icons' => array(
-                array(
-                    'path' => 'icons/duotune/general/gen043.svg',
-                    'class' => 'svg-icon-success',
-                    'tooltip' => 'Resolved'
-                )
-            ),
-            'tags' => array('Aspdotnet')
-        ),
-    );
-
-    $pagination = array(
-        '1', '2', '3', '4', '5', '..', '19'
-    )
-?>
-
-<!--begin::Questions-->
-<div class="mb-10">
-    @foreach($questions as $question)
-        <!--begin::Question-->
-        <div class="mb-0">
-            <!--begin::Head-->
-            <div class="d-flex align-items-center mb-4">
-                <!--begin::Title-->
-                <a href="{{ theme()->getPageUrl('apps/devs/question') }}" class="fs-2 fw-bolder text-gray-900 text-hover-primary me-1">
-                    {{ $question['title'] }}
-                </a>
-                <!--end::Title-->
-
-                <!--begin::Icons-->
-                <div class="d-flex align-items-center">
-                    @foreach($question['icons'] as $icon)
-                        <span class="ms-1" data-bs-toggle="tooltip" title="{{ $icon['tooltip'] }}">
-                            {!! theme()->getSvgIcon($icon['path'], $icon['class'] . ' svg-icon-1') !!}
-                        </span>
-                    @endforeach
+            <!--begin::Welcome Card-->
+            <div class="card bg-dark mb-5 mb-xl-10 text-white">
+                <div class="card-body p-9">
+                    <div class="d-flex align-items-center mb-3">
+                        <span class="badge badge-light-primary me-2 px-3 py-2">Program Studi Informatika</span>
+                        <span class="badge badge-light-purple me-2 px-3 py-2">Semester 7</span>
+                        <span class="badge badge-light-success px-3 py-2">Mahasiswa Aktif</span>
+                    </div>
+                    <h1 class="text-white fw-bold fs-2x mb-3">Selamat Pagi, Andi Pratama 👋</h1>
+                    <div class="fs-6 text-gray-400">
+                        <span class="me-4">NIM: <strong class="text-white">2108107010001</strong></span>
+                        <span class="me-4">Pembimbing: <strong class="text-info">Dr. Siti Rahmawati, M.Kom.</strong></span>
+                        <span>Dosen Wali: <strong class="text-success">Prof. Dr. Ir. Ahmad Rizal, M.T.</strong></span>
+                    </div>
                 </div>
-                <!--end::Icons-->
             </div>
-            <!--end::Head-->
+            <!--end::Welcome Card-->
 
-            <!--begin::Summary-->
-            <div class="fs-base fw-normal text-gray-700 mb-4">
-                {{ $question['summary'] }}
-            </div>
-            <!--end::Summary-->
-
-            <!--begin::Foot-->
-            <div class="d-flex flex-stack flex-wrap">
-                <!--begin::Author-->
-                <div class="d-flex align-items-center py-1">
-                    <!--begin::Symbol-->
-                    <div class="symbol symbol-35px me-2">
-                        @if($question['avatar'])
-                            <img src="{{ asset(theme()->getMediaUrlPath() . $question['avatar']) }}" alt="user"/>
-                        <?php else:?>
-                            <div class="symbol-label bg-light-success fs-3 fw-bold text-success text-uppercase">
-                                {{ $question['author'][0] }}
+            <!--begin::Row-->
+            <div class="row g-5 g-xl-8">
+                <!--begin::Col Progres-->
+                <div class="col-xl-6">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <div class="card-body">
+                            <div class="d-flex justify-content-between align-items-center mb-5">
+                                <h3 class="card-title fw-bolder text-dark">PROGRES SKRIPSI</h3>
+                                <button type="button" class="btn btn-sm btn-light-primary" data-bs-toggle="modal" data-bs-target="#modal_ajukan_bimbingan">
+                                    + Ajukan Bimbingan
+                                </button>
                             </div>
-                        @endif
+                            
+                            <div class="d-flex align-items-center mb-3">
+                                <span class="fs-2hx fw-bolder text-dark me-3">65%</span>
+                                <span class="badge badge-light-success fw-bold fs-8 px-2 py-1">+7% bulan ini</span>
+                            </div>
+
+                            <div class="progress h-8px bg-light-primary mb-5">
+                                <div class="progress-bar bg-primary" role="progressbar" style="width: 65%" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100"></div>
+                            </div>
+
+                            <div class="fw-bold text-gray-800 fs-6 mb-1">📘 Bab III — Metodologi Penelitian</div>
+                            <div class="text-muted fs-7 mb-4">Draft revisi ke-2 sedang dikaji oleh dosen pembimbing.</div>
+                            <div class="d-flex justify-content-between fs-8 text-gray-500">
+                                <span>Target Selesai: 25 Oktober 2026</span>
+                                <span>65 dari 100%</span>
+                            </div>
+                        </div>
                     </div>
-                    <!--end::Symbol-->
+                </div>
+                <!--end::Col Progres-->
 
-                    <!--begin::Name-->
-                    <div class="d-flex flex-column align-items-start justify-content-center">
-                        <span class="text-gray-900 fs-7 fw-bold lh-1 mb-2">{{ $question['author'] }}</span>
-                        <span class="text-muted fs-8 fw-bold lh-1">{{ $question['date'] }}</span>
+                <!--begin::Col Rekapan-->
+                <div class="col-xl-6">
+                    <div class="card card-xl-stretch mb-xl-8">
+                        <div class="card-body">
+                            <h3 class="card-title fw-bolder text-dark mb-5">REKAPAN BIMBINGAN BULAN INI</h3>
+                            <div class="d-flex align-items-center mb-5">
+                                <span class="fs-2hx fw-bolder text-dark me-3">6</span>
+                                <span class="text-muted fs-7 fw-bold">Total Sesi Bulan Ini Terpenuhi</span>
+                            </div>
+
+                            <div class="bg-light-info rounded p-4 mb-3 d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-info">Bimbingan Skripsi</span>
+                                <span class="badge badge-info">4 Sesi Terlaksana</span>
+                            </div>
+
+                            <div class="bg-light-primary rounded p-4 d-flex justify-content-between align-items-center">
+                                <span class="fw-bold text-primary">Bimbingan Akademik</span>
+                                <span class="badge badge-primary">2 Sesi Terlaksana</span>
+                            </div>
+                        </div>
                     </div>
-                    <!--end::Name-->
                 </div>
-                <!--end::Author-->
-
-                <!--begin::Info-->
-                <div class="d-flex align-items-center py-1">
-                    <!--begin::Answers-->
-                    <a href="{{ theme()->getPageUrl('apps/devs/question') }}#answers" class="btn btn-sm btn-outline btn-outline-dashed btn-outline-default px-4 me-2">
-                        {{ $question['answers'] }} Answers
-                    </a>
-                    <!--end::Answers-->
-
-                    <!--begin::Tags-->
-                    @foreach($question['tags'] as $tag)
-                        <a href="{{ theme()->getPageUrl('apps/devs/tag') }}" class="btn btn-sm btn-light px-4 me-2">
-                            {{ $tag }}
-                        </a>
-                    @endforeach
-                    <!--end::Tags-->
-
-                    <!--begin::Upvote-->
-                    <a href="#" class="btn btn-sm btn-flex btn-light {{ empty($question['upvotes']) ? 'btn-icon' : 'px-3' }}" data-bs-toggle="tooltip" title="Upvote this question" data-bs-dismiss="click">
-                        {{ $question['upvotes'] }}
-                        {!! theme()->getSvgIcon('icons/duotune/arrows/arr062.svg', 'svg-icon-7' . (empty($question['upvotes']) ? '' : 'ms-2 me-0')) !!}
-                    </a>
-                    <!--end::Upvote-->
-                </div>
-                <!--end::Info-->
+                <!--end::Col Rekapan-->
             </div>
-            <!--end::Foot-->
+            <!--end::Row-->
+
         </div>
-        <!--end::Question-->
-
-        <!--begin::Separator-->
-        <div class="separator separator-dashed border-gray-300 my-8"></div>
-        <!--end::Separator-->
-    @endforeach
+        <!--end::Content container-->
+    </div>
+    <!--end::Content-->
 </div>
-<!--end::Questions-->
+<!--end::Content Wrapper-->
 
-<!--begin::Pagination-->
-<div class="d-flex flex-center mb-0">
-    @foreach($pagination as $page)
-        @if($page == '..')
-            <span class="text-muted fw-bold fs-6 mx-2">..</span>
-        <?php else:?>
-            <a href="#" class="btn btn-icon btn-light btn-active-light-primary h-30px w-30px fw-bold fs-6 mx-2 {{ $page == '2' ? 'active' : '' }}">{{ $page }}</a>
-        @endif
-    @endforeach
+<!--begin::Modal Ajukan Bimbingan (Interaktif Pop-up)-->
+<div class="modal fade" id="modal_ajukan_bimbingan" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered mw-650px">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 class="fw-bolder">Form Pengajuan Bimbingan Baru</h2>
+                <div class="btn btn-icon btn-sm btn-active-icon-primary" data-bs-dismiss="modal">
+                    <i class="ki-duotone ki-cross fs-1"><span class="path1"></span><span class="path2"></span></i>
+                </div>
+            </div>
+            <form action="#" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="modal-body py-10 px-lg-17">
+                    <div class="mb-5">
+                        <label class="required fs-6 fw-bold mb-2">Judul / Topik Bimbingan</label>
+                        <input type="text" class="form-control form-control-solid" name="judul" placeholder="Contoh: Revisi Bab 3 Metodologi Penelitian" required />
+                    </div>
+                    <div class="mb-5">
+                        <label class="required fs-6 fw-bold mb-2">Catatan Mahasiswa</label>
+                        <textarea class="form-control form-control-solid" rows="3" name="catatan" placeholder="Tuliskan poin-poin yang ingin didiskusikan..."></textarea>
+                    </div>
+                    <div class="mb-5">
+                        <label class="required fs-6 fw-bold mb-2">Upload File Draft (PDF/DOCX)</label>
+                        <input type="file" class="form-control form-control-solid" name="file_draft" accept=".pdf,.docx" required />
+                    </div>
+                </div>
+                <div class="modal-footer flex-center">
+                    <button type="reset" class="btn btn-light me-3" data-bs-dismiss="modal">Batal</button>
+                    <button type="submit" class="btn btn-primary">Kirim Pengajuan</button>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
-<!--end::Questions-->
+<!--end::Modal Ajukan Bimbingan-->
