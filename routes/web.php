@@ -7,7 +7,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', [BerandaController::class, 'index'])->name('mahasiswa.beranda');
-Route::get('/mahasiswa/beranda', [BerandaController::class, 'index'])->name('mahasiswa.beranda');
+Route::get('/mahasiswa/beranda', [BerandaController::class, 'index'])->name('berandaMahasiswa');
 Route::get('/mahasiswa/bimbingan-akademik', [BimbinganAkademikController::class, 'index'])->name('mahasiswa.bimbingan-akademik');
 Route::get('/mahasiswa/bimbingan-skripsi', [BimbinganSkripsiController::class, 'index'])->name('mahasiswa.bimbingan-skripsi');
 

@@ -3,21 +3,30 @@
 namespace App\Http\Controllers\Mahasiswa;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class BerandaController extends Controller
 {
     public function index(): View
     {
+        try {
+            $user = Auth::user() ?? User::first();
+        } catch (\Throwable) {
+            $user = null;
+        }
+
         return view('mahasiswa.beranda', [
             'mahasiswa' => [
-                'nama' => 'Andi Pratama',
-                'nim' => '2108107010001',
+                'nama' => $user?->name ?? 'Andi Pratama',
+                'nim' => $user?->nim ?? '2108107010001',
                 'status' => 'Mahasiswa Aktif',
-                'program_studi' => 'Informatika',
+                'program_studi' => $user?->program_studi ?? 'Informatika',
                 'semester' => 'Semester 7',
                 'pembimbing' => 'Dr. Siti Rahmawati, M.Kom.',
                 'sapaan' => 'Selamat Pagi',
+                'foto_profil' => $user?->avatar_url,
             ],
             'dosen_pembimbing' => [
                 'nama' => 'Dr. Siti Rahmawati, M.Kom.',

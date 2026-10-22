@@ -54,7 +54,7 @@
         </h1>
         <p class="text-gray-500 fs-7 mb-0">Perbarui data diri, informasi akademik, dan foto profil akun SIMBIM Anda.</p>
     </div>
-    <a href="{{ route('mahasiswa.beranda') }}" class="btn btn-sm btn-light-primary fw-bold d-inline-flex align-items-center">
+    <a href="{{ Route::has('berandaMahasiswa') ? route('berandaMahasiswa') : route('mahasiswa.beranda') }}" class="btn btn-sm btn-light-primary fw-bold d-inline-flex align-items-center">
         <i class="fas fa-arrow-left me-2"></i> Kembali ke Dashboard
     </a>
 </div>
@@ -286,7 +286,7 @@
 
                 <!-- Action Buttons -->
                 <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-end gap-3 pt-4 border-top border-gray-100">
-                    <a href="{{ route('mahasiswa.beranda') }}" class="btn btn-light fw-bold px-6 py-3">
+                    <a href="{{ Route::has('berandaMahasiswa') ? route('berandaMahasiswa') : route('mahasiswa.beranda') }}" class="btn btn-light fw-bold px-6 py-3">
                         Batal
                     </a>
                     <button type="submit" class="btn btn-primary fw-bolder px-7 py-3 shadow-sm d-inline-flex align-items-center justify-content-center">

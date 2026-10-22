@@ -85,6 +85,22 @@
 @endpush
 
 @section('content')
+<!-- Flash Message: Success -->
+@if (session('success'))
+<div class="alert alert-dismissible bg-light-success border border-success border-opacity-25 d-flex align-items-center p-5 mb-6 rounded-3">
+    <div class="symbol symbol-40px me-3">
+        <span class="symbol-label bg-success text-white rounded-circle">
+            <i class="fas fa-check fs-4"></i>
+        </span>
+    </div>
+    <div class="d-flex flex-column flex-grow-1">
+        <h5 class="fw-bolder text-success mb-0">Berhasil!</h5>
+        <span class="text-gray-700 fs-7">{{ session('success') }}</span>
+    </div>
+    <button type="button" class="btn-close ms-2" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
 <!-- 1. Banner Greeting Hero Modern -->
 <div class="hero-banner mb-7 p-6 p-md-8 text-white shadow-sm">
     <div class="hero-glow-1"></div>

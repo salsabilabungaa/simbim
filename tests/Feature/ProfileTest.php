@@ -45,7 +45,7 @@ class ProfileTest extends TestCase
             'program_studi' => 'Sistem Informasi',
         ]);
 
-        $response->assertRedirect('/profile/edit');
+        $response->assertRedirect(route('berandaMahasiswa'));
         $response->assertSessionHas('success');
 
         $user->refresh();
@@ -71,7 +71,7 @@ class ProfileTest extends TestCase
             'foto_profil' => $file,
         ]);
 
-        $response->assertRedirect('/profile/edit');
+        $response->assertRedirect(route('berandaMahasiswa'));
         $response->assertSessionHas('success');
 
         $user->refresh();

@@ -7,6 +7,7 @@ use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rule;
 
@@ -63,7 +64,9 @@ class ProfileController extends Controller
         }
 
         if (! $user) {
-            return redirect()->route('mahasiswa.beranda')->with('error', 'Pengguna tidak ditemukan.');
+            $targetRoute = Route::has('berandaMahasiswa') ? 'berandaMahasiswa' : 'mahasiswa.beranda';
+
+            return redirect()->route($targetRoute)->with('error', 'Pengguna tidak ditemukan.');
         }
 
         $validated = $request->validate([
@@ -84,22 +87,33 @@ class ProfileController extends Controller
             'foto_profil.max' => 'Ukuran foto profil maksimal 2 MB.',
         ]);
 
+        // 1. Memasukkan data ke objek user yang sedang login
+        $user->name = $validated['name'];
+        $user->email = $validated['email'];
+        $user->nim = $validated['nim'];
+        $user->program_studi = $validated['program_studi'];
+
+        // Penanganan upload foto profil ke storage
         if ($request->hasFile('foto_profil')) {
             if ($user->foto_profil && Storage::disk('public')->exists($user->foto_profil)) {
                 Storage::disk('public')->delete($user->foto_profil);
             }
 
             $path = $request->file('foto_profil')->store('avatars', 'public');
-            $validated['foto_profil'] = $path;
+            $user->foto_profil = $path;
         } elseif ($request->boolean('hapus_foto')) {
             if ($user->foto_profil && Storage::disk('public')->exists($user->foto_profil)) {
                 Storage::disk('public')->delete($user->foto_profil);
             }
-            $validated['foto_profil'] = null;
+            $user->foto_profil = null;
         }
 
-        $user->update($validated);
+        // 2. Eksekusi penyimpanan permanen ke database
+        $user->save();
 
-        return redirect()->route('profile.edit')->with('success', 'Data profil Anda berhasil diperbarui!');
+        // 3. Redirect ke route berandaMahasiswa
+        $targetRoute = Route::has('berandaMahasiswa') ? 'berandaMahasiswa' : 'mahasiswa.beranda';
+
+        return redirect()->route($targetRoute)->with('success', 'Data profil Anda berhasil diperbarui!');
     }
 }
