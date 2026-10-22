@@ -15,11 +15,26 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        User::firstOrCreate(
+            ['email' => 'mahasiswa@simbim.ac.id'],
+            [
+                'name' => 'Andi Pratama',
+                'role' => 'mahasiswa',
+                'nomor_induk' => '2108107010001',
+                'program_studi' => 'Informatika',
+                'password' => 'password',
+            ]
+        );
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        User::firstOrCreate(
+            ['email' => 'dosen@simbim.ac.id'],
+            [
+                'name' => 'Dr. Siti Rahmawati, M.Kom.',
+                'role' => 'dosen',
+                'nomor_induk' => '198503152010122001',
+                'program_studi' => 'Informatika',
+                'password' => 'password',
+            ]
+        );
     }
 }

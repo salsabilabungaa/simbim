@@ -54,31 +54,55 @@
                 </div>
 
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
-                    <div class="cursor-pointer d-flex align-items-center px-2 py-1 text-hover-primary" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                        <span class="text-gray-700 fw-bold fs-7 text-uppercase ls-1">{{ $mahasiswa['nama'] }}</span>
-                    </div>
-                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
-                        <div class="menu-item px-3">
-                            <div class="menu-content d-flex flex-column px-3 py-2">
-                                <div class="fw-bolder text-dark fs-6 mb-1">{{ $mahasiswa['nama'] }}</div>
-                                <div class="text-muted fs-7 fw-bold mb-1">NIM: {{ $mahasiswa['nim'] }}</div>
-                                <div class="badge badge-light-primary fw-bolder fs-8 align-self-start mt-1">
-                                    <i class="fas fa-graduation-cap me-1 text-primary"></i> Program Studi {{ $mahasiswa['program_studi'] }}
+                    @auth
+                        <div class="cursor-pointer d-flex align-items-center px-2 py-1 text-hover-primary" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                            <div class="symbol symbol-30px symbol-circle me-2 bg-light-primary text-primary fw-bolder d-flex align-items-center justify-content-center">
+                                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
+                            </div>
+                            <span class="text-gray-700 fw-bold fs-7 text-uppercase ls-1">{{ auth()->user()->name }}</span>
+                        </div>
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
+                            <div class="menu-item px-3">
+                                <div class="menu-content d-flex flex-column px-3 py-2">
+                                    <div class="fw-bolder text-dark fs-6 mb-1">{{ auth()->user()->name }}</div>
+                                    <div class="text-muted fs-7 fw-bold mb-1">{{ auth()->user()->isDosen() ? 'NIP' : 'NIM' }}: {{ auth()->user()->nomor_induk ?? ($mahasiswa['nim'] ?? '-') }}</div>
+                                    <div class="badge badge-light-primary fw-bolder fs-8 align-self-start mt-1">
+                                        <i class="fas fa-graduation-cap me-1 text-primary"></i> Program Studi {{ auth()->user()->program_studi ?? ($mahasiswa['program_studi'] ?? 'Informatika') }}
+                                    </div>
                                 </div>
                             </div>
+                            <div class="separator my-2"></div>
+                            <div class="menu-item px-5">
+                                <form method="POST" action="{{ route('logout') }}" id="header_logout_form">
+                                    @csrf
+                                    <button type="submit" class="dropdown-item menu-link px-5 text-danger border-0 bg-transparent w-100 text-start">
+                                        <i class="fas fa-sign-out-alt me-2 text-danger"></i> Sign Out
+                                    </button>
+                                </form>
+                            </div>
                         </div>
-                        <div class="separator my-2"></div>
-                        <div class="menu-item px-5">
-                            <a href="#" class="menu-link px-5">
-                                <i class="fas fa-user-edit me-2 text-gray-600"></i> Edit Profile
-                            </a>
+                    @else
+                        <div class="cursor-pointer d-flex align-items-center px-2 py-1 text-hover-primary" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                            <span class="text-gray-700 fw-bold fs-7 text-uppercase ls-1">{{ $mahasiswa['nama'] ?? 'Mahasiswa' }}</span>
                         </div>
-                        <div class="menu-item px-5">
-                            <a href="#" class="menu-link px-5 text-danger">
-                                <i class="fas fa-sign-out-alt me-2 text-danger"></i> Sign Out
-                            </a>
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
+                            <div class="menu-item px-3">
+                                <div class="menu-content d-flex flex-column px-3 py-2">
+                                    <div class="fw-bolder text-dark fs-6 mb-1">{{ $mahasiswa['nama'] ?? 'Andi Pratama' }}</div>
+                                    <div class="text-muted fs-7 fw-bold mb-1">NIM: {{ $mahasiswa['nim'] ?? '2108107010001' }}</div>
+                                    <div class="badge badge-light-primary fw-bolder fs-8 align-self-start mt-1">
+                                        <i class="fas fa-graduation-cap me-1 text-primary"></i> Program Studi {{ $mahasiswa['program_studi'] ?? 'Informatika' }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="separator my-2"></div>
+                            <div class="menu-item px-5">
+                                <a href="{{ route('login') }}" class="menu-link px-5 text-primary">
+                                    <i class="fas fa-sign-in-alt me-2 text-primary"></i> Masuk / Login
+                                </a>
+                            </div>
                         </div>
-                    </div>
+                    @endauth
                 </div>
             </div>
         </div>
