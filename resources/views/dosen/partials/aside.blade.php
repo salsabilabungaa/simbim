@@ -70,14 +70,11 @@
 
                 <!-- 3. Riwayat Bimbingan -->
                 <div class="menu-item">
-                    <a class="menu-link" href="javascript:void(0)" onclick="Swal.fire({icon: 'info', title: 'Riwayat Bimbingan', text: 'Arsip logbook riwayat konsultasi skripsi & perwalian mahasiswa akan tersedia pada modul berikutnya.', confirmButtonText: 'Tutup', customClass: {confirmButton: 'btn btn-primary'}})">
+                    <a class="menu-link {{ request()->routeIs('dosen.riwayat-bimbingan*') ? 'active' : '' }}" href="{{ route('dosen.riwayat-bimbingan') }}">
                         <span class="menu-icon">
                             <i class="fas fa-history fs-3"></i>
                         </span>
                         <span class="menu-title">Riwayat Bimbingan</span>
-                        <span class="menu-badge">
-                            <span class="badge badge-light-primary fs-9 fw-bolder">Segera</span>
-                        </span>
                     </a>
                 </div>
             </div>

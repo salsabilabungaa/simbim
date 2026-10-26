@@ -73,4 +73,18 @@ class DosenBimbinganTest extends TestCase
         $response->assertSee('Edit Profil');
         $response->assertSee('Sign Out');
     }
+
+    public function test_dosen_dapat_mengakses_halaman_riwayat_bimbingan(): void
+    {
+        $dosen = User::factory()->dosen()->make();
+
+        $response = $this->actingAs($dosen)->get('/dosen/riwayat-bimbingan');
+
+        $response->assertStatus(200);
+        $response->assertSee('Riwayat & Logbook Bimbingan', false);
+        $response->assertSee('TOTAL SESI TERLAKSANA');
+        $response->assertSee('SESI SKRIPSI');
+        $response->assertSee('PERWALIAN AKADEMIK');
+        $response->assertSee('Logbook Sesi Bimbingan');
+    }
 }

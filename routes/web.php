@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Dosen\BerandaController as DosenBerandaController;
 use App\Http\Controllers\Dosen\MahasiswaBimbinganController;
 use App\Http\Controllers\Dosen\PengajuanBimbinganController;
+use App\Http\Controllers\Dosen\RiwayatBimbinganController as DosenRiwayatBimbinganController;
 use App\Http\Controllers\Mahasiswa\BerandaController;
 use App\Http\Controllers\Mahasiswa\BimbinganAkademikController;
 use App\Http\Controllers\Mahasiswa\BimbinganSkripsiController;
@@ -50,4 +51,7 @@ Route::middleware(['auth', 'role:dosen'])->prefix('dosen')->name('dosen.')->grou
         Route::get('/mahasiswa', [MahasiswaBimbinganController::class, 'index'])->name('mahasiswa');
         Route::get('/pengajuan', [PengajuanBimbinganController::class, 'index'])->name('pengajuan');
     });
+
+    // Riwayat Bimbingan
+    Route::get('/riwayat-bimbingan', [DosenRiwayatBimbinganController::class, 'index'])->name('riwayat-bimbingan');
 });
