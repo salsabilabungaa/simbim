@@ -3,6 +3,8 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Dosen\BerandaController as DosenBerandaController;
+use App\Http\Controllers\Dosen\MahasiswaBimbinganController;
+use App\Http\Controllers\Dosen\PengajuanBimbinganController;
 use App\Http\Controllers\Mahasiswa\BerandaController;
 use App\Http\Controllers\Mahasiswa\BimbinganAkademikController;
 use App\Http\Controllers\Mahasiswa\BimbinganSkripsiController;
@@ -42,4 +44,10 @@ Route::middleware(['auth', 'role:mahasiswa'])->prefix('mahasiswa')->name('mahasi
 // Protected Dosen Routes: Wajib login dengan peran dosen
 Route::middleware(['auth', 'role:dosen'])->prefix('dosen')->name('dosen.')->group(function () {
     Route::get('/beranda', [DosenBerandaController::class, 'index'])->name('beranda');
+
+    // Bagian Bimbingan
+    Route::prefix('bimbingan')->name('bimbingan.')->group(function () {
+        Route::get('/mahasiswa', [MahasiswaBimbinganController::class, 'index'])->name('mahasiswa');
+        Route::get('/pengajuan', [PengajuanBimbinganController::class, 'index'])->name('pengajuan');
+    });
 });

@@ -22,7 +22,7 @@
                     </div>
                 </div>
 
-                <!-- 1. Dashboard -->
+                <!-- 1. Beranda -->
                 <div class="menu-item">
                     <a class="menu-link {{ request()->routeIs('dosen.beranda*') ? 'active' : '' }}" href="{{ route('dosen.beranda') }}">
                         <span class="menu-icon">
@@ -35,21 +35,37 @@
                                 </svg>
                             </span>
                         </span>
-                        <span class="menu-title">Dashboard</span>
+                        <span class="menu-title">Beranda</span>
                     </a>
                 </div>
 
-                <!-- 2. Bimbingan (Mahasiswa Bimbingan, Diskusi, Review, Validasi) -->
-                <div class="menu-item">
-                    <a class="menu-link" href="javascript:void(0)" onclick="Swal.fire({icon: 'info', title: 'Fitur Bimbingan Dosen', text: 'Halaman ruang diskusi, review dokumen, dan validasi/ACC bimbingan akan dikembangkan pada modul berikutnya.', confirmButtonText: 'Tutup', customClass: {confirmButton: 'btn btn-primary'}})">
+                <!-- 2. Bimbingan (Dropdown: Mahasiswa Bimbingan & Pengajuan Bimbingan) -->
+                <div data-kt-menu-trigger="click" class="menu-item menu-accordion {{ request()->routeIs('dosen.bimbingan*') ? 'here show' : '' }}">
+                    <span class="menu-link">
                         <span class="menu-icon">
                             <i class="fas fa-chalkboard-teacher fs-3"></i>
                         </span>
                         <span class="menu-title">Bimbingan</span>
-                        <span class="menu-badge">
-                            <span class="badge badge-light-primary fs-9 fw-bolder">Segera</span>
-                        </span>
-                    </a>
+                        <span class="menu-arrow"></span>
+                    </span>
+                    <div class="menu-sub menu-sub-accordion">
+                        <div class="menu-item">
+                            <a class="menu-link {{ request()->routeIs('dosen.bimbingan.mahasiswa*') ? 'active' : '' }}" href="{{ route('dosen.bimbingan.mahasiswa') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Mahasiswa Bimbingan</span>
+                            </a>
+                        </div>
+                        <div class="menu-item">
+                            <a class="menu-link {{ request()->routeIs('dosen.bimbingan.pengajuan*') ? 'active' : '' }}" href="{{ route('dosen.bimbingan.pengajuan') }}">
+                                <span class="menu-bullet">
+                                    <span class="bullet bullet-dot"></span>
+                                </span>
+                                <span class="menu-title">Pengajuan Bimbingan</span>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <!-- 3. Riwayat Bimbingan -->
@@ -59,19 +75,6 @@
                             <i class="fas fa-history fs-3"></i>
                         </span>
                         <span class="menu-title">Riwayat Bimbingan</span>
-                        <span class="menu-badge">
-                            <span class="badge badge-light-primary fs-9 fw-bolder">Segera</span>
-                        </span>
-                    </a>
-                </div>
-
-                <!-- 4. Profile (Data Diri Dosen) -->
-                <div class="menu-item">
-                    <a class="menu-link" href="javascript:void(0)" onclick="Swal.fire({icon: 'info', title: 'Data Diri Dosen', text: 'Pengaturan profil akademik, bidang keahlian, dan jadwal konsultasi akan tersedia pada modul berikutnya.', confirmButtonText: 'Tutup', customClass: {confirmButton: 'btn btn-primary'}})">
-                        <span class="menu-icon">
-                            <i class="fas fa-user-tie fs-3"></i>
-                        </span>
-                        <span class="menu-title">Profile Dosen</span>
                         <span class="menu-badge">
                             <span class="badge badge-light-primary fs-9 fw-bolder">Segera</span>
                         </span>
