@@ -182,7 +182,7 @@
             </div>
             <div class="pt-3 mt-3 border-top border-gray-100 d-flex justify-content-between align-items-center fs-8 text-gray-500">
                 <span>Target: <strong>{{ $bab['target_selesai'] }}</strong></span>
-                <i class="fas fa-chevron-right fs-9 text-gray-400"></i>
+                <i class="fas fa-chevron-right fs-9 text-gray-4300"></i>
             </div>
         </div>
     </div>

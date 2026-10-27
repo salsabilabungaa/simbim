@@ -77,7 +77,10 @@
                             </a>
                         </div>
                         <div class="menu-item px-5">
-                            <a href="#" class="menu-link px-5 text-danger">
+                            <form method="POST" action="{{ route('logout') }}" id="header-logout-form" class="d-none">
+                                @csrf
+                            </form>
+                            <a href="#" onclick="event.preventDefault(); document.getElementById('header-logout-form').submit();" class="menu-link px-5 text-danger">
                                 <i class="fas fa-sign-out-alt me-2 text-danger"></i> Sign Out
                             </a>
                         </div>
