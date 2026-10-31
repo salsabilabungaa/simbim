@@ -12,9 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('role')->default('mahasiswa')->after('email');
-            $table->string('nomor_induk')->nullable()->unique()->after('role');
-            $table->string('program_studi')->nullable()->after('nomor_induk');
+            if (! Schema::hasColumn('users', 'role')) {
+                $table->string('role')->default('mahasiswa')->after('email');
+            }
+            if (! Schema::hasColumn('users', 'nomor_induk')) {
+                $table->string('nomor_induk')->nullable()->unique()->after('role');
+            }
+            if (! Schema::hasColumn('users', 'program_studi')) {
+                $table->string('program_studi')->nullable()->after('nomor_induk');
+            }
         });
     }
 
