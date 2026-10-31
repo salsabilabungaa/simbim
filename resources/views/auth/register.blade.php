@@ -39,7 +39,7 @@
                         <input type="radio" class="d-none role-check-input" name="role" value="dosen" id="role_dosen"
                             {{ old('role') === 'dosen' ? 'checked' : '' }} />
                         <div class="role-selector-card rounded-3 p-4 text-center">
-                            <i class="fas fa-chalkboard-teacher fs-2x text-success mb-2 d-block"></i>
+                            <i class="fas fa-chalkboard-teacher fs-2x text-primary mb-2 d-block"></i>
                             <span class="role-title fw-bolder text-dark fs-6 d-block">Dosen</span>
                             <span class="text-gray-500 fs-8 d-block">Dosen Pembimbing & DPA</span>
                         </div>
@@ -188,7 +188,7 @@
         </div>
 
         <!-- Terms & Conditions Checkbox -->
-        <div class="fv-row mb-8">
+        <!-- <div class="fv-row mb-8">
             <label class="form-check form-check-custom form-check-solid form-check-sm align-items-start">
                 <input class="form-check-input mt-1" type="checkbox" name="terms" value="1" {{ old('terms') ? 'checked' : '' }} required />
                 <span class="form-check-label fw-bold text-gray-700 fs-7 ms-2">
@@ -200,7 +200,7 @@
                     {{ $message }}
                 </div>
             @enderror
-        </div>
+        </div> -->
 
         <!-- Submit Button -->
         <div class="text-center">

@@ -74,7 +74,7 @@
             @enderror
         </div>
 
-        <!-- Remember Me Checkbox -->
+        <!-- Remember Me Checkbox
         <div class="d-flex flex-stack mb-8">
             <label class="form-check form-check-custom form-check-solid form-check-sm">
                 <input class="form-check-input" type="checkbox" name="remember" value="1" {{ old('remember') ? 'checked' : '' }} />
@@ -82,7 +82,7 @@
                     Ingat sesi saya di perangkat ini
                 </span>
             </label>
-        </div>
+        </div> -->
 
         <!-- Submit Button -->
         <div class="text-center">

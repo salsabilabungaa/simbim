@@ -23,7 +23,7 @@
                 </p>
             </div>
             <div class="d-flex align-items-center gap-3">
-                <button type="button" class="btn btn-sm btn-primary fw-bolder px-4 py-3 shadow-sm" onclick="aturSlotWaktu()">
+                <button type="button" class="btn btn-sm btn-primary fw-bolder px-4 py-3 shadow-sm" onclick="#">
                     <i class="fas fa-calendar-plus me-1"></i> Atur Kuota & Jadwal Luang
                 </button>
             </div>
@@ -147,8 +147,8 @@
                     <button type="button" class="btn btn-sm btn-outline-primary active filter-status-btn" data-status="all">Semua ({{ count($daftar_pengajuan) }})</button>
                     <button type="button" class="btn btn-sm btn-outline-primary filter-status-btn" data-status="menunggu">Menunggu ({{ $statistik['menunggu_konfirmasi'] }})</button>
                     <button type="button" class="btn btn-sm btn-outline-primary filter-status-btn" data-status="disetujui">Terkonfirmasi ({{ $statistik['terkonfirmasi'] }})</button>
-                    <button type="button" class="btn btn-sm btn-outline-primary filter-status-btn" data-status="ditolak">Reschedule ({{ $statistik['selesai_ditolak'] }})</button>
-                </div>
+                    <!-- <button type="button" class="btn btn-sm btn-outline-primary filter-status-btn" data-status="ditolak">Reschedule ({{ $statistik['selesai_ditolak'] }})</button>
+                </div> -->
             </div>
         </div>
     </div>
@@ -160,7 +160,7 @@
                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0 border-bottom border-gray-300">
                         <th class="min-w-200px">Mahasiswa & Waktu Kirim</th>
                         <th class="min-w-240px">Topik & Lampiran</th>
-                        <th class="min-w-180px">Usulan Jadwal & Ruang</th>
+                        <!-- <th class="min-w-180px">Usulan Jadwal & Ruang</th> -->
                         <th class="min-w-130px">Status</th>
                         <th class="min-w-140px text-end">Aksi Konfirmasi</th>
                     </tr>
@@ -201,7 +201,7 @@
                                 @endif
                             </td>
 
-                            <!-- Usulan Jadwal & Ruang -->
+                            <!-- Usulan Jadwal & Ruang
                             <td>
                                 <div class="fw-bolder text-gray-900 fs-7 mb-1">
                                     <i class="far fa-calendar-alt text-primary me-1"></i> {{ $item['jadwal_usulan'] }}
@@ -212,7 +212,7 @@
                                 <div class="text-muted fs-8">
                                     <i class="fas fa-map-marker-alt me-1 text-danger"></i> {{ $item['tempat'] }}
                                 </div>
-                            </td>
+                            </td> -->
 
                             <!-- Status -->
                             <td>
@@ -225,9 +225,9 @@
                             <td class="text-end">
                                 <div class="d-flex justify-content-end align-items-center gap-1">
                                     @if ($item['status'] === 'menunggu')
-                                        <button type="button" class="btn btn-icon btn-light-success btn-sm" title="Setujui Jadwal" onclick="setujuiJadwal({{ json_encode($item) }})">
+                                        <!-- <button type="button" class="btn btn-icon btn-light-success btn-sm" title="Setujui Jadwal" onclick="setujuiJadwal({{ json_encode($item) }})">
                                             <i class="fas fa-check fs-6"></i>
-                                        </button>
+                                        </button> -->
                                         <button type="button" class="btn btn-icon btn-light-warning btn-sm" title="Jadwalkan Ulang / Reschedule" onclick="bukaModalReschedule({{ json_encode($item) }})">
                                             <i class="fas fa-calendar-alt fs-6"></i>
                                         </button>

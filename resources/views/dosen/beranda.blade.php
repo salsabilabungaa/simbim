@@ -10,17 +10,17 @@
         <div class="d-flex flex-column flex-lg-row align-items-lg-center justify-content-between position-relative z-index-1">
             <div class="mb-4 mb-lg-0">
                 <div class="d-flex align-items-center mb-2 flex-wrap gap-2">
-                    <span class="badge badge-light-success fw-bolder px-3 py-2 fs-8">
-                        <i class="fas fa-chalkboard-teacher me-1 text-success"></i> {{ $dosen['jabatan'] }}
+                    <span class="badge badge-light-primary fw-bolder px-3 py-2 fs-8">
+                        <i class="fas fa-chalkboard-teacher me-1 text-primary"></i> {{ $dosen['jabatan'] }}
                     </span>
                     <span class="badge badge-light-primary fw-bolder px-3 py-2 fs-8">
                         <i class="fas fa-graduation-cap me-1 text-primary"></i> Program Studi {{ $dosen['program_studi'] }}
                     </span>
-                    <span class="badge badge-light-info fw-bolder px-3 py-2 fs-8">
-                        <i class="fas fa-map-marker-alt me-1 text-info"></i> {{ $dosen['ruangan'] }}
+                    <span class="badge badge-light-primary fw-bolder px-3 py-2 fs-8">
+                        <i class="fas fa-map-marker-alt me-1 text-primary"></i> {{ $dosen['ruangan'] }}
                     </span>
-                    <span class="badge badge-light-success fw-bolder px-3 py-2 fs-8">
-                        <i class="fas fa-check-circle me-1 text-success"></i> {{ $dosen['status_hadir'] }}
+                    <span class="badge badge-light-primary fw-bolder px-3 py-2 fs-8">
+                        <i class="fas fa-check-circle me-1 text-primary"></i> {{ $dosen['status_hadir'] }}
                     </span>
                 </div>
                 <h1 class="text-white fw-bolder fs-2x mb-1">
@@ -28,14 +28,14 @@
                 </h1>
                 <p class="text-gray-400 fs-6 fw-semibold mb-0">
                     NIP: <span class="text-white fw-bold me-4">{{ $dosen['nip'] }}</span>
-                    Bidang Keahlian: <span class="text-info fw-bold">{{ $dosen['bidang'] }}</span>
+                    Bidang Keahlian: <span class="text-primary fw-bold">{{ $dosen['bidang'] }}</span>
                 </p>
             </div>
-            <div class="d-flex align-items-center gap-3">
-                <button type="button" class="btn btn-sm btn-primary fw-bolder shadow-sm px-4 py-3" onclick="Swal.fire({icon: 'info', title: 'Atur Jadwal Bimbingan', text: 'Fitur pengaturan slot waktu & kuota bimbingan dosen akan hadir pada rilis berikutnya.', confirmButtonText: 'Tutup', customClass: {confirmButton: 'btn btn-primary'}})">
+            <!-- <div class="d-flex align-items-center gap-3">
+                <button type="button" class="btn btn-sm btn-primary fw-bolder shadow-sm px-4 py-3" onclick="#">
                     <i class="fas fa-calendar-plus me-1"></i> Atur Jadwal Konsultasi
                 </button>
-            </div>
+            </div> -->
         </div>
     </div>
 </div>
@@ -76,9 +76,9 @@
                 <div>
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">MAHASISWA PERWALIAN</span>
-                        <div class="symbol symbol-45px bg-light-success">
+                        <div class="symbol symbol-45px bg-light-primary">
                             <span class="symbol-label">
-                                <i class="fas fa-user-friends text-success fs-2"></i>
+                                <i class="fas fa-user-friends text-primary fs-2"></i>
                             </span>
                         </div>
                     </div>
@@ -89,7 +89,7 @@
                     <div class="text-muted fs-8">Perwalian akademik & evaluasi kartu rencana studi.</div>
                 </div>
                 <div class="pt-4 border-top border-gray-200 d-flex justify-content-between align-items-center mt-3">
-                    <span class="badge badge-light-success fw-bolder fs-8">Dosen Wali (DPA)</span>
+                    <span class="badge badge-light-primary fw-bolder fs-8">Dosen Wali (DPA)</span>
                     <i class="fas fa-arrow-right text-gray-400 fs-7"></i>
                 </div>
             </div>
@@ -130,9 +130,9 @@
                 <div>
                     <div class="d-flex align-items-center justify-content-between mb-3">
                         <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">JADWAL PEKAN INI</span>
-                        <div class="symbol symbol-45px bg-light-info">
+                        <div class="symbol symbol-45px bg-light-primary">
                             <span class="symbol-label">
-                                <i class="fas fa-calendar-check text-info fs-2"></i>
+                                <i class="fas fa-calendar-check text-primary fs-2"></i>
                             </span>
                         </div>
                     </div>
@@ -143,7 +143,7 @@
                     <div class="text-muted fs-8">Konsultasi tatap muka & sesi daring terjadwal.</div>
                 </div>
                 <div class="pt-4 border-top border-gray-200 d-flex justify-content-between align-items-center mt-3">
-                    <span class="badge badge-light-info fw-bolder fs-8">Terorganisir</span>
+                    <span class="badge badge-light-primary fw-bolder fs-8">Terorganisir</span>
                     <i class="fas fa-arrow-right text-gray-400 fs-7"></i>
                 </div>
             </div>
@@ -171,8 +171,8 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link btn btn-active-light-success fw-bolder px-4" data-bs-toggle="tab" href="#kt_tab_perwalian">
-                        <i class="fas fa-user-friends me-1 text-success"></i> Perwalian / DPA ({{ count($mahasiswa_perwalian) }})
+                    <a class="nav-link btn btn-active-light-primary fw-bolder px-4" data-bs-toggle="tab" href="#kt_tab_perwalian">
+                        <i class="fas fa-user-friends me-1 text-primary"></i> Perwalian / DPA ({{ count($mahasiswa_perwalian) }})
                     </a>
                 </li>
             </ul>
@@ -235,7 +235,7 @@
                                         </span>
                                     </td>
                                     <td class="text-end pe-4">
-                                        <button type="button" class="btn btn-sm btn-light-primary fw-bolder fs-8 py-2 px-3" onclick="Swal.fire({icon: 'info', title: 'Detail Mahasiswa', text: 'Ruang diskusi dan review dokumen skripsi {{ $mhs['nama'] }} akan segera aktif.', confirmButtonText: 'Tutup', customClass: {confirmButton: 'btn btn-primary'}})">
+                                        <button type="button" class="btn btn-sm btn-light-primary fw-bolder fs-8 py-2 px-3" onclick="#">
                                             <i class="fas fa-external-link-alt me-1"></i> Review
                                         </button>
                                     </td>
@@ -251,7 +251,7 @@
                 <div class="table-responsive">
                     <table class="table table-row-bordered table-row-gray-200 align-middle gs-0 gy-4">
                         <thead>
-                            <tr class="fw-bolder fs-7 text-gray-600 text-uppercase border-bottom border-gray-200 bg-light-success bg-opacity-25">
+                            <tr class="fw-bolder fs-7 text-gray-600 text-uppercase border-bottom border-gray-200 bg-light-primary bg-opacity-25">
                                 <th class="ps-4 rounded-start min-w-200px">Mahasiswa</th>
                                 <th class="min-w-125px">Angkatan & Semester</th>
                                 <th class="min-w-100px">IPK Kumulatif</th>
@@ -265,7 +265,7 @@
                                 <tr>
                                     <td class="ps-4">
                                         <div class="d-flex align-items-center">
-                                            <div class="symbol symbol-40px symbol-circle bg-light-success text-success fw-bolder me-3 d-flex align-items-center justify-content-center">
+                                            <div class="symbol symbol-40px symbol-circle bg-light-primary text-primary fw-bolder me-3 d-flex align-items-center justify-content-center">
                                                 {{ strtoupper(substr($perwalian['nama'], 0, 1)) }}
                                             </div>
                                             <div class="d-flex flex-column">
@@ -292,7 +292,7 @@
                                         </span>
                                     </td>
                                     <td class="text-end pe-4">
-                                        <button type="button" class="btn btn-sm btn-light-success fw-bolder fs-8 py-2 px-3" onclick="Swal.fire({icon: 'info', title: 'Data Akademik Mahasiswa', text: 'KHS dan KRS mahasiswa perwalian {{ $perwalian['nama'] }} akan terintegrasi pada modul berikutnya.', confirmButtonText: 'Tutup', customClass: {confirmButton: 'btn btn-primary'}})">
+                                        <button type="button" class="btn btn-sm btn-light-primary fw-bolder fs-8 py-2 px-3" onclick="Swal.fire({icon: 'primary', title: 'Data Akademik Mahasiswa', text: 'KHS dan KRS mahasiswa perwalian {{ $perwalian['nama'] }} akan terintegrasi pada modul berikutnya.', confirmButtonText: 'Tutup', customClass: {confirmButton: 'btn btn-primary'}})">
                                             <i class="fas fa-eye me-1"></i> Detail
                                         </button>
                                     </td>
@@ -327,7 +327,7 @@
                                 <span class="badge badge-light-{{ $jadwal['badge'] }} fw-bolder fs-8">
                                     {{ $jadwal['jenis'] }}
                                 </span>
-                                <span class="badge badge-success fw-bolder fs-9">{{ $jadwal['status'] }}</span>
+                                <span class="badge badge-primary fw-bolder fs-9">{{ $jadwal['status'] }}</span>
                             </div>
                             <div class="fw-bolder text-dark fs-6 mb-1">{{ $jadwal['mahasiswa'] }} ({{ $jadwal['nim'] }})</div>
                             <div class="text-muted fs-7 mb-3">{{ $jadwal['topik'] }}</div>
@@ -352,7 +352,7 @@
             <div class="card-header border-0 pt-6">
                 <h3 class="card-title align-items-start flex-column">
                     <span class="fw-bolder text-dark fs-5">
-                        <i class="fas fa-history text-success me-2"></i> Aktivitas & Log Bimbingan
+                        <i class="fas fa-history text-primary me-2"></i> Aktivitas & Log Bimbingan
                     </span>
                     <span class="text-muted fs-8 mt-1">Pemberitahuan unggahan draf, revisi, dan pengajuan terbaru</span>
                 </h3>

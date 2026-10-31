@@ -99,14 +99,14 @@
 
                 <!-- Bottom Footer -->
                 <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center text-gray-500 fs-8 mt-8 px-2 gap-3">
-                    <span>&copy; {{ date('Y') }} SIMBIM &bull; Universitas Syiah Kuala</span>
-                    <div class="d-flex align-items-center gap-4">
+                    <span>&copy; {{ date('Y') }} SIMBIM &bull; PSTI</span>
+                    <!-- <div class="d-flex align-items-center gap-4">
                         <a href="javascript:void(0)" class="text-gray-500 text-hover-primary">Bantuan & FAQ</a>
                         <span class="bullet bullet-dot bg-gray-400"></span>
                         <a href="javascript:void(0)" class="text-gray-500 text-hover-primary">Panduan</a>
                         <span class="bullet bullet-dot bg-gray-400"></span>
                         <a href="javascript:void(0)" class="text-gray-500 text-hover-primary">Kontak Admin</a>
-                    </div>
+                    </div> -->
                 </div>
             </div>
         </div>

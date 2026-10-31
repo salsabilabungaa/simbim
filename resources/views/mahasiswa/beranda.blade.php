@@ -25,8 +25,8 @@
                 </h1>
                 <p class="text-gray-400 fs-6 fw-semibold mb-0">
                     NIM: <span class="text-white fw-bold me-4">{{ $mahasiswa['nim'] }}</span>
-                    Pembimbing: <span class="text-info fw-bold me-4">{{ $dosen_pembimbing['nama'] }}</span>
-                    Dosen Wali: <span class="text-success fw-bold">{{ $dosen_wali['nama'] }}</span>
+                    <!-- Pembimbing: <span class="text-info fw-bold me-4">{{ $dosen_pembimbing['nama'] }}</span>
+                    Dosen Wali: <span class="text-success fw-bold">{{ $dosen_wali['nama'] }}</span> -->
                 </p>
             </div>
         </div>
