@@ -43,16 +43,11 @@ class AuthenticationTest extends TestCase
         $response->assertSee('Masuk ke SIMBIM');
     }
 
-    public function test_halaman_register_dapat_diakses(): void
+    public function test_halaman_register_tidak_tersedia(): void
     {
         $response = $this->get('/register');
 
-        $response->assertStatus(200);
-        $response->assertSee('Pendaftaran Akun');
-        $response->assertSee('Nama Lengkap');
-        $response->assertSee('Mahasiswa');
-        $response->assertSee('Dosen');
-        $response->assertSee('Daftar Akun Sekarang');
+        $response->assertStatus(404);
     }
 
     public function test_pengguna_dapat_login_dengan_email(): void
@@ -103,29 +98,6 @@ class AuthenticationTest extends TestCase
         $response->assertSessionHasErrors('login');
     }
 
-    public function test_pendaftaran_akun_baru_berhasil(): void
-    {
-        $response = $this->post('/register', [
-            'name' => 'Budi Santoso',
-            'role' => 'mahasiswa',
-            'nomor_induk' => '2108107010088',
-            'email' => 'budi.santoso@mhs.usk.ac.id',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
-            'terms' => '1',
-        ]);
-
-        $this->assertDatabaseHas('users', [
-            'email' => 'budi.santoso@mhs.usk.ac.id',
-            'nomor_induk' => '2108107010088',
-            'role' => 'mahasiswa',
-            'program_studi' => 'PSTI (Pendidikan Sistem dan Teknologi Informasi)',
-        ]);
-
-        $this->assertAuthenticated();
-        $response->assertRedirect(route('mahasiswa.beranda'));
-    }
-
     public function test_login_mahasiswa_simbim_diarahkan_ke_dashboard_mahasiswa(): void
     {
         $response = $this->post('/login', [
@@ -138,10 +110,34 @@ class AuthenticationTest extends TestCase
         $response->assertRedirect(route('mahasiswa.beranda'));
     }
 
+    public function test_login_mahasiswa_simbim_dengan_nim(): void
+    {
+        $response = $this->post('/login', [
+            'login' => '2108107010001',
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $this->assertEquals('mahasiswa', auth()->user()->role);
+        $response->assertRedirect(route('mahasiswa.beranda'));
+    }
+
     public function test_login_dosen_simbim_diarahkan_ke_dashboard_dosen(): void
     {
         $response = $this->post('/login', [
             'login' => 'dosen@simbim.ac.id',
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $this->assertEquals('dosen', auth()->user()->role);
+        $response->assertRedirect(route('dosen.beranda'));
+    }
+
+    public function test_login_dosen_simbim_dengan_nip(): void
+    {
+        $response = $this->post('/login', [
+            'login' => '198503152010122001',
             'password' => 'password',
         ]);
 
@@ -183,29 +179,6 @@ class AuthenticationTest extends TestCase
         ]);
 
         $this->assertAuthenticatedAs($dosen);
-        $response->assertRedirect(route('dosen.beranda'));
-    }
-
-    public function test_pendaftaran_dosen_berhasil_dan_diarahkan_ke_dashboard_dosen(): void
-    {
-        $response = $this->post('/register', [
-            'name' => 'Dr. Ir. Hendra, M.T.',
-            'role' => 'dosen',
-            'nomor_induk' => '198701012012121001',
-            'program_studi' => 'Informatika',
-            'email' => 'hendra@usk.ac.id',
-            'password' => 'password123',
-            'password_confirmation' => 'password123',
-            'terms' => '1',
-        ]);
-
-        $this->assertDatabaseHas('users', [
-            'email' => 'hendra@usk.ac.id',
-            'nomor_induk' => '198701012012121001',
-            'role' => 'dosen',
-        ]);
-
-        $this->assertAuthenticated();
         $response->assertRedirect(route('dosen.beranda'));
     }
 

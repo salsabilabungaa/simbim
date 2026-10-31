@@ -7,11 +7,8 @@
     <!-- Header Heading -->
     <div class="text-center mb-9">
         <h2 class="text-dark fw-bolder fs-2 mb-2">Selamat Datang</h2>
-        <div class="text-gray-500 fw-bold fs-6">
-            Belum memiliki akun?
-            <a href="{{ route('register') }}" class="link-primary fw-bolder text-decoration-none ms-1">
-                Daftar Sekarang
-            </a>
+        <div class="text-gray-500 fw-semibold fs-6">
+            Silakan masuk dengan akun SIMBIM Anda
         </div>
     </div>
 
