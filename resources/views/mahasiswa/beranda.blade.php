@@ -4,6 +4,14 @@
 @section('page-title', 'Dashboard')
 
 @section('content')
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center p-4 mb-5 shadow-sm" role="alert">
+        <i class="fas fa-check-circle fs-3 text-success me-3"></i>
+        <div class="fw-bold fs-7">{{ session('success') }}</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
 <!-- 1. Banner Greeting Hero (Sapaan Awal Mahasiswa) -->
 <div class="card mb-7 shadow-sm border-0 overflow-hidden" style="background: linear-gradient(135deg, #1e1e2d 0%, #1b1b28 50%, #2b2b40 100%);">
     <div class="card-body p-7 p-lg-9 position-relative">
@@ -50,8 +58,8 @@
                     </div>
                     <div class="d-flex align-items-baseline mb-2">
                         <span class="fs-3x fw-bolder text-dark me-3">{{ $bab['persen'] }}%</span>
-                        <span class="badge badge-light-success fs-8 fw-bolder">
-                            <i class="fas fa-arrow-up me-1 text-success"></i> +7% bulan ini
+                        <span class="badge badge-light-{{ $bab['badge_delta_color'] ?? 'success' }} fs-8 fw-bolder">
+                            {{ $bab['badge_delta'] ?? '+7% bulan ini' }}
                         </span>
                     </div>
                     <div class="progress h-10px bg-light-primary mb-3 rounded-pill">
@@ -64,7 +72,7 @@
                 </div>
                 <div class="pt-4 mt-3 border-top border-gray-200 d-flex justify-content-between align-items-center">
                     <span class="text-gray-500 fs-8 fw-bold">Target Selesai: {{ $bab['target_selesai'] }}</span>
-                    <span class="badge badge-light-primary fw-bolder fs-8">65 dari 100%</span>
+                    <span class="badge badge-light-primary fw-bolder fs-8">{{ $bab['persen'] }} dari 100%</span>
                 </div>
             </div>
         </div>
@@ -86,7 +94,7 @@
                     <div class="d-flex align-items-baseline mb-3">
                         <span class="fs-3x fw-bolder text-dark me-2">{{ $rekapan_bimbingan['total_bulan_ini'] }}</span>
                         <span class="fs-6 text-muted fw-bold">Total Sesi</span>
-                        <span class="badge badge-light-success ms-auto fw-bolder fs-8 px-2.5 py-1">
+                        <span class="badge badge-light-{{ $rekapan_bimbingan['badge_kuota'] ?? 'success' }} ms-auto fw-bolder fs-8 px-2.5 py-1">
                             {{ $rekapan_bimbingan['status_kuota'] }}
                         </span>
                     </div>
@@ -96,10 +104,10 @@
                             <span class="fw-bolder fs-7 text-dark">
                                 <i class="fas fa-book-reader text-primary me-1"></i> Bimbingan Skripsi
                             </span>
-                            <span class="badge badge-light-success fw-bolder fs-8">{{ $rekapan_bimbingan['skripsi']['status'] }}</span>
+                            <span class="badge badge-light-{{ $rekapan_bimbingan['skripsi']['badge'] ?? 'success' }} fw-bolder fs-8">{{ $rekapan_bimbingan['skripsi']['status'] }}</span>
                         </div>
                         <div class="progress h-6px bg-light-primary rounded-pill">
-                            <div class="progress-bar bg-primary rounded-pill" style="width: 100%"></div>
+                            <div class="progress-bar bg-primary rounded-pill" style="width: {{ $rekapan_bimbingan['skripsi']['persen'] }}%"></div>
                         </div>
                     </div>
 
@@ -108,10 +116,10 @@
                             <span class="fw-bolder fs-7 text-dark">
                                 <i class="fas fa-user-graduate text-info me-1"></i> Bimbingan Akademik
                             </span>
-                            <span class="badge badge-light-info fw-bolder fs-8">{{ $rekapan_bimbingan['akademik']['status'] }}</span>
+                            <span class="badge badge-light-{{ $rekapan_bimbingan['akademik']['badge'] ?? 'info' }} fw-bolder fs-8">{{ $rekapan_bimbingan['akademik']['status'] }}</span>
                         </div>
                         <div class="progress h-6px bg-light-info rounded-pill">
-                            <div class="progress-bar bg-info rounded-pill" style="width: 100%"></div>
+                            <div class="progress-bar bg-info rounded-pill" style="width: {{ $rekapan_bimbingan['akademik']['persen'] }}%"></div>
                         </div>
                     </div>
                 </div>
@@ -151,7 +159,11 @@
                     </div>
                     <div class="d-flex align-items-center mb-2.5">
                         <i class="fas fa-envelope text-danger me-3 fs-6 w-20px"></i>
-                        <a href="mailto:{{ $dosen_pembimbing['email'] }}" class="text-primary text-hover-underline fs-7 fw-bold">{{ $dosen_pembimbing['email'] }}</a>
+                        @if (! empty($dosen_pembimbing['email']) && $dosen_pembimbing['email'] !== '-')
+                            <a href="mailto:{{ $dosen_pembimbing['email'] }}" class="text-primary text-hover-underline fs-7 fw-bold">{{ $dosen_pembimbing['email'] }}</a>
+                        @else
+                            <span class="text-muted fs-7">-</span>
+                        @endif
                     </div>
                     <div class="d-flex align-items-center mb-2.5">
                         <i class="fas fa-phone-alt text-success me-3 fs-6 w-20px"></i>
@@ -195,7 +207,11 @@
                     </div>
                     <div class="d-flex align-items-center mb-2.5">
                         <i class="fas fa-envelope text-danger me-3 fs-6 w-20px"></i>
-                        <a href="mailto:{{ $dosen_wali['email'] }}" class="text-primary text-hover-underline fs-7 fw-bold">{{ $dosen_wali['email'] }}</a>
+                        @if (! empty($dosen_wali['email']) && $dosen_wali['email'] !== '-')
+                            <a href="mailto:{{ $dosen_wali['email'] }}" class="text-primary text-hover-underline fs-7 fw-bold">{{ $dosen_wali['email'] }}</a>
+                        @else
+                            <span class="text-muted fs-7">-</span>
+                        @endif
                     </div>
                     <div class="d-flex align-items-center mb-2.5">
                         <i class="fas fa-phone-alt text-success me-3 fs-6 w-20px"></i>
@@ -226,7 +242,7 @@
     </div>
     <div class="card-body pt-3">
         <div class="d-flex flex-column gap-4">
-            @foreach ($feedback_terbaru as $fb)
+            @forelse ($feedback_terbaru as $fb)
             <div class="p-5 rounded-3 bg-light border border-gray-200">
                 <div class="d-flex align-items-center justify-content-between mb-2">
                     <div class="d-flex align-items-center">
@@ -248,7 +264,14 @@
                     "{{ $fb['catatan'] }}"
                 </p>
             </div>
-            @endforeach
+            @empty
+            <div class="p-6 text-center rounded-3 bg-light border border-dashed border-gray-300">
+                <div class="text-muted fw-semibold fs-7 mb-2">Belum ada feedback atau catatan dosen pembimbing.</div>
+                <a href="{{ route('mahasiswa.bimbingan-skripsi') }}" class="btn btn-sm btn-light-primary fw-bolder">
+                    <i class="fas fa-file-upload me-1"></i> Mulai di Bimbingan Skripsi
+                </a>
+            </div>
+            @endforelse
         </div>
     </div>
 </div>

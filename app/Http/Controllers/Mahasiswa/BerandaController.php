@@ -2,50 +2,169 @@
 
 namespace App\Http\Controllers\Mahasiswa;
 
-use App\Http\Controllers\Controller;
+use App\Models\KonsultasiAkademik;
+use App\Models\SkripsiDokumen;
+use App\Models\SkripsiDokumenKomentar;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\Auth;
 
-class BerandaController extends Controller
+class BerandaController extends BaseMahasiswaController
 {
     public function index(): View
     {
+        $user = Auth::user();
+        $context = $this->resolveMahasiswaContext($user);
+        $perwalian = $context['perwalian'];
+        $dokumen = $context['dokumen'];
+        $isPersistedStudent = $context['is_persisted_student'];
+        $ruangProdi = (string) config('simbim.ruang_prodi');
+
+        $dosenPembimbing = $this->resolveDosenPembimbing(false, $dokumen, $isPersistedStudent);
+        $dosenWali = $this->resolveDosenWali($perwalian, $isPersistedStudent, $user);
+
+        if ($isPersistedStudent) {
+            $konsultasiLogs = $this->fetchMahasiswaKonsultasi($perwalian, $user);
+            $akademikTotal = $konsultasiLogs->count();
+            $skripsiTotal = (int) ($dokumen?->jumlah_sesi ?? 0);
+            $totalSesi = $skripsiTotal + $akademikTotal;
+
+            $skripsiPersen = $skripsiTotal > 0 ? min(100, (int) round(($skripsiTotal / 4) * 100)) : 0;
+            $akademikPersen = $akademikTotal > 0 ? min(100, (int) round(($akademikTotal / 2) * 100)) : 0;
+
+            [$statusKuota, $badgeKuota] = match (true) {
+                $totalSesi === 0 => ['Belum Ada Sesi', 'secondary'],
+                $totalSesi >= 6 => ['Bulan Ini Terpenuhi', 'success'],
+                default => ['Dalam Progres', 'primary'],
+            };
+
+            if ($dokumen !== null) {
+                $bab = [
+                    'posisi' => $dokumen->bab_aktif,
+                    'persen' => (int) $dokumen->progres_persen,
+                    'keterangan' => $dokumen->catatan_akhir_dosen
+                        ?: ('Draf '.$dokumen->nama_file.' ('.$dokumen->versi.') — '.$dokumen->status_draf),
+                    'target_selesai' => 'Diperbarui '.($dokumen->updated_at?->translatedFormat('d M Y') ?? '-'),
+                    'badge_delta' => $dokumen->status_draf,
+                    'badge_delta_color' => $dokumen->badge_status ?: SkripsiDokumen::badgeForStatus($dokumen->status_draf),
+                ];
+
+                $feedbackTerbaru = $dokumen->komentars
+                    ->sortByDesc('id')
+                    ->take(3)
+                    ->map(fn (SkripsiDokumenKomentar $kom): array => [
+                        'dosen' => $kom->user?->name ?? $dosenPembimbing['nama'],
+                        'bab' => $kom->lokasi_dokumen ?: $dokumen->bab_aktif,
+                        'tanggal' => $kom->created_at?->translatedFormat('d M Y - H:i') ?? '-',
+                        'catatan' => $kom->isi_komentar,
+                        'status' => $kom->is_resolved ? 'Selesai' : $kom->status,
+                        'badge' => $kom->is_resolved ? 'success' : SkripsiDokumenKomentar::badgeForStatus($kom->status),
+                    ])
+                    ->values()
+                    ->all();
+
+                if ($feedbackTerbaru === [] && ! empty($dokumen->catatan_akhir_dosen)) {
+                    $feedbackTerbaru = [
+                        [
+                            'dosen' => $dosenPembimbing['nama'],
+                            'bab' => $dokumen->bab_aktif,
+                            'tanggal' => $dokumen->updated_at?->translatedFormat('d M Y - H:i') ?? '-',
+                            'catatan' => $dokumen->catatan_akhir_dosen,
+                            'status' => $dokumen->status_draf,
+                            'badge' => $dokumen->badge_status ?: 'warning',
+                        ],
+                    ];
+                }
+            } else {
+                $bab = [
+                    'posisi' => 'Belum Ada Draf Skripsi',
+                    'persen' => 0,
+                    'keterangan' => 'Belum ada unggahan draf skripsi atau pengajuan bimbingan tugas akhir pada akun ini.',
+                    'target_selesai' => 'Belum Ditentukan',
+                    'badge_delta' => 'Belum Dimulai',
+                    'badge_delta_color' => 'secondary',
+                ];
+                $feedbackTerbaru = [];
+            }
+
+            $notifikasi = [];
+            if ($dokumen !== null && $dokumen->komentars->isNotEmpty()) {
+                $latestKom = $dokumen->komentars->sortByDesc('id')->first();
+                $notifikasi[] = [
+                    'judul' => 'Komentar review pada '.$latestKom->lokasi_dokumen,
+                    'waktu' => $latestKom->created_at?->diffForHumans() ?? 'Baru saja',
+                ];
+            }
+            if ($konsultasiLogs->isNotEmpty()) {
+                $latestLog = $konsultasiLogs->first();
+                $notifikasi[] = [
+                    'judul' => $latestLog->topik.' ('.$latestLog->status_sesi.')',
+                    'waktu' => $latestLog->tanggal_konsultasi?->translatedFormat('d M Y') ?? 'Baru saja',
+                ];
+            }
+            if ($notifikasi === []) {
+                $notifikasi[] = [
+                    'judul' => 'Akun mahasiswa aktif — belum ada riwayat sesi atau draf bimbingan',
+                    'waktu' => 'Hari ini',
+                ];
+            }
+
+            return view('mahasiswa.beranda', [
+                'mahasiswa' => $context['mahasiswa'],
+                'dosen_pembimbing' => $dosenPembimbing,
+                'dosen_wali' => $dosenWali,
+                'bab' => $bab,
+                'rekapan_bimbingan' => [
+                    'skripsi' => [
+                        'label' => 'Bimbingan Skripsi',
+                        'total' => $skripsiTotal,
+                        'target' => 4,
+                        'persen' => $skripsiPersen,
+                        'status' => $skripsiTotal.' Sesi Terlaksana',
+                        'badge' => $skripsiTotal > 0 ? 'success' : 'secondary',
+                    ],
+                    'akademik' => [
+                        'label' => 'Bimbingan Akademik',
+                        'total' => $akademikTotal,
+                        'target' => 2,
+                        'persen' => $akademikPersen,
+                        'status' => $akademikTotal.' Sesi Terlaksana',
+                        'badge' => $akademikTotal > 0 ? 'info' : 'secondary',
+                    ],
+                    'total_bulan_ini' => $totalSesi,
+                    'status_kuota' => $statusKuota,
+                    'badge_kuota' => $badgeKuota,
+                ],
+                'pertemuan' => [
+                    'judul' => $dokumen?->bab_aktif ?? ($konsultasiLogs->first()?->topik ?? 'Belum ada jadwal bimbingan'),
+                    'tanggal' => 'Belum Terjadwal',
+                    'waktu' => '-',
+                    'tempat' => $ruangProdi,
+                    'tipe' => '-',
+                    'sisa' => 'Menunggu Jadwal',
+                    'status' => 'Menunggu Pengajuan',
+                    'is_h1' => false,
+                ],
+                'feedback_terbaru' => $feedbackTerbaru,
+                'notifikasi' => $notifikasi,
+            ]);
+        }
+
+        $akademikTotal = $perwalian ? KonsultasiAkademik::where('perwalian_mahasiswa_id', $perwalian->id)->count() : 2;
+        if ($akademikTotal === 0) {
+            $akademikTotal = 2;
+        }
+
         return view('mahasiswa.beranda', [
-            'mahasiswa' => [
-                'nama' => 'Andi Pratama',
-                'nim' => '2108107010001',
-                'status' => 'Mahasiswa Aktif',
-                'program_studi' => 'Informatika',
-                'semester' => 'Semester 7',
-                'pembimbing' => 'Dr. Siti Rahmawati, M.Kom.',
-                'sapaan' => 'Selamat Pagi',
-            ],
-            'dosen_pembimbing' => [
-                'nama' => 'Dr. Siti Rahmawati, M.Kom.',
-                'nip' => '19850315 201012 2 001',
-                'jabatan' => 'Lektor Kepala — Pembimbing Utama',
-                'bidang' => 'Software Engineering & Intelligence Systems',
-                'email' => 'siti.rahmawati@usk.ac.id',
-                'telepon' => '+62 812-6900-8821',
-                'ruangan' => 'Gedung Fasilkom Lt. 2 R.204',
-                'status_hadir' => 'Tersedia di Kampus',
-                'badge_status' => 'success',
-            ],
-            'dosen_wali' => [
-                'nama' => 'Prof. Dr. Ir. Ahmad Rizal, M.T.',
-                'nip' => '19780512 200312 1 002',
-                'jabatan' => 'Guru Besar — Dosen Wali Akademik',
-                'bidang' => 'Distributed Systems & Cloud Computing',
-                'email' => 'ahmad.rizal@usk.ac.id',
-                'telepon' => '+62 811-6800-4321',
-                'ruangan' => 'Gedung Fasilkom Lt. 3 R.302',
-                'status_hadir' => 'Tersedia di Kampus',
-                'badge_status' => 'success',
-            ],
+            'mahasiswa' => $context['mahasiswa'],
+            'dosen_pembimbing' => $dosenPembimbing,
+            'dosen_wali' => $dosenWali,
             'bab' => [
                 'posisi' => 'Bab III — Metodologi Penelitian',
                 'persen' => 65,
                 'keterangan' => 'Draft revisi ke-2 sedang dikaji oleh dosen pembimbing.',
                 'target_selesai' => '25 Oktober 2026',
+                'badge_delta' => '+7% bulan ini',
+                'badge_delta_color' => 'success',
             ],
             'rekapan_bimbingan' => [
                 'skripsi' => [
@@ -58,48 +177,25 @@ class BerandaController extends Controller
                 ],
                 'akademik' => [
                     'label' => 'Bimbingan Akademik',
-                    'total' => 2,
+                    'total' => $akademikTotal,
                     'target' => 2,
                     'persen' => 100,
-                    'status' => '2 Sesi Terlaksana',
+                    'status' => $akademikTotal.' Sesi Terlaksana',
                     'badge' => 'info',
                 ],
-                'total_bulan_ini' => 6,
+                'total_bulan_ini' => 4 + $akademikTotal,
                 'status_kuota' => 'Bulan Ini Terpenuhi',
+                'badge_kuota' => 'success',
             ],
             'pertemuan' => [
                 'judul' => 'Bimbingan Bab III (Metodologi & Data)',
                 'tanggal' => 'Kamis, 9 Oktober 2026',
                 'waktu' => '09.00 – 10.30 WIB',
-                'tempat' => 'Ruang Dosen 2.04 / Google Meet',
+                'tempat' => $ruangProdi.' / Google Meet',
                 'tipe' => 'Luring / Tatap Muka',
                 'sisa' => 'Besok, 09:00 WIB (H-1)',
                 'status' => 'Dikonfirmasi',
                 'is_h1' => true,
-            ],
-            'dokumen' => [
-                [
-                    'nama' => 'Bab3_Metodologi_Revisi2.pdf',
-                    'waktu' => '2 jam yang lalu',
-                    'status' => 'Menunggu Tinjauan',
-                    'badge' => 'warning',
-                ],
-                [
-                    'nama' => 'Instrumen_Pengujian.docx',
-                    'waktu' => 'Kemarin',
-                    'status' => 'Perlu Perbaikan',
-                    'badge' => 'danger',
-                ],
-                [
-                    'nama' => 'Bab2_Tinjauan_Pustaka_ACC.pdf',
-                    'waktu' => '4 hari yang lalu',
-                    'status' => 'Disetujui',
-                    'badge' => 'success',
-                ],
-            ],
-            'progres_bulanan' => [
-                'labels' => ['Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt'],
-                'data' => [15, 30, 42, 50, 58, 65],
             ],
             'feedback_terbaru' => [
                 [
@@ -117,32 +213,6 @@ class BerandaController extends Controller
                     'catatan' => 'Struktur referensi sudah sangat baik dan sesuai format IEEE 2026. Lanjutkan ke penyusunan sampel instrumen.',
                     'status' => 'Disetujui',
                     'badge' => 'success',
-                ],
-            ],
-            'aktivitas' => [
-                [
-                    'waktu' => '08:42',
-                    'warna' => 'success',
-                    'judul' => 'Dokumen Bab II Disetujui',
-                    'deskripsi' => 'Dr. Siti Rahmawati menyetujui Bab II Tinjauan Pustaka.',
-                ],
-                [
-                    'waktu' => '10:15',
-                    'warna' => 'primary',
-                    'judul' => 'Feedback Baru Diterima',
-                    'deskripsi' => 'Catatan revisi untuk Bab III telah ditambahkan pembimbing.',
-                ],
-                [
-                    'waktu' => '13:20',
-                    'warna' => 'warning',
-                    'judul' => 'Draft Bab III Diunggah',
-                    'deskripsi' => 'Anda telah mengunggah berkas Bab3_Metodologi_Revisi2.pdf.',
-                ],
-                [
-                    'waktu' => '15:05',
-                    'warna' => 'info',
-                    'judul' => 'Jadwal Bimbingan Dikonfirmasi',
-                    'deskripsi' => 'Pertemuan bimbingan Kamis, 9 Okt 2026 dikonfirmasi.',
                 ],
             ],
             'notifikasi' => [

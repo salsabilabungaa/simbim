@@ -19,7 +19,7 @@
                 </div>
                 <h1 class="text-white fw-bolder fs-2x mb-1">Riwayat & Logbook Bimbingan</h1>
                 <p class="text-gray-400 fs-6 fw-semibold mb-0">
-                    Arsip rekam jejak pelaksanaan bimbingan skripsi dan konsultasi perwalian akademik mahasiswa secara terpadu.
+                    Arsip rekam jejak pelaksanaan bimbingan skripsi dan konsultasi perwalian akademik mahasiswa {{ config('simbim.prodi') }} &mdash; {{ config('simbim.universitas') }}.
                 </p>
             </div>
             <div class="d-flex align-items-center gap-3">
@@ -141,14 +141,14 @@
                 </div>
             </div>
             <div class="col-md-3">
-                <select id="filter_kategori_riwayat" class="form-select form-select-solid bg-light border-0 fs-7" onchange="filterTabelLogbook()">
+                <select id="filter_kategori_riwayat" class="form-select form-select-solid bg-light border-0 fs-7" data-control="select2" data-placeholder="Semua Kategori (Skripsi & Akademik)" onchange="filterTabelLogbook()">
                     <option value="">Semua Kategori (Skripsi & Akademik)</option>
                     <option value="skripsi">Bimbingan Skripsi</option>
                     <option value="akademik">Perwalian Akademik</option>
                 </select>
             </div>
             <div class="col-md-3">
-                <select id="filter_status_riwayat" class="form-select form-select-solid bg-light border-0 fs-7" onchange="filterTabelLogbook()">
+                <select id="filter_status_riwayat" class="form-select form-select-solid bg-light border-0 fs-7" data-control="select2" data-placeholder="Semua Status Sesi" onchange="filterTabelLogbook()">
                     <option value="">Semua Status Sesi</option>
                     <option value="ACC">ACC</option>
                     <option value="Selesai">Selesai</option>
@@ -180,7 +180,7 @@
 
     <div class="card-body pt-2">
         <div class="table-responsive">
-            <table class="table align-middle table-row-dashed fs-7 gy-4" id="tabel_riwayat_dosen">
+            <table class="table align-middle table-row-dashed fs-7 gy-4" id="tabel_riwayat_dosen" data-simbim-paginate="6" data-row-selector="tbody tr.row-logbook" data-pager-id="pager_riwayat_dosen" data-info-id="info_riwayat_dosen" data-counter-id="counter_logbook" data-counter-suffix="Sesi">
                 <thead>
                     <tr class="text-start text-muted fw-bolder fs-8 text-uppercase ls-1 bg-light">
                         <th class="ps-4 min-w-40px rounded-start">NO</th>
@@ -289,8 +289,19 @@
                             </td>
                         </tr>
                     @endforelse
+                    @if (count($riwayat) > 0)
+                        <tr data-simbim-empty="1" style="display: none;">
+                            <td colspan="9" class="text-center py-8 text-muted fw-semibold">
+                                Tidak ada sesi logbook bimbingan yang sesuai pencarian atau filter.
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 pt-4 border-top border-gray-200 mt-3">
+            <span class="text-muted fs-7 fw-semibold" id="info_riwayat_dosen"></span>
+            <div id="pager_riwayat_dosen"></div>
         </div>
     </div>
 </div>
@@ -314,7 +325,7 @@
                     <div>
                         <h4 class="fw-bolder text-gray-900 mb-1" id="modal_logbook_nama">-</h4>
                         <div class="text-muted fs-8">
-                            <span id="modal_logbook_nim">-</span> &bull; <span id="modal_logbook_prodi">PSTI</span> &bull; Angkatan <span id="modal_logbook_angkatan">-</span>
+                            <span id="modal_logbook_nim">-</span> &bull; <span id="modal_logbook_prodi">{{ config('simbim.prodi') }}</span> &bull; Angkatan <span id="modal_logbook_angkatan">-</span>
                         </div>
                     </div>
                 </div>
@@ -384,7 +395,7 @@
                 <form id="form_cetak_logbook" onsubmit="submitCetakLogbook(event)">
                     <div class="mb-4">
                         <label class="form-label fw-bolder text-gray-700 fs-7 required">Pilih Mahasiswa</label>
-                        <select class="form-select form-select-solid" id="cetak_pilih_mhs" required>
+                        <select class="form-select form-select-solid" id="cetak_pilih_mhs" data-control="select2" data-dropdown-parent="#modal_cetak_logbook" data-placeholder="Pilih Mahasiswa" required>
                             <option value="semua">Semua Mahasiswa Bimbingan (Rekap Lengkap Dosen)</option>
                             <option value="2108107010001">Andi Pratama (2108107010001) - Skripsi</option>
                             <option value="2108107010034">Cut Nadia Zahra (2108107010034) - Skripsi</option>
@@ -397,14 +408,14 @@
                     <div class="row g-3 mb-4">
                         <div class="col-sm-6">
                             <label class="form-label fw-bolder text-gray-700 fs-7 required">Tahun Akademik</label>
-                            <select class="form-select form-select-solid" id="cetak_semester">
+                            <select class="form-select form-select-solid" id="cetak_semester" data-control="select2" data-dropdown-parent="#modal_cetak_logbook" data-placeholder="Pilih Tahun Akademik">
                                 <option value="2026_genap" selected>Genap 2026/2027</option>
                                 <option value="2026_ganjil">Ganjil 2026/2027</option>
                             </select>
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label fw-bolder text-gray-700 fs-7 required">Format Dokumen</label>
-                            <select class="form-select form-select-solid" id="cetak_format">
+                            <select class="form-select form-select-solid" id="cetak_format" data-control="select2" data-dropdown-parent="#modal_cetak_logbook" data-placeholder="Pilih Format Dokumen">
                                 <option value="pdf" selected>PDF Resmi (Siap Tanda Tangan)</option>
                                 <option value="excel">Excel (.xlsx)</option>
                             </select>
@@ -433,7 +444,6 @@
         const status = document.getElementById('filter_status_riwayat').value;
 
         const rows = document.querySelectorAll('#tabel_riwayat_dosen tbody tr.row-logbook');
-        let visibleCount = 0;
 
         rows.forEach(row => {
             const rowKategori = row.getAttribute('data-kategori');
@@ -444,21 +454,16 @@
             const matchesStatus = (!status || rowStatus === status);
             const matchesQuery = (!query || rowSearch.includes(query));
 
-            if (matchesKategori && matchesStatus && matchesQuery) {
-                row.style.display = '';
-                visibleCount++;
-            } else {
-                row.style.display = 'none';
-            }
+            row.setAttribute('data-simbim-filtered', (matchesKategori && matchesStatus && matchesQuery) ? '1' : '0');
         });
 
-        document.getElementById('counter_logbook').innerText = 'Menampilkan ' + visibleCount + ' Sesi';
+        window.SimbimUI?.refreshPagination('tabel_riwayat_dosen', true);
     }
 
     function resetFilterLogbook() {
         document.getElementById('filter_search_riwayat').value = '';
-        document.getElementById('filter_kategori_riwayat').value = '';
-        document.getElementById('filter_status_riwayat').value = '';
+        window.SimbimUI?.syncSelect2Value('#filter_kategori_riwayat', '');
+        window.SimbimUI?.syncSelect2Value('#filter_status_riwayat', '');
         filterTabelLogbook();
     }
 

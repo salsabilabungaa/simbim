@@ -19,7 +19,17 @@ return Application::configure(basePath: dirname(__DIR__))
 
         $middleware->redirectTo(
             guests: '/login',
-            users: fn () => auth()->user()?->role === 'dosen' ? '/dosen/beranda' : '/mahasiswa/beranda',
+            users: function (): string {
+                $role = auth()->user()?->role;
+
+                return match ($role) {
+                    'admin' => '/admin/beranda',
+                    'dosen' => '/dosen/beranda',
+                    'dewan_skripsi' => '/dewan-skripsi/beranda',
+                    'gkm' => '/gkm/beranda',
+                    default => '/mahasiswa/beranda',
+                };
+            },
         );
     })
     ->withExceptions(function (Exceptions $exceptions): void {

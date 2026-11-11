@@ -33,10 +33,10 @@
                             <h3 class="text-white fw-bolder mb-1 fs-5">
                                 <i class="fas fa-bell text-warning me-2"></i> Notifikasi
                             </h3>
-                            <span class="text-gray-400 fs-7">{{ count($notifikasi) }} pemberitahuan terbaru</span>
+                            <span class="text-gray-400 fs-7">{{ count($notifikasi ?? []) }} pemberitahuan terbaru</span>
                         </div>
                         <div class="scroll-y mh-325px my-3 px-6">
-                            @foreach ($notifikasi as $item)
+                            @foreach ($notifikasi ?? [] as $item)
                                 <div class="d-flex align-items-center py-3 border-bottom border-gray-100">
                                     <div class="symbol symbol-35px me-3">
                                         <span class="symbol-label bg-light-primary">
@@ -67,7 +67,7 @@
                                     <div class="fw-bolder text-dark fs-6 mb-1">{{ auth()->user()->name }}</div>
                                     <div class="text-muted fs-7 fw-bold mb-1">{{ auth()->user()->isDosen() ? 'NIP' : 'NIM' }}: {{ auth()->user()->nomor_induk ?? ($mahasiswa['nim'] ?? '-') }}</div>
                                     <div class="badge badge-light-primary fw-bolder fs-8 align-self-start mt-1">
-                                        <i class="fas fa-graduation-cap me-1 text-primary"></i> Program Studi {{ auth()->user()->program_studi ?? ($mahasiswa['program_studi'] ?? 'Informatika') }}
+                                        <i class="fas fa-graduation-cap me-1 text-primary"></i> Program Studi {{ auth()->user()?->program_studi ?: ($mahasiswa['program_studi'] ?? config('simbim.prodi')) }}
                                     </div>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                                     <div class="fw-bolder text-dark fs-6 mb-1">{{ $mahasiswa['nama'] ?? 'Andi Pratama' }}</div>
                                     <div class="text-muted fs-7 fw-bold mb-1">NIM: {{ $mahasiswa['nim'] ?? '2108107010001' }}</div>
                                     <div class="badge badge-light-primary fw-bolder fs-8 align-self-start mt-1">
-                                        <i class="fas fa-graduation-cap me-1 text-primary"></i> Program Studi {{ $mahasiswa['program_studi'] ?? 'Informatika' }}
+                                        <i class="fas fa-graduation-cap me-1 text-primary"></i> Program Studi {{ $mahasiswa['program_studi'] ?? config('simbim.prodi') }}
                                     </div>
                                 </div>
                             </div>

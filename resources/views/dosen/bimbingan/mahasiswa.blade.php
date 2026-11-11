@@ -154,7 +154,7 @@
 
     <div class="card-body pt-0">
         <div class="table-responsive">
-            <table class="table align-middle table-row-dashed fs-6 gy-5" id="table_mahasiswa">
+            <table class="table align-middle table-row-dashed fs-6 gy-5" id="table_mahasiswa" data-simbim-paginate="6" data-row-selector="tbody tr.mahasiswa-row" data-pager-id="pager_dosen_mahasiswa" data-info-id="info_dosen_mahasiswa">
                 <thead>
                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0 border-bottom border-gray-300">
                         <th class="min-w-200px">Mahasiswa</th>
@@ -227,9 +227,15 @@
                                     <button type="button" class="btn btn-icon btn-light-primary btn-sm" title="Lihat Detail & Catatan" onclick="showDetailMahasiswa({{ json_encode($mhs) }})">
                                         <i class="fas fa-eye fs-6"></i>
                                     </button>
-                                    <button type="button" class="btn btn-icon btn-light-success btn-sm" title="Review Draf / Beri Catatan" onclick="reviewDrafMahasiswa({{ json_encode($mhs) }})">
-                                        <i class="fas fa-pen-alt fs-6"></i>
-                                    </button>
+                                    @if (! empty($mhs['dokumen_id']))
+                                        <a href="{{ route('dosen.bimbingan.skripsi.show', $mhs['dokumen_id']) }}" class="btn btn-sm btn-light-success fw-bolder px-3 py-1 fs-8" title="Buka Dokumen & Sesi Diskusi Revisi">
+                                            <i class="fas fa-comment-dots me-1 fs-7"></i> Diskusi &amp; Komen
+                                        </a>
+                                    @else
+                                        <button type="button" class="btn btn-icon btn-light-success btn-sm" title="Review Draf / Beri Catatan" onclick="reviewDrafMahasiswa({{ json_encode($mhs) }})">
+                                            <i class="fas fa-pen-alt fs-6"></i>
+                                        </button>
+                                    @endif
                                 </div>
                             </td>
                         </tr>
@@ -241,8 +247,19 @@
                             </td>
                         </tr>
                     @endforelse
+                    @if (count($daftar_mahasiswa) > 0)
+                        <tr data-simbim-empty="1" style="display: none;">
+                            <td colspan="6" class="text-center py-8 text-muted fw-semibold">
+                                Tidak ada data mahasiswa yang cocok dengan pencarian atau filter.
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 pt-4 border-top border-gray-200 mt-3">
+            <span class="text-muted fs-7 fw-semibold" id="info_dosen_mahasiswa"></span>
+            <div id="pager_dosen_mahasiswa"></div>
         </div>
     </div>
 </div>
@@ -298,7 +315,7 @@
                             <span class="text-muted fs-8">Dokumen terunggah dari mahasiswa</span>
                         </div>
                     </div>
-                    <button type="button" class="btn btn-sm btn-primary fw-bolder" onclick="Swal.fire({icon: 'success', title: 'Unduh Berkas', text: 'Mengunduh draf naskah skripsi mahasiswa...', timer: 1500, showConfirmButton: false})">
+                    <button type="button" class="btn btn-sm btn-primary fw-bolder" onclick="if (currentMahasiswaSelected?.dokumen_id) { window.location.href = '{{ url('/dosen/bimbingan/skripsi') }}/' + currentMahasiswaSelected.dokumen_id + '/download'; } else { Swal.fire({icon: 'success', title: 'Unduh Berkas', text: 'Mengunduh draf naskah mahasiswa...', timer: 1500, showConfirmButton: false}); }">
                         <i class="fas fa-download me-1"></i> Unduh
                     </button>
                 </div>
@@ -336,7 +353,7 @@
                 <form id="form_review_draf" onsubmit="submitReviewDraf(event)">
                     <div class="mb-4">
                         <label class="form-label fw-bolder text-gray-700 fs-7 required">Keputusan Review</label>
-                        <select class="form-select form-select-solid" id="review_status_select" required>
+                        <select class="form-select form-select-solid" id="review_status_select" data-control="select2" data-dropdown-parent="#modal_review_draf" data-placeholder="Pilih Keputusan Review" required>
                             <option value="Draf Sedang Direview">Draf Sedang Direview</option>
                             <option value="Revisi Diperlukan">Revisi Diperlukan</option>
                             <option value="Bimbingan Terjadwal">Bimbingan Terjadwal</option>
@@ -399,12 +416,10 @@
             const matchesCategory = (filterType === 'all' || rowJenis === filterType);
             const matchesQuery = (!query || rowSearch.includes(query));
 
-            if (matchesCategory && matchesQuery) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
+            row.setAttribute('data-simbim-filtered', (matchesCategory && matchesQuery) ? '1' : '0');
         });
+
+        window.SimbimUI?.refreshPagination('table_mahasiswa', true);
     }
 
     function showDetailMahasiswa(mhs) {
@@ -437,6 +452,10 @@
         bootstrap.Modal.getInstance(document.getElementById('modal_detail_mahasiswa')).hide();
         setTimeout(() => {
             if (currentMahasiswaSelected) {
+                if (currentMahasiswaSelected.dokumen_id) {
+                    window.location.href = '{{ url('/dosen/bimbingan/skripsi') }}/' + currentMahasiswaSelected.dokumen_id;
+                    return;
+                }
                 reviewDrafMahasiswa(currentMahasiswaSelected);
             }
         }, 300);

@@ -59,7 +59,7 @@
                     </a>
                     <div class="d-flex justify-content-center align-items-center gap-2">
                         <span class="badge badge-light-primary fw-bolder fs-8 px-3 py-1 text-uppercase ls-1">
-                            <i class="fas fa-graduation-cap me-1 text-primary"></i> Portal Bimbingan Akademik & Skripsi
+                            <i class="fas fa-graduation-cap me-1 text-primary"></i> Portal Bimbingan Akademik & Skripsi {{ config('simbim.prodi_singkat') }} {{ config('simbim.universitas_singkat') }}
                         </span>
                     </div>
                 </div>
@@ -99,7 +99,7 @@
 
                 <!-- Bottom Footer -->
                 <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center text-gray-500 fs-8 mt-8 px-2 gap-3">
-                    <span>&copy; {{ date('Y') }} SIMBIM &bull; PSTI</span>
+                    <span>&copy; {{ date('Y') }} SIMBIM &bull; {{ config('simbim.prodi') }} &mdash; {{ config('simbim.universitas') }}</span>
                     <!-- <div class="d-flex align-items-center gap-4">
                         <a href="javascript:void(0)" class="text-gray-500 text-hover-primary">Bantuan & FAQ</a>
                         <span class="bullet bullet-dot bg-gray-400"></span>

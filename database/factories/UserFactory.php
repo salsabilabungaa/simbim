@@ -63,4 +63,31 @@ class UserFactory extends Factory
             'program_studi' => 'Pendidikan Sistem dan Teknologi Informasi (PSTI)',
         ]);
     }
+
+    public function admin(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'admin',
+            'nomor_induk' => (string) fake()->unique()->numerify('ADM###'),
+            'program_studi' => 'Pendidikan Sistem dan Teknologi Informasi (PSTI)',
+        ]);
+    }
+
+    public function dewanSkripsi(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'dewan_skripsi',
+            'nomor_induk' => (string) fake()->unique()->numerify('19790820 200501 1 ###'),
+            'program_studi' => 'Pendidikan Sistem dan Teknologi Informasi (PSTI)',
+        ]);
+    }
+
+    public function gkm(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'role' => 'gkm',
+            'nomor_induk' => (string) fake()->unique()->numerify('19820412 200812 2 ###'),
+            'program_studi' => 'Pendidikan Sistem dan Teknologi Informasi (PSTI)',
+        ]);
+    }
 }

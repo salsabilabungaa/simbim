@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Dosen;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
-class RiwayatBimbinganController extends Controller
+class RiwayatBimbinganController extends BaseDosenController
 {
     /**
      * Menampilkan riwayat dan arsip logbook bimbingan mahasiswa oleh dosen.
@@ -14,18 +13,9 @@ class RiwayatBimbinganController extends Controller
     public function index(): View
     {
         $user = Auth::user();
-
-        $dosen = [
-            'nama' => $user?->name ?? 'Dr. Siti Rahmawati, M.Kom.',
-            'nip' => $user?->nomor_induk ?? '198503152010122001',
-            'jabatan' => 'Lektor Kepala — Pembimbing Utama',
-            'program_studi' => $user?->program_studi ?? 'Pendidikan Sistem dan Teknologi Informasi (PSTI)',
-            'bidang' => 'Software Engineering & Intelligence Systems',
-            'email' => $user?->email ?? 'siti.rahmawati@usk.ac.id',
-            'telepon' => '+62 812-6900-8821',
-            'ruangan' => 'Gedung Fasilkom Lt. 2 R.204',
-            'status_hadir' => 'Tersedia di Kampus',
-        ];
+        $dosen = $this->resolveDosenProfile($user);
+        $prodi = (string) config('simbim.prodi');
+        $metodeLuring = 'Luring ('.config('simbim.ruang_prodi').')';
 
         $statistik = [
             'total_sesi' => 48,
@@ -42,7 +32,7 @@ class RiwayatBimbinganController extends Controller
                 'mahasiswa' => 'Andi Pratama',
                 'nim' => '2108107010001',
                 'angkatan' => '2021',
-                'prodi' => 'PSTI',
+                'prodi' => $prodi,
                 'kategori' => 'Skripsi',
                 'kategori_key' => 'skripsi',
                 'badge_kategori' => 'primary',
@@ -50,7 +40,7 @@ class RiwayatBimbinganController extends Controller
                 'bab' => 'Bab III (Metodologi)',
                 'topik' => 'Review Flowchart, Class Diagram & Instrumen Pengujian Sistem',
                 'catatan' => 'Diagram alir sistem dan relasi tabel telah valid. Revisi minor pada instrumen pengujian kuesioner kelayakan. Disetujui untuk lanjut implementasi Bab IV.',
-                'metode' => 'Luring (Ruang Dosen 204)',
+                'metode' => $metodeLuring,
                 'status' => 'ACC',
                 'badge_status' => 'success',
                 'dokumen' => 'Draf_Bab_III_Andi_ACC.pdf',
@@ -63,7 +53,7 @@ class RiwayatBimbinganController extends Controller
                 'mahasiswa' => 'Cut Nadia Zahra',
                 'nim' => '2108107010034',
                 'angkatan' => '2021',
-                'prodi' => 'PSTI',
+                'prodi' => $prodi,
                 'kategori' => 'Skripsi',
                 'kategori_key' => 'skripsi',
                 'badge_kategori' => 'primary',
@@ -84,7 +74,7 @@ class RiwayatBimbinganController extends Controller
                 'mahasiswa' => 'Siti Aisyah Putri',
                 'nim' => '2108107010088',
                 'angkatan' => '2021',
-                'prodi' => 'PSTI',
+                'prodi' => $prodi,
                 'kategori' => 'Skripsi',
                 'kategori_key' => 'skripsi',
                 'badge_kategori' => 'primary',
@@ -105,7 +95,7 @@ class RiwayatBimbinganController extends Controller
                 'mahasiswa' => 'Rahmat Hidayat',
                 'nim' => '2008107010045',
                 'angkatan' => '2020',
-                'prodi' => 'PSTI',
+                'prodi' => $prodi,
                 'kategori' => 'Skripsi',
                 'kategori_key' => 'skripsi',
                 'badge_kategori' => 'primary',
@@ -113,7 +103,7 @@ class RiwayatBimbinganController extends Controller
                 'bab' => 'Bab V (Penutup)',
                 'topik' => 'Pemeriksaan Naskah Lengkap & Rekomendasi ACC Sidang Skripsi',
                 'catatan' => 'Seluruh revisi dari Bab I s.d Bab V telah diperiksa dan disetujui. Naskah siap dijadwalkan untuk Sidang Ujian Tugas Akhir.',
-                'metode' => 'Luring (Ruang Dosen 204)',
+                'metode' => $metodeLuring,
                 'status' => 'ACC',
                 'badge_status' => 'success',
                 'dokumen' => 'Naskah_Lengkap_Rahmat_Final_ACC.pdf',
@@ -126,7 +116,7 @@ class RiwayatBimbinganController extends Controller
                 'mahasiswa' => 'Muhammad Fikri',
                 'nim' => '2208107010012',
                 'angkatan' => '2022',
-                'prodi' => 'PSTI',
+                'prodi' => $prodi,
                 'kategori' => 'Akademik',
                 'kategori_key' => 'akademik',
                 'badge_kategori' => 'success',
@@ -134,7 +124,7 @@ class RiwayatBimbinganController extends Controller
                 'bab' => 'Semester 5 (88 SKS)',
                 'topik' => 'Konsultasi Perencanaan Magang Bersertifikat MBKM & Konversi 20 SKS',
                 'catatan' => 'Disetujui mengambil program Magang Pengembang Web MBKM. Konversi mata kuliah Pilihan 1, Pilihan 2, dan Proyek Perangkat Lunak disahkan.',
-                'metode' => 'Luring (Ruang Dosen 204)',
+                'metode' => $metodeLuring,
                 'status' => 'Selesai',
                 'badge_status' => 'info',
                 'dokumen' => 'Konversi_SKS_MBKM_Fikri.pdf',
@@ -147,7 +137,7 @@ class RiwayatBimbinganController extends Controller
                 'mahasiswa' => 'Dimas Bagus Wicaksono',
                 'nim' => '2108107010055',
                 'angkatan' => '2021',
-                'prodi' => 'PSTI',
+                'prodi' => $prodi,
                 'kategori' => 'Skripsi',
                 'kategori_key' => 'skripsi',
                 'badge_kategori' => 'primary',
@@ -168,7 +158,7 @@ class RiwayatBimbinganController extends Controller
                 'mahasiswa' => 'Dinda Maulida',
                 'nim' => '2208107010065',
                 'angkatan' => '2022',
-                'prodi' => 'PSTI',
+                'prodi' => $prodi,
                 'kategori' => 'Akademik',
                 'kategori_key' => 'akademik',
                 'badge_kategori' => 'success',
@@ -176,7 +166,7 @@ class RiwayatBimbinganController extends Controller
                 'bab' => 'Semester 5 (86 SKS)',
                 'topik' => 'Evaluasi Indeks Prestasi Kumulatif (IPK 3.65) & Persiapan Proposal',
                 'catatan' => 'Performa akademik sangat baik. Mahasiswa diarahkan mulai mengidentifikasi masalah penelitian untuk tugas akhir di semester 6.',
-                'metode' => 'Luring (Ruang Dosen 204)',
+                'metode' => $metodeLuring,
                 'status' => 'Selesai',
                 'badge_status' => 'info',
                 'dokumen' => 'Transkrip_KRS_Dinda.pdf',
@@ -189,7 +179,7 @@ class RiwayatBimbinganController extends Controller
                 'mahasiswa' => 'Rizky Kurniawan',
                 'nim' => '2308107010023',
                 'angkatan' => '2023',
-                'prodi' => 'PSTI',
+                'prodi' => $prodi,
                 'kategori' => 'Akademik',
                 'kategori_key' => 'akademik',
                 'badge_kategori' => 'success',
@@ -197,7 +187,7 @@ class RiwayatBimbinganController extends Controller
                 'bab' => 'Semester 3 (44 SKS)',
                 'topik' => 'Konsultasi Perbaikan Nilai Mata Kuliah Struktur Data & Remedial',
                 'catatan' => 'Diberikan arahan mengikuti modul responsi mingguan lab. Target semester 3 IPK minimal 3.30.',
-                'metode' => 'Luring (Ruang Dosen 204)',
+                'metode' => $metodeLuring,
                 'status' => 'Selesai',
                 'badge_status' => 'info',
                 'dokumen' => 'Evaluasi_Nilai_Rizky.pdf',
@@ -205,22 +195,22 @@ class RiwayatBimbinganController extends Controller
             ],
         ];
 
-        $notifikasi = [
-            [
-                'judul' => 'Draf Baru Menunggu Review',
-                'deskripsi' => 'Andi Pratama mengunggah revisi Bab III',
-                'waktu' => '30 menit yang lalu',
-                'badge' => 'primary',
-                'icon' => 'fas fa-file-alt',
-            ],
-            [
-                'judul' => 'Pengajuan Bimbingan Baru',
-                'deskripsi' => 'Cut Nadia meminta jadwal konsultasi',
-                'waktu' => '2 jam yang lalu',
-                'badge' => 'warning',
-                'icon' => 'fas fa-calendar-alt',
-            ],
-        ];
+        $dbKonsultasi = $this->fetchDatabaseKonsultasi($user);
+        if (! empty($dbKonsultasi)) {
+            $skripsiLogs = array_values(array_filter(
+                $riwayat,
+                fn (array $item): bool => ($item['kategori_key'] ?? '') === 'skripsi'
+            ));
+            $riwayat = array_merge($dbKonsultasi, $skripsiLogs);
+            $statistik = [
+                'total_sesi' => count($riwayat),
+                'sesi_skripsi' => count($skripsiLogs),
+                'sesi_akademik' => count($dbKonsultasi),
+                'mahasiswa_acc' => count(array_filter($riwayat, fn (array $item): bool => ($item['status'] ?? '') === 'ACC')),
+            ];
+        }
+
+        $notifikasi = $this->defaultNotifikasi();
 
         return view('dosen.riwayat_bimbingan', compact(
             'dosen',

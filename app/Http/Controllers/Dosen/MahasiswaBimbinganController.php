@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers\Dosen;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
-class MahasiswaBimbinganController extends Controller
+class MahasiswaBimbinganController extends BaseDosenController
 {
     /**
      * Menampilkan daftar seluruh mahasiswa bimbingan dosen (Skripsi dan Perwalian Akademik).
@@ -14,25 +13,11 @@ class MahasiswaBimbinganController extends Controller
     public function index(): View
     {
         $user = Auth::user();
+        $dosen = $this->resolveDosenProfile($user);
+        $prodi = (string) config('simbim.prodi');
 
-        $dosen = [
-            'nama' => $user?->name ?? 'Dr. Siti Rahmawati, M.Kom.',
-            'nip' => $user?->nomor_induk ?? '198503152010122001',
-            'jabatan' => 'Lektor Kepala — Pembimbing Utama',
-            'program_studi' => $user?->program_studi ?? 'Pendidikan Sistem dan Teknologi Informasi (PSTI)',
-            'bidang' => 'Software Engineering & Intelligence Systems',
-            'email' => $user?->email ?? 'siti.rahmawati@usk.ac.id',
-            'telepon' => '+62 812-6900-8821',
-            'ruangan' => 'Gedung Fasilkom Lt. 2 R.204',
-            'status_hadir' => 'Tersedia di Kampus',
-        ];
-
-        $statistik = [
-            'total_mahasiswa' => 32,
-            'bimbingan_skripsi' => 8,
-            'perwalian_akademik' => 24,
-            'siap_sidang' => 3,
-        ];
+        $dbSkripsi = $this->fetchDatabaseSkripsiBimbingan($user);
+        $dbPerwalian = $this->fetchDatabasePerwalian($user);
 
         $daftar_mahasiswa = [
             [
@@ -40,7 +25,7 @@ class MahasiswaBimbinganController extends Controller
                 'nama' => 'Andi Pratama',
                 'nim' => '2108107010001',
                 'angkatan' => '2021',
-                'program_studi' => 'PSTI',
+                'program_studi' => $prodi,
                 'jenis_bimbingan' => 'skripsi',
                 'kategori_label' => 'Bimbingan Skripsi',
                 'peran_dosen' => 'Pembimbing Utama',
@@ -58,7 +43,7 @@ class MahasiswaBimbinganController extends Controller
                 'nama' => 'Cut Nadia Zahra',
                 'nim' => '2108107010034',
                 'angkatan' => '2021',
-                'program_studi' => 'PSTI',
+                'program_studi' => $prodi,
                 'jenis_bimbingan' => 'skripsi',
                 'kategori_label' => 'Bimbingan Skripsi',
                 'peran_dosen' => 'Pembimbing Utama',
@@ -76,7 +61,7 @@ class MahasiswaBimbinganController extends Controller
                 'nama' => 'Rahmat Hidayat',
                 'nim' => '2008107010045',
                 'angkatan' => '2020',
-                'program_studi' => 'PSTI',
+                'program_studi' => $prodi,
                 'jenis_bimbingan' => 'skripsi',
                 'kategori_label' => 'Bimbingan Skripsi',
                 'peran_dosen' => 'Pembimbing Utama',
@@ -94,7 +79,7 @@ class MahasiswaBimbinganController extends Controller
                 'nama' => 'Siti Aisyah Putri',
                 'nim' => '2108107010088',
                 'angkatan' => '2021',
-                'program_studi' => 'PSTI',
+                'program_studi' => $prodi,
                 'jenis_bimbingan' => 'skripsi',
                 'kategori_label' => 'Bimbingan Skripsi',
                 'peran_dosen' => 'Pembimbing Pendamping',
@@ -112,7 +97,7 @@ class MahasiswaBimbinganController extends Controller
                 'nama' => 'Dimas Bagus Wicaksono',
                 'nim' => '2108107010055',
                 'angkatan' => '2021',
-                'program_studi' => 'PSTI',
+                'program_studi' => $prodi,
                 'jenis_bimbingan' => 'skripsi',
                 'kategori_label' => 'Bimbingan Skripsi',
                 'peran_dosen' => 'Pembimbing Utama',
@@ -130,7 +115,7 @@ class MahasiswaBimbinganController extends Controller
                 'nama' => 'Farah Annisa',
                 'nim' => '2108107010072',
                 'angkatan' => '2021',
-                'program_studi' => 'PSTI',
+                'program_studi' => $prodi,
                 'jenis_bimbingan' => 'skripsi',
                 'kategori_label' => 'Bimbingan Skripsi',
                 'peran_dosen' => 'Pembimbing Pendamping',
@@ -148,7 +133,7 @@ class MahasiswaBimbinganController extends Controller
                 'nama' => 'Muhammad Fikri',
                 'nim' => '2208107010012',
                 'angkatan' => '2022',
-                'program_studi' => 'PSTI',
+                'program_studi' => $prodi,
                 'jenis_bimbingan' => 'akademik',
                 'kategori_label' => 'Bimbingan Akademik (DPA)',
                 'peran_dosen' => 'Dosen Pembimbing Akademik',
@@ -166,7 +151,7 @@ class MahasiswaBimbinganController extends Controller
                 'nama' => 'Dinda Maulida',
                 'nim' => '2208107010065',
                 'angkatan' => '2022',
-                'program_studi' => 'PSTI',
+                'program_studi' => $prodi,
                 'jenis_bimbingan' => 'akademik',
                 'kategori_label' => 'Bimbingan Akademik (DPA)',
                 'peran_dosen' => 'Dosen Pembimbing Akademik',
@@ -184,7 +169,7 @@ class MahasiswaBimbinganController extends Controller
                 'nama' => 'Rizky Kurniawan',
                 'nim' => '2308107010023',
                 'angkatan' => '2023',
-                'program_studi' => 'PSTI',
+                'program_studi' => $prodi,
                 'jenis_bimbingan' => 'akademik',
                 'kategori_label' => 'Bimbingan Akademik (DPA)',
                 'peran_dosen' => 'Dosen Pembimbing Akademik',
@@ -202,7 +187,7 @@ class MahasiswaBimbinganController extends Controller
                 'nama' => 'Nabila Putri',
                 'nim' => '2408107010009',
                 'angkatan' => '2024',
-                'program_studi' => 'PSTI',
+                'program_studi' => $prodi,
                 'jenis_bimbingan' => 'akademik',
                 'kategori_label' => 'Bimbingan Akademik (DPA)',
                 'peran_dosen' => 'Dosen Pembimbing Akademik',
@@ -217,22 +202,53 @@ class MahasiswaBimbinganController extends Controller
             ],
         ];
 
-        $notifikasi = [
-            [
-                'judul' => 'Draf Baru Menunggu Review',
-                'deskripsi' => 'Andi Pratama mengunggah revisi Bab III',
-                'waktu' => '30 menit yang lalu',
-                'badge' => 'primary',
-                'icon' => 'fas fa-file-alt',
-            ],
-            [
-                'judul' => 'Pengajuan Bimbingan Baru',
-                'deskripsi' => 'Cut Nadia meminta jadwal konsultasi',
-                'waktu' => '2 jam yang lalu',
-                'badge' => 'warning',
-                'icon' => 'fas fa-calendar-alt',
-            ],
+        $akademikRows = array_values(array_filter(
+            $daftar_mahasiswa,
+            fn (array $item): bool => $item['jenis_bimbingan'] === 'akademik'
+        ));
+
+        if (! empty($dbPerwalian)) {
+            $akademikRows = array_map(fn (array $item, int $idx): array => [
+                'id' => 500 + $idx,
+                'dokumen_id' => null,
+                'nama' => $item['nama'],
+                'nim' => $item['nim'],
+                'angkatan' => $item['angkatan'],
+                'program_studi' => $item['program_studi'] ?? $prodi,
+                'jenis_bimbingan' => 'akademik',
+                'kategori_label' => 'Bimbingan Akademik (DPA)',
+                'peran_dosen' => 'Dosen Pembimbing Akademik',
+                'judul' => 'Perwalian Akademik & Validasi KRS Mahasiswa',
+                'bab_aktif' => $item['semester'].' — '.$item['sks_lulus'].' SKS (IPK: '.$item['ipk'].')',
+                'progres' => $item['badge_status'] === 'success' ? 100 : 50,
+                'status_draf' => $item['status_krs'],
+                'badge_status' => $item['badge_status'],
+                'jumlah_sesi' => 2,
+                'tanggal_update' => 'Semester Berjalan',
+                'berkas_draf' => 'KRS_'.$item['nim'].'.pdf',
+            ], $dbPerwalian, array_keys($dbPerwalian));
+        }
+
+        $skripsiRows = ! empty($dbSkripsi)
+            ? $dbSkripsi
+            : array_values(array_filter(
+                $daftar_mahasiswa,
+                fn (array $item): bool => $item['jenis_bimbingan'] === 'skripsi'
+            ));
+
+        $daftar_mahasiswa = array_merge($skripsiRows, $akademikRows);
+
+        $statistik = [
+            'total_mahasiswa' => count($daftar_mahasiswa),
+            'bimbingan_skripsi' => count($skripsiRows),
+            'perwalian_akademik' => count($akademikRows),
+            'siap_sidang' => count(array_filter(
+                $skripsiRows,
+                fn (array $item): bool => ($item['status_draf'] ?? '') === 'Siap Sidang Skripsi'
+            )),
         ];
+
+        $notifikasi = $this->defaultNotifikasi();
 
         return view('dosen.bimbingan.mahasiswa', compact(
             'dosen',

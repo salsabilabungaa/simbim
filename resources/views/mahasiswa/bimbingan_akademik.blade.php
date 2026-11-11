@@ -4,6 +4,21 @@
 @section('page-title', 'Bimbingan Akademik')
 
 @section('content')
+@if (session('success'))
+    <div class="alert alert-success alert-dismissible fade show d-flex align-items-center p-4 mb-5 shadow-sm" role="alert">
+        <i class="fas fa-check-circle fs-3 text-success me-3"></i>
+        <div class="fw-bold fs-7">{{ session('success') }}</div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
+
+@if ($errors->any())
+    <div class="alert alert-danger d-flex align-items-center p-4 mb-5 shadow-sm">
+        <i class="fas fa-exclamation-triangle fs-3 text-danger me-3"></i>
+        <div class="fs-7 fw-bold">{{ $errors->first() }}</div>
+    </div>
+@endif
+
 <!-- Tombol Akses Ajukan Bimbingan Akademik (Pojok Kanan Atas Konten) -->
 <div class="d-flex justify-content-end mb-6">
     <button type="button" class="btn btn-primary fw-bolder px-5 py-3 shadow-sm" data-bs-toggle="modal" data-bs-target="#modal_ajukan_akademik">
@@ -29,8 +44,8 @@
                     <span class="fs-2x fw-bolder text-dark me-2">{{ $ringkasan['total_sesi'] }}</span>
                     <span class="fs-7 text-muted fw-bold">Sesi Konsultasi DPA</span>
                 </div>
-                <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1">
-                    <i class="fas fa-check me-1"></i> Target Sesi Terpenuhi
+                <span class="badge badge-light-{{ $ringkasan['status_target_badge'] ?? 'success' }} fw-bolder fs-8 px-2 py-1">
+                    {{ $ringkasan['status_target_label'] ?? 'Target Sesi Terpenuhi' }}
                 </span>
             </div>
         </div>
@@ -64,17 +79,17 @@
         <div class="card card-custom bg-body border border-gray-200 shadow-sm h-100">
             <div class="card-body p-6">
                 <div class="d-flex align-items-center justify-content-between mb-3">
-                    <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">STATUS KRS SEMESTER 7</span>
-                    <div class="symbol symbol-45px bg-light-success">
+                    <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">{{ $ringkasan['status_krs_header'] ?? 'STATUS KRS / IRS' }}</span>
+                    <div class="symbol symbol-45px bg-light-{{ $ringkasan['status_krs_badge'] ?? 'success' }}">
                         <span class="symbol-label">
-                            <i class="fas fa-file-signature text-success fs-2"></i>
+                            <i class="fas fa-file-signature text-{{ $ringkasan['status_krs_badge'] ?? 'success' }} fs-2"></i>
                         </span>
                     </div>
                 </div>
                 <div class="fw-bolder text-dark fs-6 mb-1 text-truncate">{{ $ringkasan['status_krs'] }}</div>
-                <div class="text-muted fs-8 mb-2">Disetujui 21 SKS</div>
-                <span class="badge badge-light-success fw-bolder fs-8 px-2 py-1">
-                    <i class="fas fa-check-circle me-1"></i> Disetujui Dosen Wali
+                <div class="text-muted fs-8 mb-2">{{ $ringkasan['status_krs_sub'] ?? '-' }}</div>
+                <span class="badge badge-light-{{ $ringkasan['status_krs_badge'] ?? 'success' }} fw-bolder fs-8 px-2 py-1">
+                    {{ $ringkasan['status_krs_badge_label'] ?? 'Disetujui Dosen Wali' }}
                 </span>
             </div>
         </div>
@@ -87,7 +102,7 @@
                 <div>
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <span class="text-gray-600 fw-bolder fs-7 text-uppercase ls-1">JADWAL TERDEKAT</span>
-                        <span class="badge badge-danger fw-bolder fs-9">{{ $jadwal_terdekat['sisa'] }}</span>
+                        <span class="badge badge-{{ ! empty($jadwal_terdekat['is_h1']) ? 'danger' : 'light-secondary text-muted' }} fw-bolder fs-9">{{ $jadwal_terdekat['sisa'] }}</span>
                     </div>
                     <div class="fw-bolder text-dark fs-6 mb-1">{{ $jadwal_terdekat['tanggal'] }}</div>
                     <div class="text-primary fw-bold fs-7 mb-2">
@@ -117,7 +132,7 @@
             <span class="text-muted mt-1 fw-bold fs-7">Rekam konsultasi kartu rencana studi dan evaluasi akademik</span>
         </h3>
         <div class="card-toolbar">
-            <span class="badge badge-light-primary fw-bolder fs-7">Total {{ count($riwayat_bimbingan) }} Sesi</span>
+            <span class="badge badge-light-primary fw-bolder fs-7">Total {{ $riwayat_bimbingan instanceof \Illuminate\Pagination\LengthAwarePaginator ? $riwayat_bimbingan->total() : count($riwayat_bimbingan) }} Sesi</span>
         </div>
     </div>
     <div class="card-body pt-3">
@@ -133,7 +148,7 @@
                     </tr>
                 </thead>
                 <tbody class="text-gray-800 fw-bold">
-                    @foreach ($riwayat_bimbingan as $item)
+                    @forelse ($riwayat_bimbingan as $item)
                     <tr>
                         <td class="ps-4">
                             @if ($item['status'] === 'Proses' || empty($item['tanggal']))
@@ -196,10 +211,17 @@
                             </div>
                         </td>
                     </tr>
-                    @endforeach
+                    @empty
+                    <tr>
+                        <td colspan="5" class="text-center py-8 text-muted fw-semibold fs-7">
+                            Belum ada sesi bimbingan akademik tercatat. Klik tombol <strong>Ajukan Bimbingan Akademik</strong> untuk memulai konsultasi dengan Dosen Wali.
+                        </td>
+                    </tr>
+                    @endforelse
                 </tbody>
             </table>
         </div>
+        @include('partials.pagination_footer', ['paginator' => $riwayat_bimbingan, 'label' => 'sesi bimbingan'])
     </div>
 </div>
 
@@ -217,7 +239,7 @@
             </div>
             <div class="card-body pt-3">
                 <div class="d-flex flex-column gap-4">
-                    @foreach ($catatan_dosen_wali as $c)
+                    @forelse ($catatan_dosen_wali as $c)
                     <div class="p-5 rounded-3 bg-light border border-gray-200">
                         <div class="d-flex align-items-center justify-content-between mb-2">
                             <div class="d-flex align-items-center">
@@ -239,7 +261,11 @@
                             "{{ $c['catatan'] }}"
                         </p>
                     </div>
-                    @endforeach
+                    @empty
+                    <div class="p-6 text-center rounded-3 bg-light border border-dashed border-gray-300 text-muted fs-7">
+                        Belum ada catatan atau arahan dari Dosen Wali.
+                    </div>
+                    @endforelse
                 </div>
             </div>
         </div>
@@ -259,24 +285,24 @@
                 <div class="d-flex align-items-baseline mb-2">
                     <span class="fs-2x fw-bolder text-dark me-2">{{ $ringkasan['sks_lulus'] }}</span>
                     <span class="fs-7 text-muted fw-bold">/ 144 SKS Kelulusan</span>
-                    <span class="badge badge-light-primary ms-auto fw-bolder fs-8">82% Selesai</span>
+                    <span class="badge badge-light-primary ms-auto fw-bolder fs-8">{{ $evaluasi_sks['persen'] ?? 0 }}% Selesai</span>
                 </div>
                 <div class="progress h-8px bg-light-primary mb-4 rounded-pill">
-                    <div class="progress-bar bg-primary rounded-pill" role="progressbar" style="width: 82%"></div>
+                    <div class="progress-bar bg-primary rounded-pill" role="progressbar" style="width: {{ $evaluasi_sks['persen'] ?? 0 }}%"></div>
                 </div>
 
                 <div class="d-flex flex-column gap-3">
                     <div class="d-flex justify-content-between align-items-center fs-7 text-gray-700 p-2.5 rounded bg-light">
                         <span><i class="fas fa-check-circle text-success me-2"></i> Wajib Program Studi</span>
-                        <strong class="text-dark">100 SKS</strong>
+                        <strong class="text-dark">{{ $evaluasi_sks['wajib_prodi'] ?? 0 }} SKS</strong>
                     </div>
                     <div class="d-flex justify-content-between align-items-center fs-7 text-gray-700 p-2.5 rounded bg-light">
                         <span><i class="fas fa-check-circle text-success me-2"></i> Pilihan & MBKM</span>
-                        <strong class="text-dark">18 SKS</strong>
+                        <strong class="text-dark">{{ $evaluasi_sks['pilihan_mbkm'] ?? 0 }} SKS</strong>
                     </div>
                     <div class="d-flex justify-content-between align-items-center fs-7 text-gray-700 p-2.5 rounded bg-light">
                         <span><i class="fas fa-clock text-warning me-2"></i> Skripsi (Dalam Proses)</span>
-                        <strong class="text-dark">6 SKS</strong>
+                        <strong class="text-dark">{{ $evaluasi_sks['skripsi_sks'] ?? 0 }} SKS</strong>
                     </div>
                 </div>
             </div>
@@ -302,11 +328,29 @@
                     </div>
                 </div>
 
-                <form id="form_ajukan_akademik" action="#" method="POST">
+                <form id="form_ajukan_akademik" action="{{ ! empty($can_submit_pengajuan) ? route('mahasiswa.bimbingan-akademik.pengajuan') : '#' }}" method="POST">
                     @csrf
+                    @if (! empty($can_submit_pengajuan) && ! empty($dosen_wali['is_assigned']))
+                        <div class="mb-5 p-3 rounded bg-light border border-gray-200 d-flex align-items-center justify-content-between">
+                            <span class="text-muted fs-7 fw-semibold">Dosen Pembimbing Akademik (DPA):</span>
+                            <span class="fw-bolder text-dark fs-7">{{ $dosen_wali['nama'] }}</span>
+                        </div>
+                    @elseif (! empty($can_submit_pengajuan) && empty($dosen_wali['is_assigned']) && $dosen_options->isNotEmpty())
+                        <div class="mb-5">
+                            <label class="form-label fw-bold fs-6 required">Pilih Dosen Wali Akademik (PSTI UPI)</label>
+                            <select class="form-select form-select-solid" name="dosen_wali_id" data-control="select2" data-dropdown-parent="#modal_ajukan_akademik" data-placeholder="-- Pilih Dosen Wali --" required>
+                                <option value="">-- Pilih Dosen Wali --</option>
+                                @foreach ($dosen_options as $dsn)
+                                    <option value="{{ $dsn->id }}" {{ old('dosen_wali_id') == $dsn->id ? 'selected' : '' }}>
+                                        {{ $dsn->name }} ({{ $dsn->nomor_induk ?: $dsn->email }})
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+                    @endif
                     <div class="mb-5">
                         <label class="form-label fw-bold fs-6 required">Kategori Topik Bimbingan</label>
-                        <select class="form-select form-select-solid" name="kategori_topik" required>
+                        <select class="form-select form-select-solid" name="kategori_topik" data-control="select2" data-dropdown-parent="#modal_ajukan_akademik" data-placeholder="Pilih Kategori Topik" required>
                             <option value="Konsultasi KRS & Perencanaan Studi" selected>Konsultasi KRS & Perencanaan Studi Semester</option>
                             <option value="Evaluasi Hasil Belajar & IPK">Evaluasi Hasil Belajar & Peningkatan IPK</option>
                             <option value="Pengajuan Rekomendasi Magang / MBKM">Pengajuan Rekomendasi Magang / Program MBKM</option>
@@ -421,7 +465,7 @@
         btn.disabled = true;
         btn.className = "btn btn-success btn-sm fw-bolder px-2.5 py-1 fs-9";
         btn.innerHTML = '<i class="fas fa-check me-1"></i> TERKIRIM';
-        alert("Notifikasi pengingat bimbingan akademik H-1 telah dikirimkan kepada Prof. Dr. Ir. Ahmad Rizal, M.T.!");
+        alert("Notifikasi pengingat bimbingan akademik H-1 telah dikirimkan kepada {{ addslashes($dosen_wali['nama']) }}!");
     }
 
     function openWebcamModal(id, topik) {
@@ -484,7 +528,7 @@
 
             context.fillStyle = "#ffffff";
             context.font = "16px Poppins, sans-serif";
-            context.fillText("Mahasiswa: Andi Pratama (2108107010001)", 130, 240);
+            context.fillText("Mahasiswa: {{ addslashes($mahasiswa['nama']) }} ({{ addslashes($mahasiswa['nim']) }})", 130, 240);
             context.fillText("Waktu Foto: " + new Date().toLocaleString('id-ID'), 130, 270);
             context.fillText("Status: Dokumentasi Sesi Bimbingan Valid", 130, 300);
 

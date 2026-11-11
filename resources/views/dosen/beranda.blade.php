@@ -183,7 +183,7 @@
             <!-- Tab 1: Mahasiswa Bimbingan Skripsi -->
             <div class="tab-pane fade show active" id="kt_tab_skripsi" role="tabpanel">
                 <div class="table-responsive">
-                    <table class="table table-row-bordered table-row-gray-200 align-middle gs-0 gy-4">
+                    <table id="tabel_dosen_skripsi" class="table table-row-bordered table-row-gray-200 align-middle gs-0 gy-4" data-simbim-paginate="6" data-row-selector="tbody tr" data-pager-id="pager_dosen_skripsi" data-info-id="info_dosen_skripsi">
                         <thead>
                             <tr class="fw-bolder fs-7 text-gray-600 text-uppercase border-bottom border-gray-200 bg-light-primary bg-opacity-25">
                                 <th class="ps-4 rounded-start min-w-200px">Mahasiswa</th>
@@ -235,21 +235,31 @@
                                         </span>
                                     </td>
                                     <td class="text-end pe-4">
-                                        <button type="button" class="btn btn-sm btn-light-primary fw-bolder fs-8 py-2 px-3" onclick="#">
-                                            <i class="fas fa-external-link-alt me-1"></i> Review
-                                        </button>
+                                        @if (! empty($mhs['dokumen_id']))
+                                            <a href="{{ route('dosen.bimbingan.skripsi.show', $mhs['dokumen_id']) }}" class="btn btn-sm btn-light-primary fw-bolder fs-8 py-2 px-3">
+                                                <i class="fas fa-comments me-1"></i> Review &amp; Diskusi
+                                            </a>
+                                        @else
+                                            <a href="{{ route('dosen.bimbingan.mahasiswa') }}" class="btn btn-sm btn-light-primary fw-bolder fs-8 py-2 px-3">
+                                                <i class="fas fa-external-link-alt me-1"></i> Review
+                                            </a>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach
                         </tbody>
                     </table>
                 </div>
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 pt-4 border-top border-gray-200 mt-3">
+                    <span class="text-muted fs-7 fw-semibold" id="info_dosen_skripsi"></span>
+                    <div id="pager_dosen_skripsi"></div>
+                </div>
             </div>
 
             <!-- Tab 2: Mahasiswa Perwalian (DPA) -->
             <div class="tab-pane fade" id="kt_tab_perwalian" role="tabpanel">
                 <div class="table-responsive">
-                    <table class="table table-row-bordered table-row-gray-200 align-middle gs-0 gy-4">
+                    <table id="tabel_dosen_perwalian" class="table table-row-bordered table-row-gray-200 align-middle gs-0 gy-4" data-simbim-paginate="6" data-row-selector="tbody tr" data-pager-id="pager_dosen_perwalian" data-info-id="info_dosen_perwalian">
                         <thead>
                             <tr class="fw-bolder fs-7 text-gray-600 text-uppercase border-bottom border-gray-200 bg-light-primary bg-opacity-25">
                                 <th class="ps-4 rounded-start min-w-200px">Mahasiswa</th>
@@ -300,6 +310,10 @@
                             @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 pt-4 border-top border-gray-200 mt-3">
+                    <span class="text-muted fs-7 fw-semibold" id="info_dosen_perwalian"></span>
+                    <div id="pager_dosen_perwalian"></div>
                 </div>
             </div>
         </div>

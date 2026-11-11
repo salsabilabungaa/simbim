@@ -20,7 +20,7 @@
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
             <div class="d-flex align-items-center" id="kt_header_nav">
                 <span class="d-none d-md-inline-block text-gray-700 fw-bolder fs-6">
-                    <i class="fas fa-university text-primary me-2"></i> Portal Akademik & Pembimbing Dosen
+                    <i class="fas fa-university text-primary me-2"></i> Portal Akademik & Pembimbing Dosen {{ config('simbim.prodi_singkat') }} &mdash; {{ config('simbim.universitas_singkat') }}
                 </span>
             </div>
 
@@ -81,7 +81,7 @@
                                     {{ auth()->user()->nomor_induk ?? ($dosen['nip'] ?? '2401839') }}
                                 </div>
                                 <div class="text-muted fs-7" style="line-height: 1.3;">
-                                    {{ auth()->user()->program_studi ? (str_contains(auth()->user()->program_studi, '(S1)') ? auth()->user()->program_studi : auth()->user()->program_studi . ' (S1)') : ($dosen['program_studi'] ?? 'Pendidikan Sistem dan Teknologi Informasi (S1)') }}
+                                    {{ auth()->user()?->program_studi ?: ($dosen['program_studi'] ?? config('simbim.prodi')) }}
                                 </div>
                             </div>
                         </div>
@@ -146,14 +146,14 @@
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label fw-bolder text-gray-700 fs-7 required">Program Studi</label>
-                            <input type="text" class="form-control form-control-solid" id="edit_prodi_dosen" value="{{ auth()->user()->program_studi ?? ($dosen['program_studi'] ?? 'Pendidikan Sistem dan Teknologi Informasi (S1)') }}" required />
+                            <input type="text" class="form-control form-control-solid" id="edit_prodi_dosen" value="{{ auth()->user()?->program_studi ?: ($dosen['program_studi'] ?? config('simbim.prodi')) }}" required />
                         </div>
                     </div>
 
                     <div class="row g-3 mb-4">
                         <div class="col-sm-6">
                             <label class="form-label fw-bolder text-gray-700 fs-7">Email</label>
-                            <input type="email" class="form-control form-control-solid" id="edit_email_dosen" value="{{ auth()->user()->email ?? ($dosen['email'] ?? 'dosen@usk.ac.id') }}" />
+                            <input type="email" class="form-control form-control-solid" id="edit_email_dosen" value="{{ auth()->user()?->email ?? ($dosen['email'] ?? 'dosen@'.config('simbim.email_domain')) }}" />
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label fw-bolder text-gray-700 fs-7">Nomor Telepon / WhatsApp</label>
@@ -164,11 +164,11 @@
                     <div class="row g-3 mb-5">
                         <div class="col-sm-6">
                             <label class="form-label fw-bolder text-gray-700 fs-7">Ruangan Dosen</label>
-                            <input type="text" class="form-control form-control-solid" id="edit_ruangan_dosen" value="{{ $dosen['ruangan'] ?? 'Gedung Fasilkom Lt. 2 R.204' }}" />
+                            <input type="text" class="form-control form-control-solid" id="edit_ruangan_dosen" value="{{ $dosen['ruangan'] ?? config('simbim.ruang_prodi') }}" />
                         </div>
                         <div class="col-sm-6">
                             <label class="form-label fw-bolder text-gray-700 fs-7">Status Kehadiran</label>
-                            <select class="form-select form-select-solid" id="edit_status_hadir">
+                            <select class="form-select form-select-solid" id="edit_status_hadir" data-control="select2" data-dropdown-parent="#modal_edit_profil_dosen" data-placeholder="Pilih Status Kehadiran">
                                 <option value="Tersedia di Kampus" selected>Tersedia di Kampus</option>
                                 <option value="Bimbingan Daring">Bimbingan Daring</option>
                                 <option value="Sedang Mengajar / Rapat">Sedang Mengajar / Rapat</option>

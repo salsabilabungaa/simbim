@@ -155,7 +155,7 @@
 
     <div class="card-body pt-2">
         <div class="table-responsive">
-            <table class="table align-middle table-row-dashed fs-6 gy-5" id="table_pengajuan">
+            <table class="table align-middle table-row-dashed fs-6 gy-5" id="table_pengajuan" data-simbim-paginate="6" data-row-selector="tbody tr.pengajuan-row" data-pager-id="pager_dosen_pengajuan" data-info-id="info_dosen_pengajuan">
                 <thead>
                     <tr class="text-start text-muted fw-bolder fs-7 text-uppercase gs-0 border-bottom border-gray-300">
                         <th class="min-w-200px">Mahasiswa & Waktu Kirim</th>
@@ -250,8 +250,19 @@
                             </td>
                         </tr>
                     @endforelse
+                    @if (count($daftar_pengajuan) > 0)
+                        <tr data-simbim-empty="1" style="display: none;">
+                            <td colspan="4" class="text-center py-8 text-muted fw-semibold">
+                                Tidak ada pengajuan bimbingan yang cocok dengan pencarian atau filter.
+                            </td>
+                        </tr>
+                    @endif
                 </tbody>
             </table>
+        </div>
+        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 pt-4 border-top border-gray-200 mt-3">
+            <span class="text-muted fs-7 fw-semibold" id="info_dosen_pengajuan"></span>
+            <div id="pager_dosen_pengajuan"></div>
         </div>
     </div>
 </div>
@@ -294,7 +305,7 @@
 
                     <div class="mb-4">
                         <label class="form-label fw-bolder text-gray-700 fs-7 required">Ruang / Tautan Pertemuan</label>
-                        <input type="text" class="form-control form-control-solid" id="reschedule_tempat" value="Ruang Dosen 204 Fasilkom (Luring)" required />
+                        <input type="text" class="form-control form-control-solid" id="reschedule_tempat" value="{{ config('simbim.ruang_prodi') }} (Luring)" required />
                     </div>
 
                     <div class="mb-5">
@@ -394,12 +405,10 @@
             const matchesStatus = (status === 'all' || rowStatus === status);
             const matchesQuery = (!query || rowSearch.includes(query));
 
-            if (matchesStatus && matchesQuery) {
-                row.style.display = '';
-            } else {
-                row.style.display = 'none';
-            }
+            row.setAttribute('data-simbim-filtered', (matchesStatus && matchesQuery) ? '1' : '0');
         });
+
+        window.SimbimUI?.refreshPagination('table_pengajuan', true);
     }
 
     function setujuiJadwal(item) {

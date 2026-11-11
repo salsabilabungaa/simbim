@@ -14,6 +14,17 @@
 </head>
 <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
     <div class="d-flex flex-column flex-root">
+        @if (auth()->check() && auth()->user()->isAdmin())
+            <div class="bg-dark text-white px-6 py-2 d-flex flex-wrap align-items-center justify-content-between shadow-sm" style="z-index: 1000;">
+                <div class="d-flex align-items-center gap-2">
+                    <span class="badge badge-danger fw-bolder fs-9 px-2 py-1">HAK AKSES GLOBAL ADMIN</span>
+                    <span class="fs-8">Anda sedang meninjau <strong>Portal Mahasiswa</strong> dalam mode Administrator.</span>
+                </div>
+                <a href="{{ route('admin.beranda') }}" class="btn btn-xs btn-primary py-1 px-3 fs-8 fw-bold">
+                    <i class="fas fa-arrow-left me-1"></i> Kembali ke Admin Panel
+                </a>
+            </div>
+        @endif
         <div class="page d-flex flex-row flex-column-fluid">
             @include('mahasiswa.partials.aside')
 
@@ -32,7 +43,8 @@
                     <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
                         <div class="text-dark order-2 order-md-1">
                             <span class="text-muted fw-bold me-1">{{ date('Y') }}&copy;</span>
-                            <span class="text-gray-800">SIMBIM</span>
+                            <span class="text-gray-800 fw-bold">SIMBIM</span>
+                            <span class="text-muted fs-8 ms-2">— Portal Mahasiswa {{ config('simbim.prodi_singkat') }} &bull; {{ config('simbim.universitas_singkat') }}</span>
                         </div>
                     </div>
                 </div>
@@ -52,6 +64,7 @@
     <script>var hostUrl = "{{ asset('assets') }}/";</script>
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
+    <script src="{{ asset('assets/js/simbim-ui.js') }}"></script>
     @stack('scripts')
 </body>
 </html>

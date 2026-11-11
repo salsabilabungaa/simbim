@@ -18,14 +18,14 @@
                             </div>
                         </div>
                         <div class="col-md-3">
-                            <select id="filter_kategori" class="form-select form-select-solid bg-light border-0 fs-7" onchange="filterTabelRiwayat()">
+                            <select id="filter_kategori" class="form-select form-select-solid bg-light border-0 fs-7" data-control="select2" data-placeholder="Semua Kategori (Skripsi & Akademik)" onchange="filterTabelRiwayat()">
                                 <option value="">Semua Kategori (Skripsi & Akademik)</option>
                                 <option value="Skripsi">Bimbingan Skripsi</option>
                                 <option value="Akademik">Bimbingan Akademik</option>
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <select id="filter_status" class="form-select form-select-solid bg-light border-0 fs-7" onchange="filterTabelRiwayat()">
+                            <select id="filter_status" class="form-select form-select-solid bg-light border-0 fs-7" data-control="select2" data-placeholder="Semua Status Bimbingan" onchange="filterTabelRiwayat()">
                                 <option value="">Semua Status Bimbingan</option>
                                 <option value="ACC">ACC</option>
                                 <option value="Selesai">Selesai</option>
@@ -57,7 +57,7 @@
                 </div>
                 <div class="card-body pt-3">
                     <div class="table-responsive">
-                        <table class="table align-middle table-row-dashed fs-7 gy-4" id="tabel_riwayat_bimbingan">
+                        <table class="table align-middle table-row-dashed fs-7 gy-4" id="tabel_riwayat_bimbingan" data-simbim-paginate="6" data-row-selector="tbody tr.row-riwayat" data-pager-id="pager_mhs_riwayat" data-info-id="info_mhs_riwayat" data-counter-id="counter_riwayat" data-counter-suffix="Sesi">
                             <thead>
                                 <tr class="text-start text-muted fw-bolder fs-8 text-uppercase ls-1 bg-light">
                                     <th class="ps-4 min-w-50px rounded-start">NO</th>
@@ -108,9 +108,15 @@
                                         </td>
                                         <td class="text-center">
                                             @if ($item['dokumen'])
-                                                <a href="#" class="btn btn-light-primary btn-sm px-2.5 py-1 fs-8 fw-bold" onclick="simulasiDownloadDokumen('{{ $item['dokumen'] }}'); return false;">
-                                                    <i class="fas fa-file-pdf text-danger me-1"></i> {{ Str::limit($item['dokumen'], 15) }}
-                                                </a>
+                                                @if (! empty($item['download_url']))
+                                                    <a href="{{ $item['download_url'] }}" class="btn btn-light-primary btn-sm px-2.5 py-1 fs-8 fw-bold">
+                                                        <i class="fas fa-file-pdf text-danger me-1"></i> {{ Str::limit($item['dokumen'], 15) }}
+                                                    </a>
+                                                @else
+                                                    <a href="#" class="btn btn-light-primary btn-sm px-2.5 py-1 fs-8 fw-bold" onclick="simulasiDownloadDokumen('{{ $item['dokumen'] }}'); return false;">
+                                                        <i class="fas fa-file-pdf text-danger me-1"></i> {{ Str::limit($item['dokumen'], 15) }}
+                                                    </a>
+                                                @endif
                                             @else
                                                 <span class="text-muted fs-8 fw-bold">—</span>
                                             @endif
@@ -140,8 +146,17 @@
                                         <td colspan="9" class="text-center py-8 text-muted">Belum ada data riwayat bimbingan.</td>
                                     </tr>
                                 @endforelse
+                                @if (count($riwayat) > 0)
+                                    <tr data-simbim-empty="1" style="display: none;">
+                                        <td colspan="9" class="text-center py-8 text-muted fw-semibold">Tidak ada sesi riwayat bimbingan yang cocok dengan pencarian atau filter.</td>
+                                    </tr>
+                                @endif
                             </tbody>
                         </table>
+                    </div>
+                    <div class="d-flex justify-content-between align-items-center flex-wrap gap-3 pt-4 border-top border-gray-200 mt-3">
+                        <span class="text-muted fs-7 fw-semibold" id="info_mhs_riwayat"></span>
+                        <div id="pager_mhs_riwayat"></div>
                     </div>
                 </div>
             </div>
@@ -170,15 +185,15 @@
                     <div class="col-md-6">
                         <div class="p-4 rounded bg-light border border-gray-200">
                             <span class="text-muted fs-8 fw-bold text-uppercase d-block mb-1">DOSEN PEMBIMBING / WALI</span>
-                            <div class="fw-bolder text-dark fs-6" id="mdl_dosen">Dr. Ir. Teuku Muhammad, M.T.</div>
-                            <div class="text-primary fs-8 fw-bold" id="mdl_role_dosen">Dosen Pembimbing Utama</div>
+                            <div class="fw-bolder text-dark fs-6" id="mdl_dosen">-</div>
+                            <div class="text-primary fs-8 fw-bold" id="mdl_role_dosen">-</div>
                         </div>
                     </div>
                     <div class="col-md-6">
                         <div class="p-4 rounded bg-light border border-gray-200">
                             <span class="text-muted fs-8 fw-bold text-uppercase d-block mb-1">WAKTU & LOKASI</span>
-                            <div class="fw-bolder text-dark fs-6" id="mdl_waktu">11 Okt 2026 (09.30 WIB)</div>
-                            <div class="text-muted fs-8 fw-bold" id="mdl_ruangan"><i class="fas fa-map-marker-alt me-1 text-warning"></i> Ruang Dosen 2.04</div>
+                            <div class="fw-bolder text-dark fs-6" id="mdl_waktu">-</div>
+                            <div class="text-muted fs-8 fw-bold" id="mdl_ruangan"><i class="fas fa-map-marker-alt me-1 text-warning"></i> {{ config('simbim.ruang_prodi') }}</div>
                         </div>
                     </div>
                 </div>
@@ -245,7 +260,7 @@
             <div class="modal-body p-6" id="printable_logbook">
                 <div class="text-center pb-4 mb-4 border-bottom border-gray-300">
                     <h2 class="fw-bolder text-dark mb-1">KARTU / LOGBOOK BIMBINGAN MAHASISWA</h2>
-                    <p class="text-muted fs-7 mb-0">UNIVERSITAS SYIAH KUALA — FAKULTAS ILMU KOMPUTER</p>
+                    <p class="text-muted fs-7 mb-0">{{ config('simbim.universitas_upper') }} &mdash; PROGRAM STUDI {{ strtoupper(config('simbim.prodi')) }}</p>
                 </div>
 
                 <div class="row mb-5 fs-7">
@@ -278,7 +293,7 @@
                             </tr>
                         </thead>
                         <tbody class="fw-bold">
-                            @foreach ($riwayat as $idx => $r)
+                            @forelse ($riwayat as $idx => $r)
                                 <tr>
                                     <td class="text-center">{{ $idx + 1 }}</td>
                                     <td>{{ $r['tanggal'] }}</td>
@@ -290,7 +305,11 @@
                                     </td>
                                     <td class="text-center"><span class="badge badge-light-{{ $r['badge_status'] }}">{{ $r['status'] }}</span></td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="6" class="text-center text-muted py-4">Belum ada data riwayat bimbingan tercatat.</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -299,11 +318,11 @@
                     <div class="col-6">
                         <p class="mb-5">Mengetahui,<br>Dosen Pembimbing Utama</p>
                         <br><br>
-                        <u><b>Dr. Ir. Teuku Muhammad, M.T.</b></u><br>
-                        NIP. 19810314 200604 1 003
+                        <u><b>{{ $penandatangan['nama'] ?? 'Dr. Ir. Teuku Muhammad, M.T.' }}</b></u><br>
+                        NIP. {{ $penandatangan['nip'] ?? '19810314 200604 1 003' }}
                     </div>
                     <div class="col-6">
-                        <p class="mb-5">Banda Aceh, {{ date('d F Y') }}<br>Mahasiswa</p>
+                        <p class="mb-5">Bandung, {{ date('d F Y') }}<br>Mahasiswa</p>
                         <br><br>
                         <u><b>{{ $mahasiswa['nama'] }}</b></u><br>
                         NIM. {{ $mahasiswa['nim'] }}
@@ -327,8 +346,7 @@
         const kategori = document.getElementById('filter_kategori').value;
         const status = document.getElementById('filter_status').value;
 
-        const rows = document.querySelectorAll('.row-riwayat');
-        let count = 0;
+        const rows = document.querySelectorAll('#tabel_riwayat_bimbingan tbody tr.row-riwayat');
 
         rows.forEach(row => {
             const rowSearch = row.getAttribute('data-search');
@@ -339,21 +357,16 @@
             const matchKategori = !kategori || rowKategori === kategori;
             const matchStatus = !status || rowStatus === status;
 
-            if (matchSearch && matchKategori && matchStatus) {
-                row.style.display = '';
-                count++;
-            } else {
-                row.style.display = 'none';
-            }
+            row.setAttribute('data-simbim-filtered', (matchSearch && matchKategori && matchStatus) ? '1' : '0');
         });
 
-        document.getElementById('counter_riwayat').innerText = `Menampilkan ${count} Sesi`;
+        window.SimbimUI?.refreshPagination('tabel_riwayat_bimbingan', true);
     }
 
     function resetFilterRiwayat() {
         document.getElementById('filter_search').value = '';
-        document.getElementById('filter_kategori').value = '';
-        document.getElementById('filter_status').value = '';
+        window.SimbimUI?.syncSelect2Value('#filter_kategori', '');
+        window.SimbimUI?.syncSelect2Value('#filter_status', '');
         filterTabelRiwayat();
     }
 
@@ -381,14 +394,15 @@
         // Dokumen
         const docWrapper = document.getElementById('mdl_dokumen_wrapper');
         if (data.dokumen) {
+            const downloadAction = data.download_url
+                ? `<a href="${data.download_url}" class="btn btn-light-primary btn-sm fw-bold fs-8"><i class="fas fa-download me-1"></i> Unduh</a>`
+                : `<button type="button" class="btn btn-light-primary btn-sm fw-bold fs-8" onclick="simulasiDownloadDokumen('${data.dokumen}')"><i class="fas fa-download me-1"></i> Unduh</button>`;
             docWrapper.innerHTML = `
                 <div class="d-flex align-items-center">
                     <i class="fas fa-file-pdf text-danger fs-3 me-2"></i>
                     <span class="fw-bold text-dark fs-7">${data.dokumen}</span>
                 </div>
-                <button type="button" class="btn btn-light-primary btn-sm fw-bold fs-8" onclick="simulasiDownloadDokumen('${data.dokumen}')">
-                    <i class="fas fa-download me-1"></i> Unduh
-                </button>
+                ${downloadAction}
             `;
         } else {
             docWrapper.innerHTML = `<span class="text-muted fs-7">Tidak ada dokumen diunggah</span>`;

@@ -2,32 +2,26 @@
 
 namespace App\Http\Controllers\Dosen;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
-class BerandaController extends Controller
+class BerandaController extends BaseDosenController
 {
     public function index(): View
     {
         $user = Auth::user();
+        $dosen = $this->resolveDosenProfile($user);
+        $ruangDosen = (string) config('simbim.ruang_prodi').' (Luring)';
 
-        $dosen = [
-            'nama' => $user?->name ?? 'Dr. Siti Rahmawati, M.Kom.',
-            'nip' => $user?->nomor_induk ?? '198503152010122001',
-            'jabatan' => 'Lektor Kepala — Pembimbing Utama',
-            'program_studi' => $user?->program_studi ?? 'Informatika',
-            'bidang' => 'Software Engineering & Intelligence Systems',
-            'email' => $user?->email ?? 'siti.rahmawati@usk.ac.id',
-            'telepon' => '+62 812-6900-8821',
-            'ruangan' => 'Gedung Fasilkom Lt. 2 R.204',
-            'status_hadir' => 'Tersedia di Kampus',
-        ];
+        $dbPerwalian = $this->fetchDatabasePerwalian($user);
+        $dbSkripsi = $this->fetchDatabaseSkripsiBimbingan($user);
 
         $statistik = [
-            'mahasiswa_skripsi' => 8,
-            'mahasiswa_perwalian' => 24,
-            'menunggu_review' => 3,
+            'mahasiswa_skripsi' => count($dbSkripsi) > 0 ? count($dbSkripsi) : 8,
+            'mahasiswa_perwalian' => count($dbPerwalian) > 0 ? count($dbPerwalian) : 24,
+            'menunggu_review' => count($dbSkripsi) > 0
+                ? count(array_filter($dbSkripsi, fn (array $item): bool => in_array($item['status_draf'], ['Menunggu Review Dosen', 'Draf Sedang Direview', 'Revisi Diperlukan'], true)))
+                : 3,
             'sesi_pekan_ini' => 5,
         ];
 
@@ -40,7 +34,7 @@ class BerandaController extends Controller
                 'topik' => 'Review Draf Revisi Bab III & Instrumen Pengujian',
                 'tanggal' => 'Jumat, 24 Oktober 2026',
                 'waktu' => '09:30 - 10:30 WIB',
-                'tempat' => 'Ruang Dosen 204 (Luring)',
+                'tempat' => $ruangDosen,
                 'badge' => 'primary',
                 'status' => 'Terkonfirmasi',
             ],
@@ -64,14 +58,15 @@ class BerandaController extends Controller
                 'topik' => 'Perencanaan KRS Semester Genap & Evaluasi IPK',
                 'tanggal' => 'Senin, 27 Oktober 2026',
                 'waktu' => '10:00 - 11:00 WIB',
-                'tempat' => 'Ruang Dosen 204 (Luring)',
+                'tempat' => $ruangDosen,
                 'badge' => 'success',
                 'status' => 'Menunggu Konfirmasi',
             ],
         ];
 
-        $mahasiswa_bimbingan = [
+        $mahasiswa_bimbingan = count($dbSkripsi) > 0 ? $dbSkripsi : [
             [
+                'dokumen_id' => null,
                 'nama' => 'Andi Pratama',
                 'nim' => '2108107010001',
                 'judul' => 'Pengembangan Sistem Informasi Manajemen Bimbingan Skripsi Berbasis Web',
@@ -82,6 +77,7 @@ class BerandaController extends Controller
                 'tanggal_update' => '22 Okt 2026',
             ],
             [
+                'dokumen_id' => null,
                 'nama' => 'Cut Nadia Zahra',
                 'nim' => '2108107010034',
                 'judul' => 'Penerapan Algoritma Random Forest pada Klasifikasi Kepuasan Mahasiswa',
@@ -92,6 +88,7 @@ class BerandaController extends Controller
                 'tanggal_update' => '21 Okt 2026',
             ],
             [
+                'dokumen_id' => null,
                 'nama' => 'Rahmat Hidayat',
                 'nim' => '2008107010045',
                 'judul' => 'Analisis Sentimen Opini Publik Menggunakan Deep Learning Transformer',
@@ -102,6 +99,7 @@ class BerandaController extends Controller
                 'tanggal_update' => '20 Okt 2026',
             ],
             [
+                'dokumen_id' => null,
                 'nama' => 'Siti Aisyah Putri',
                 'nim' => '2108107010088',
                 'judul' => 'Implementasi Arsitektur Microservices pada Aplikasi E-Commerce UMKM',
@@ -113,7 +111,7 @@ class BerandaController extends Controller
             ],
         ];
 
-        $mahasiswa_perwalian = [
+        $mahasiswa_perwalian = count($dbPerwalian) > 0 ? $dbPerwalian : [
             [
                 'nama' => 'Muhammad Fikri',
                 'nim' => '2208107010012',
