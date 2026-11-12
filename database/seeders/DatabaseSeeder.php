@@ -51,6 +51,28 @@ class DatabaseSeeder extends Seeder
         );
 
         User::updateOrCreate(
+            ['email' => 'dewanskripsi@simbim.ac.id'],
+            [
+                'name' => 'Dewan Skripsi',
+                'role' => 'dewan_skripsi',
+                'nomor_induk' => '197908202005011004',
+                'program_studi' => $prodiPsti,
+                'password' => 'password',
+            ]
+        );
+
+        User::updateOrCreate(
+            ['email' => 'dskripsi@simbim.ac.id'],
+            [
+                'name' => 'Dewan Skripsi',
+                'role' => 'dewan_skripsi',
+                'nomor_induk' => '197908202005011003',
+                'program_studi' => $prodiPsti,
+                'password' => 'password',
+            ]
+        );
+
+        User::updateOrCreate(
             ['email' => 'dewan@simbim.ac.id'],
             [
                 'name' => 'Prof. Dr. Ir. Dewan Skripsi, M.Sc.',
@@ -75,6 +97,7 @@ class DatabaseSeeder extends Seeder
         $this->call([
             PerwalianMahasiswaSeeder::class,
             SkripsiRevisiSeeder::class,
+            SkripsiSeeder::class,
         ]);
     }
 }

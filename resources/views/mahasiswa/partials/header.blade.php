@@ -73,6 +73,12 @@
                             </div>
                             <div class="separator my-2"></div>
                             <div class="menu-item px-5">
+                                <a href="{{ route('profile.edit') }}" class="menu-link px-5">
+                                    <i class="fas fa-user-edit me-2 text-primary fs-7"></i> Edit Profil
+                                </a>
+                            </div>
+                            <div class="separator my-2"></div>
+                            <div class="menu-item px-5">
                                 <form method="POST" action="{{ route('logout') }}" id="header_logout_form">
                                     @csrf
                                     <button type="submit" class="dropdown-item menu-link px-5 text-danger border-0 bg-transparent w-100 text-start">

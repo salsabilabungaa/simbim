@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\BerandaController as AdminBerandaController;
 use App\Http\Controllers\Admin\MonitoringController as AdminMonitoringController;
 use App\Http\Controllers\Admin\UserController as AdminUserController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\DewanSkripsi\BerandaController as DewanSkripsiBerandaController;
+use App\Http\Controllers\DewanSkripsi\DewanSkripsiController;
 use App\Http\Controllers\Dosen\BerandaController as DosenBerandaController;
 use App\Http\Controllers\Dosen\MahasiswaBimbinganController;
 use App\Http\Controllers\Dosen\PengajuanBimbinganController;
@@ -17,6 +17,7 @@ use App\Http\Controllers\Mahasiswa\BerandaController;
 use App\Http\Controllers\Mahasiswa\BimbinganAkademikController;
 use App\Http\Controllers\Mahasiswa\BimbinganSkripsiController;
 use App\Http\Controllers\Mahasiswa\RiwayatBimbinganController;
+use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 // Root URL: Langsung diarahkan ke login jika belum login, atau ke dashboard role masing-masing jika sudah login
@@ -65,6 +66,9 @@ Route::middleware(['auth', 'role:admin'])->prefix('admin')->name('admin.')->grou
     });
 });
 
+// Alias rute beranda mahasiswa untuk backward compatibility
+Route::get('/mahasiswa/dashboard', [BerandaController::class, 'index'])->name('berandaMahasiswa')->middleware(['auth', 'role:mahasiswa']);
+
 // Protected Mahasiswa Routes: Wajib login dengan peran mahasiswa (atau admin via hak akses global)
 Route::middleware(['auth', 'role:mahasiswa'])->prefix('mahasiswa')->name('mahasiswa.')->group(function () {
     Route::get('/beranda', [BerandaController::class, 'index'])->name('beranda');
@@ -105,7 +109,25 @@ Route::middleware(['auth', 'role:dosen'])->prefix('dosen')->name('dosen.')->grou
 
 // Protected Dewan Skripsi Routes: Wajib login dengan peran dewan_skripsi (atau admin via hak akses global)
 Route::middleware(['auth', 'role:dewan_skripsi'])->prefix('dewan-skripsi')->name('dewan-skripsi.')->group(function () {
-    Route::get('/beranda', [DewanSkripsiBerandaController::class, 'index'])->name('beranda');
+    // 1. Dasbor Progres Skripsi
+    Route::get('/', fn () => redirect()->route('dewan-skripsi.beranda'));
+    Route::get('/beranda', [DewanSkripsiController::class, 'dashboard'])->name('beranda');
+    Route::get('/dashboard', [DewanSkripsiController::class, 'dashboard'])->name('dashboard');
+
+    // 2. Plotting Dosen & Jadwal
+    Route::get('/plotting', [DewanSkripsiController::class, 'plotting'])->name('plotting');
+    Route::post('/plotting/{skripsi}', [DewanSkripsiController::class, 'updatePlotting'])->name('plotting.update');
+
+    // 3. Validasi Pendaftaran Sidang (Approval)
+    Route::get('/validasi-sidang', [DewanSkripsiController::class, 'validasiSidang'])->name('validasi-sidang');
+    Route::post('/validasi-sidang/{skripsi}/approve', [DewanSkripsiController::class, 'approveSidang'])->name('validasi-sidang.approve');
+    Route::post('/validasi-sidang/{skripsi}/reject', [DewanSkripsiController::class, 'rejectSidang'])->name('validasi-sidang.reject');
+
+    // 4. Verifikasi Berkas Pasca-Sidang
+    Route::get('/verifikasi-pasca-sidang', [DewanSkripsiController::class, 'verifikasiPascaSidang'])->name('verifikasi-pasca-sidang');
+    Route::post('/verifikasi-pasca-sidang/{skripsi}/nilai', [DewanSkripsiController::class, 'simpanNilai'])->name('verifikasi-pasca-sidang.nilai');
+    Route::post('/verifikasi-pasca-sidang/{skripsi}/lulus', [DewanSkripsiController::class, 'keluarkanStatusLulus'])->name('verifikasi-pasca-sidang.lulus');
+    Route::get('/verifikasi-pasca-sidang/{skripsi}/surat-keterangan', [DewanSkripsiController::class, 'cetakSuratKeterangan'])->name('cetak-surat');
 });
 
 // Protected GKM Routes: Wajib login dengan peran gkm (atau admin via hak akses global)
@@ -115,4 +137,10 @@ Route::middleware(['auth', 'role:gkm'])->prefix('gkm')->name('gkm.')->group(func
     Route::get('/riwayat-konsultasi/{konsultasi}', [GkmKonsultasiController::class, 'show'])->name('riwayat-konsultasi.show');
     Route::get('/ekspor/pdf', [GkmLaporanAkreditasiController::class, 'exportPdf'])->name('ekspor.pdf');
     Route::get('/ekspor/excel', [GkmLaporanAkreditasiController::class, 'exportExcel'])->name('ekspor.excel');
+});
+
+// Protected Profile Routes: Dapat diakses oleh seluruh peran yang telah login (Admin, Dosen, Dewan Skripsi, GKM, Mahasiswa)
+Route::middleware('auth')->prefix('profile')->name('profile.')->group(function () {
+    Route::get('/edit', [ProfileController::class, 'edit'])->name('edit');
+    Route::put('/update', [ProfileController::class, 'update'])->name('update');
 });

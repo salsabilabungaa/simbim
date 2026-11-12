@@ -146,6 +146,19 @@ class AuthenticationTest extends TestCase
         $response->assertRedirect(route('dosen.beranda'));
     }
 
+    public function test_login_dewan_skripsi_simbim_diarahkan_ke_dashboard_dewan_skripsi(): void
+    {
+        $response = $this->post('/login', [
+            'login' => 'dskripsi@simbim.ac.id',
+            'password' => 'password',
+        ]);
+
+        $this->assertAuthenticated();
+        $this->assertEquals('dewan_skripsi', auth()->user()->role);
+        $this->assertEquals('Dewan Skripsi', auth()->user()->name);
+        $response->assertRedirect(route('dewan-skripsi.beranda'));
+    }
+
     public function test_dosen_mencoba_akses_halaman_mahasiswa_dialihkan_ke_dashboard_dosen(): void
     {
         $dosen = User::where('email', 'dosen@simbim.ac.id')->first()

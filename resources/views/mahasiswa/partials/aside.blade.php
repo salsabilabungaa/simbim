@@ -75,6 +75,15 @@
                         <span class="menu-title">Riwayat Bimbingan</span>
                     </a>
                 </div>
+
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('profile.*') ? 'active' : '' }}" href="{{ route('profile.edit') }}">
+                        <span class="menu-icon">
+                            <i class="fas fa-user-edit fs-3 text-warning"></i>
+                        </span>
+                        <span class="menu-title">Edit Profil Saya</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

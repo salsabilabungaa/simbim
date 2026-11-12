@@ -28,7 +28,7 @@ class UserFactory extends Factory
             'name' => fake()->name(),
             'email' => fake()->unique()->safeEmail(),
             'role' => 'mahasiswa',
-            'nomor_induk' => (string) fake()->unique()->numerify('2108107010###'),
+            'nomor_induk' => (string) fake()->unique()->numerify('2108107######'),
             'program_studi' => 'Pendidikan Sistem dan Teknologi Informasi (PSTI)',
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),

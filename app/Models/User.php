@@ -9,15 +9,39 @@ use Illuminate\Database\Eloquent\Attributes\Hidden;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 
-#[Fillable(['name', 'email', 'password', 'role', 'nomor_induk', 'program_studi', 'dosen_wali_id'])]
+#[Fillable(['name', 'email', 'password', 'role', 'nomor_induk', 'nim', 'nip', 'program_studi', 'foto_profil', 'dosen_wali_id'])]
 #[Hidden(['password', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    /**
+     * Bootstrap the model and its traits.
+     */
+    protected static function booted(): void
+    {
+        static::saving(function (User $user) {
+            if (! empty($user->nim)) {
+                $user->nomor_induk = $user->nim;
+            } elseif (! empty($user->nip)) {
+                $user->nomor_induk = $user->nip;
+            } elseif (empty($user->nomor_induk)) {
+                $user->nomor_induk = $user->nim ?: $user->nip;
+            }
+            if (empty($user->nim) && $user->role === 'mahasiswa') {
+                $user->nim = $user->nomor_induk;
+            }
+            if (empty($user->nip) && in_array($user->role, ['dosen', 'dewan_skripsi', 'gkm'], true)) {
+                $user->nip = $user->nomor_induk;
+            }
+        });
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -92,9 +116,38 @@ class User extends Authenticatable
         return $this->hasMany(SkripsiDokumen::class, 'mahasiswa_id');
     }
 
+    public function bimbingans(): HasMany
+    {
+        return $this->hasMany(SkripsiDokumen::class, 'mahasiswa_id');
+    }
+
     public function skripsiBimbingan(): HasMany
     {
         return $this->hasMany(SkripsiDokumen::class, 'dosen_pembimbing_id');
+    }
+
+    public function skripsi(): HasOne
+    {
+        return $this->hasOne(Skripsi::class, 'mahasiswa_id');
+    }
+
+    public function getNimAttribute(): ?string
+    {
+        return $this->attributes['nim'] ?? $this->nomor_induk;
+    }
+
+    public function getNipAttribute(): ?string
+    {
+        return $this->attributes['nip'] ?? $this->nomor_induk;
+    }
+
+    public function getAvatarUrlAttribute(): string
+    {
+        if (! empty($this->foto_profil) && Storage::disk('public')->exists($this->foto_profil)) {
+            return Storage::url($this->foto_profil);
+        }
+
+        return asset('assets/media/avatars/300-1.jpg');
     }
 
     public function getRoleLabelAttribute(): string

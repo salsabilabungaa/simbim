@@ -12,7 +12,7 @@
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
     @stack('styles')
 </head>
-<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed toolbar-enabled toolbar-fixed aside-enabled aside-fixed" style="--kt-toolbar-height:55px;--kt-toolbar-height-tablet-and-mobile:55px">
+<body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed aside-enabled aside-fixed">
     <div class="d-flex flex-column flex-root">
         @if (auth()->check() && auth()->user()->isAdmin())
             <div class="bg-dark text-white px-6 py-2 d-flex flex-wrap align-items-center justify-content-between shadow-sm">
@@ -65,6 +65,13 @@
                                     <span class="menu-icon"><i class="fas fa-clipboard-list fs-3 text-primary"></i></span>
                                     <span class="menu-title">Riwayat &amp; Log Konsultasi</span>
                                     <span class="badge badge-light-secondary fs-9 fw-bold ms-1">View</span>
+                                </a>
+                            </div>
+
+                            <div class="menu-item">
+                                <a class="menu-link {{ request()->routeIs('profile.*') ? 'active' : '' }}" href="{{ route('profile.edit') }}">
+                                    <span class="menu-icon"><i class="fas fa-user-edit fs-3 text-warning"></i></span>
+                                    <span class="menu-title">Edit Profil Saya</span>
                                 </a>
                             </div>
                         </div>
@@ -127,6 +134,14 @@
                                                     <span class="fw-semibold text-muted fs-8 text-truncate" style="max-width: 160px;">{{ auth()->user()->email ?? '' }}</span>
                                                 </div>
                                             </div>
+                                        </div>
+
+                                        <div class="separator my-2"></div>
+
+                                        <div class="menu-item px-5">
+                                            <a href="{{ route('profile.edit') }}" class="menu-link px-5">
+                                                <i class="fas fa-user-edit me-2 text-info fs-7"></i> Edit Profil
+                                            </a>
                                         </div>
 
                                         <div class="separator my-2"></div>

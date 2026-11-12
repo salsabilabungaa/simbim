@@ -91,7 +91,7 @@
 
                         <!-- 3. Edit Profil -->
                         <div class="menu-item px-5">
-                            <a href="javascript:void(0)" class="menu-link px-3 py-2 d-flex align-items-center" onclick="bukaModalEditProfilDosen()">
+                            <a href="{{ route('profile.edit') }}" class="menu-link px-3 py-2 d-flex align-items-center">
                                 <i class="bi bi-person-fill fs-3 me-3" style="color: #009688;"></i>
                                 <span class="text-gray-700 fs-6 fw-semibold">Edit Profil</span>
                             </a>

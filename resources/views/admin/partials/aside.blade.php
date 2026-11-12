@@ -92,6 +92,22 @@
                         <span class="menu-title">Data GKM (Kendali Mutu)</span>
                     </a>
                 </div>
+
+                <!-- 4. Pengaturan Akun -->
+                <div class="menu-item">
+                    <div class="menu-content pt-6 pb-2">
+                        <span class="menu-section text-muted text-uppercase fs-8 ls-1">Pengaturan</span>
+                    </div>
+                </div>
+
+                <div class="menu-item">
+                    <a class="menu-link {{ request()->routeIs('profile.*') ? 'active' : '' }}" href="{{ route('profile.edit') }}">
+                        <span class="menu-icon">
+                            <i class="fas fa-user-edit fs-3 text-warning"></i>
+                        </span>
+                        <span class="menu-title">Edit Profil Saya</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

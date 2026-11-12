@@ -37,6 +37,11 @@
                     Dosen Wali: <span class="text-success fw-bold">{{ $dosen_wali['nama'] }}</span> -->
                 </p>
             </div>
+            <div class="mt-4 mt-lg-0">
+                <a href="{{ route('profile.edit') }}" class="btn btn-sm btn-light-primary fw-bolder py-2.5 px-4 shadow-sm">
+                    <i class="fas fa-user-edit me-1.5"></i> Edit Profil
+                </a>
+            </div>
         </div>
     </div>
 </div>

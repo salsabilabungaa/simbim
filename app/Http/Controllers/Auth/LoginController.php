@@ -48,11 +48,11 @@ class LoginController extends Controller
         $user = User::where('email', $loginInput)
             ->orWhere('nomor_induk', $loginInput)
             ->orWhere('email', $loginInput.'@simbim.ac.id')
-            ->when(in_array($normalizedLower, ['admin', 'amin', 'administrator', 'gkm', 'dewan', 'dewan skripsi', 'dewan_skripsi', 'dosen', 'mahasiswa'], true), function ($query) use ($normalizedLower) {
+            ->when(in_array($normalizedLower, ['admin', 'amin', 'administrator', 'gkm', 'dewan', 'dewan skripsi', 'dewan_skripsi', 'dskripsi', 'dewanskripsi', 'dosen', 'mahasiswa'], true), function ($query) use ($normalizedLower) {
                 $role = match ($normalizedLower) {
                     'admin', 'amin', 'administrator' => 'admin',
                     'gkm' => 'gkm',
-                    'dewan', 'dewan skripsi', 'dewan_skripsi' => 'dewan_skripsi',
+                    'dewan', 'dewan skripsi', 'dewan_skripsi', 'dskripsi', 'dewanskripsi' => 'dewan_skripsi',
                     'dosen' => 'dosen',
                     'mahasiswa' => 'mahasiswa',
                 };
