@@ -280,7 +280,7 @@
 
                                             <div class="mb-3">
                                                 <label class="form-label fw-bold fs-7">Nomor Surat Keterangan Lulus (SKL)</label>
-                                                <input type="text" name="no_surat_keterangan" class="form-control form-control-solid font-monospace fs-7" value="{{ $item->no_surat_keterangan ?: 'SKL/FT-USK/SKR/' . date('Y') . '/' . str_pad($item->id, 3, '0', STR_PAD_LEFT) }}" required />
+                                                <input type="text" name="no_surat_keterangan" class="form-control form-control-solid font-monospace fs-7" value="{{ $item->no_surat_keterangan ?: 'SKL/PSTI-UPI/SKR/' . date('Y') . '/' . str_pad($item->id, 3, '0', STR_PAD_LEFT) }}" required />
                                             </div>
 
                                             <div class="mb-2">

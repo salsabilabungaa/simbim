@@ -1,6 +1,9 @@
 <?php
 
 return [
+    'nama_sistem' => 'BIMASTI',
+    'nama_panjang' => 'Bimbingan Akademik & Skripsi Mahasiswa PSTI',
+    'tagline' => 'Sistem Informasi Bimbingan Mahasiswa PSTI UPI',
     'universitas' => 'Universitas Pendidikan Indonesia (UPI)',
     'universitas_upper' => 'UNIVERSITAS PENDIDIKAN INDONESIA (UPI)',
     'universitas_singkat' => 'UPI',

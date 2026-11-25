@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <base href="{{ url('/') }}/">
-    <title>@yield('title', 'Autentikasi') — SIMBIM</title>
+    <title>@yield('title', 'Autentikasi') — BIMASTI UPI</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -11,13 +11,14 @@
     <!-- Google Fonts: Poppins -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     
-    <!-- Metronic Global Stylesheets -->
+    <!-- Global Stylesheets -->
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/simbim-theme.css') }}" rel="stylesheet" type="text/css" />
 
     <style>
         body {
-            background-color: #f5f8fa;
+            background-color: #f4f7fb;
         }
         .role-selector-card {
             border: 2px solid #eff2f5;
@@ -25,24 +26,24 @@
             cursor: pointer;
         }
         .role-selector-card:hover {
-            border-color: #009ef7;
-            background-color: #f1faff;
+            border-color: #00A3E0;
+            background-color: #EBF8FD;
         }
         .role-check-input:checked + .role-selector-card {
-            border-color: #009ef7;
-            background-color: #f1faff;
-            box-shadow: 0 4px 12px rgba(0, 158, 247, 0.12);
+            border-color: #00A3E0;
+            background-color: #EBF8FD;
+            box-shadow: 0 4px 12px rgba(0, 163, 224, 0.15);
         }
         .role-check-input:checked + .role-selector-card .role-title {
-            color: #009ef7 !important;
+            color: #00A3E0 !important;
         }
         .password-toggle-btn {
             z-index: 10;
         }
         .auth-card-wrapper {
             background-color: #ffffff;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.04);
-            border: 1px solid #eef3f7;
+            box-shadow: 0 10px 40px rgba(14, 32, 70, 0.06);
+            border: 1px solid #e2e8f0;
         }
     </style>
     @stack('styles')
@@ -54,13 +55,19 @@
             <div class="w-100 mw-550px">
                 <!-- Top Brand Logo -->
                 <div class="text-center mb-8">
-                    <a href="{{ url('/') }}" class="d-inline-flex flex-column align-items-center text-decoration-none mb-2">
-                        <img alt="SIMBIM Logo" src="{{ asset('assets/media/logos/logo-1.svg') }}" class="h-45px mb-2" />
+                    <a href="{{ url('/') }}" class="d-inline-flex flex-column align-items-center text-decoration-none mb-3">
+                        <img alt="BIMASTI - Universitas Pendidikan Indonesia" src="{{ asset('assets/media/logos/psti-logo.png') }}" class="h-60px mb-1" style="max-width: 270px; object-fit: contain;" />
                     </a>
-                    <div class="d-flex justify-content-center align-items-center gap-2">
-                        <span class="badge badge-light-primary fw-bolder fs-8 px-3 py-1 text-uppercase ls-1">
-                            <i class="fas fa-graduation-cap me-1 text-primary"></i> Portal Bimbingan Akademik & Skripsi {{ config('simbim.prodi_singkat') }} {{ config('simbim.universitas_singkat') }}
+                    <div class="d-flex justify-content-center align-items-center gap-2 mb-1">
+                        <span class="badge badge-light-primary fw-bolder fs-7 px-3 py-1.5 text-uppercase ls-1">
+                            <i class="fas fa-graduation-cap me-1.5 text-primary"></i> BIMASTI UPI
                         </span>
+                    </div>
+                    <div class="text-gray-700 fs-7 fw-bolder mt-1">
+                        {{ config('simbim.tagline') }}
+                    </div>
+                    <div class="text-muted fs-8 fw-semibold">
+                        {{ config('simbim.prodi') }} &bull; {{ config('simbim.universitas') }}
                     </div>
                 </div>
 
@@ -99,7 +106,7 @@
 
                 <!-- Bottom Footer -->
                 <div class="d-flex flex-column flex-sm-row justify-content-between align-items-center text-gray-500 fs-8 mt-8 px-2 gap-3">
-                    <span>&copy; {{ date('Y') }} SIMBIM &bull; {{ config('simbim.prodi') }} &mdash; {{ config('simbim.universitas') }}</span>
+                    <span>&copy; {{ date('Y') }} BIMASTI &bull; {{ config('simbim.prodi') }} &mdash; {{ config('simbim.universitas') }}</span>
                     <!-- <div class="d-flex align-items-center gap-4">
                         <a href="javascript:void(0)" class="text-gray-500 text-hover-primary">Bantuan & FAQ</a>
                         <span class="bullet bullet-dot bg-gray-400"></span>

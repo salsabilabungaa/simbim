@@ -6,9 +6,9 @@
 <div class="w-100">
     <!-- Header Heading -->
     <div class="text-center mb-9">
-        <h2 class="text-dark fw-bolder fs-2 mb-2">Selamat Datang</h2>
+        <h2 class="text-dark fw-bolder fs-2 mb-2">Selamat Datang di BIMASTI</h2>
         <div class="text-gray-500 fw-semibold fs-6">
-            Silakan masuk dengan akun SIMBIM Anda
+            Silakan masuk dengan akun BIMASTI Anda
         </div>
     </div>
 
@@ -85,7 +85,7 @@
         <div class="text-center">
             <button type="submit" id="kt_sign_in_submit" class="btn btn-primary w-100 py-3 fw-bolder fs-6 shadow-sm">
                 <span class="indicator-label">
-                    Masuk ke SIMBIM <i class="fas fa-arrow-right ms-2 fs-6"></i>
+                    Masuk ke BIMASTI <i class="fas fa-arrow-right ms-2 fs-6"></i>
                 </span>
                 <span class="indicator-progress d-none">
                     Memverifikasi kredensial...

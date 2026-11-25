@@ -13,12 +13,15 @@
 
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
             <a href="{{ route('mahasiswa.beranda') }}" class="d-lg-none">
-                <img alt="Logo" src="{{ asset('assets/media/logos/logo-2.svg') }}" class="h-30px" />
+                <img alt="BIMASTI" src="{{ asset('assets/media/logos/psti-icon.png') }}" class="h-30px" />
             </a>
         </div>
 
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
             <div class="d-flex align-items-center" id="kt_header_nav">
+                <span class="d-none d-md-inline-block text-gray-700 fw-bolder fs-6">
+                    <i class="fas fa-graduation-cap text-primary me-2"></i> BIMASTI &mdash; {{ config('simbim.universitas') }}
+                </span>
             </div>
 
             <div class="d-flex align-items-stretch flex-shrink-0">
@@ -29,7 +32,7 @@
                         <span class="bullet bullet-dot bg-success h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
                     </div>
                     <div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px" data-kt-menu="true">
-                        <div class="d-flex flex-column bgi-no-repeat rounded-top p-6" style="background: linear-gradient(135deg, #1e1e2d 0%, #2b2b40 100%);">
+                        <div class="d-flex flex-column bgi-no-repeat rounded-top p-6" style="background: linear-gradient(135deg, #0E2046 0%, #162C5C 100%);">
                             <h3 class="text-white fw-bolder mb-1 fs-5">
                                 <i class="fas fa-bell text-warning me-2"></i> Notifikasi
                             </h3>
@@ -56,55 +59,81 @@
                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                     @auth
                         <div class="cursor-pointer d-flex align-items-center px-2 py-1 text-hover-primary" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                            <div class="symbol symbol-30px symbol-circle me-2 bg-light-primary text-primary fw-bolder d-flex align-items-center justify-content-center">
+                            <div class="symbol symbol-30px symbol-circle me-2 bg-light-success text-success fw-bolder d-flex align-items-center justify-content-center">
                                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
                             </div>
                             <span class="text-gray-700 fw-bold fs-7 text-uppercase ls-1">{{ auth()->user()->name }}</span>
                         </div>
-                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
+
+                        <!-- Popout Card Dropdown (Persis Desain Gambar) -->
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px w-md-300px" data-kt-menu="true">
+                            <!-- 1. Header Informasi Mahasiswa (Center-aligned) -->
                             <div class="menu-item px-3">
-                                <div class="menu-content d-flex flex-column px-3 py-2">
-                                    <div class="fw-bolder text-dark fs-6 mb-1">{{ auth()->user()->name }}</div>
-                                    <div class="text-muted fs-7 fw-bold mb-1">{{ auth()->user()->isDosen() ? 'NIP' : 'NIM' }}: {{ auth()->user()->nomor_induk ?? ($mahasiswa['nim'] ?? '-') }}</div>
-                                    <div class="badge badge-light-primary fw-bolder fs-8 align-self-start mt-1">
-                                        <i class="fas fa-graduation-cap me-1 text-primary"></i> Program Studi {{ auth()->user()?->program_studi ?: ($mahasiswa['program_studi'] ?? config('simbim.prodi')) }}
+                                <div class="menu-content d-flex flex-column text-center px-3 py-2">
+                                    <div class="fw-bolder text-gray-800 fs-6 text-uppercase mb-1" style="letter-spacing: 0.5px;">
+                                        {{ auth()->user()->name }}
+                                    </div>
+                                    <div class="text-muted fs-7 mb-1">
+                                        {{ auth()->user()->nomor_induk ?? ($mahasiswa['nim'] ?? '2108107010001') }}
+                                    </div>
+                                    <div class="text-muted fs-7" style="line-height: 1.3;">
+                                        {{ auth()->user()?->program_studi ?: ($mahasiswa['program_studi'] ?? config('simbim.prodi')) }}
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- 2. Garis Pemisah (Divider) -->
                             <div class="separator my-2"></div>
+
+                            <!-- 3. Edit Profil -->
                             <div class="menu-item px-5">
-                                <a href="{{ route('profile.edit') }}" class="menu-link px-5">
-                                    <i class="fas fa-user-edit me-2 text-primary fs-7"></i> Edit Profil
+                                <a href="{{ route('profile.edit') }}" class="menu-link px-3 py-2 d-flex align-items-center">
+                                    <i class="bi bi-person-fill fs-3 me-3" style="color: #009688;"></i>
+                                    <span class="text-gray-700 fs-6 fw-semibold">Edit Profil</span>
                                 </a>
                             </div>
-                            <div class="separator my-2"></div>
+
+                            <!-- 4. Sign Out -->
                             <div class="menu-item px-5">
-                                <form method="POST" action="{{ route('logout') }}" id="header_logout_form">
+                                <form method="POST" action="{{ route('logout') }}" id="header_logout_form" class="m-0 p-0">
                                     @csrf
-                                    <button type="submit" class="dropdown-item menu-link px-5 text-danger border-0 bg-transparent w-100 text-start">
-                                        <i class="fas fa-sign-out-alt me-2 text-danger"></i> Sign Out
+                                    <button type="submit" class="menu-link px-3 py-2 d-flex align-items-center border-0 bg-transparent w-100 text-start cursor-pointer">
+                                        <i class="bi bi-power fs-3 me-3" style="color: #009688;"></i>
+                                        <span class="text-gray-700 fs-6 fw-semibold">Sign Out</span>
                                     </button>
                                 </form>
                             </div>
                         </div>
                     @else
                         <div class="cursor-pointer d-flex align-items-center px-2 py-1 text-hover-primary" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
+                            <div class="symbol symbol-30px symbol-circle me-2 bg-light-success text-success fw-bolder d-flex align-items-center justify-content-center">
+                                {{ strtoupper(substr($mahasiswa['nama'] ?? 'M', 0, 1)) }}
+                            </div>
                             <span class="text-gray-700 fw-bold fs-7 text-uppercase ls-1">{{ $mahasiswa['nama'] ?? 'Mahasiswa' }}</span>
                         </div>
-                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
+
+                        <!-- Popout Card Dropdown (Persis Desain Gambar) -->
+                        <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px w-md-300px" data-kt-menu="true">
                             <div class="menu-item px-3">
-                                <div class="menu-content d-flex flex-column px-3 py-2">
-                                    <div class="fw-bolder text-dark fs-6 mb-1">{{ $mahasiswa['nama'] ?? 'Andi Pratama' }}</div>
-                                    <div class="text-muted fs-7 fw-bold mb-1">NIM: {{ $mahasiswa['nim'] ?? '2108107010001' }}</div>
-                                    <div class="badge badge-light-primary fw-bolder fs-8 align-self-start mt-1">
-                                        <i class="fas fa-graduation-cap me-1 text-primary"></i> Program Studi {{ $mahasiswa['program_studi'] ?? config('simbim.prodi') }}
+                                <div class="menu-content d-flex flex-column text-center px-3 py-2">
+                                    <div class="fw-bolder text-gray-800 fs-6 text-uppercase mb-1" style="letter-spacing: 0.5px;">
+                                        {{ $mahasiswa['nama'] ?? 'Andi Pratama' }}
+                                    </div>
+                                    <div class="text-muted fs-7 mb-1">
+                                        {{ $mahasiswa['nim'] ?? '2108107010001' }}
+                                    </div>
+                                    <div class="text-muted fs-7" style="line-height: 1.3;">
+                                        {{ $mahasiswa['program_studi'] ?? config('simbim.prodi') }}
                                     </div>
                                 </div>
                             </div>
+
                             <div class="separator my-2"></div>
+
                             <div class="menu-item px-5">
-                                <a href="{{ route('login') }}" class="menu-link px-5 text-primary">
-                                    <i class="fas fa-sign-in-alt me-2 text-primary"></i> Masuk / Login
+                                <a href="{{ route('login') }}" class="menu-link px-3 py-2 d-flex align-items-center">
+                                    <i class="bi bi-box-arrow-in-right fs-3 me-3" style="color: #009688;"></i>
+                                    <span class="text-gray-700 fs-6 fw-semibold">Masuk / Login</span>
                                 </a>
                             </div>
                         </div>

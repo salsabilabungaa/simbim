@@ -1,0 +1,264 @@
+/**
+ * SIMBIM PSTI - Custom Theme & Color Palette
+ * Aligned with PSTI UPI Brand Identity (Deep Navy #0E2046 & Electric Tech Cyan #00B8EE / #00A3E0)
+ */
+
+:root {
+    --psti-navy: #0E2046;
+    --psti-navy-dark: #0A1837;
+    --psti-navy-surface: #142852;
+    --psti-cyan: #00B8EE;
+    --psti-cyan-primary: #00A3E0;
+    --psti-cyan-hover: #008EC4;
+    --psti-cyan-subtle: #EBF8FD;
+    --psti-cyan-light: #D5F1FB;
+    --psti-cyan-text: #007CA8;
+    --bs-primary: #00A3E0;
+    --bs-primary-rgb: 0, 163, 224;
+    --bs-primary-active: #008EC4;
+    --bs-primary-light: #EBF8FD;
+}
+
+/* ----------------------------------------------------
+ * 1. SIDEBAR ASIDE (PSTI Deep Tech Navy)
+ * ---------------------------------------------------- */
+.aside.aside-dark {
+    background-color: var(--psti-navy) !important;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.aside.aside-dark .aside-logo {
+    background-color: var(--psti-navy-dark) !important;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+    padding: 0 1.5rem;
+}
+
+.aside.aside-dark .aside-footer {
+    background-color: var(--psti-navy-dark) !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.07);
+}
+
+/* Aside menu section header */
+.aside.aside-dark .menu .menu-section {
+    color: #6C82A3 !important;
+    font-size: 0.72rem !important;
+    font-weight: 700 !important;
+    letter-spacing: 0.08em;
+}
+
+/* Aside menu item default */
+.aside.aside-dark .menu .menu-item .menu-link {
+    color: #A3B8D7 !important;
+    border-radius: 0.475rem;
+    margin: 0.15rem 0.5rem;
+    padding: 0.65rem 0.85rem;
+    transition: all 0.2s ease;
+}
+
+.aside.aside-dark .menu .menu-item .menu-link .menu-icon,
+.aside.aside-dark .menu .menu-item .menu-link .menu-icon i,
+.aside.aside-dark .menu .menu-item .menu-link .menu-icon svg {
+    color: #7B93B8 !important;
+    transition: color 0.2s ease;
+}
+
+/* Aside menu item hover */
+.aside.aside-dark .menu .menu-item:not(.here):not(.show) > .menu-link:hover {
+    background-color: rgba(255, 255, 255, 0.06) !important;
+    color: #EBF8FD !important;
+}
+
+.aside.aside-dark .menu .menu-item:not(.here):not(.show) > .menu-link:hover .menu-icon,
+.aside.aside-dark .menu .menu-item:not(.here):not(.show) > .menu-link:hover .menu-icon i {
+    color: var(--psti-cyan) !important;
+}
+
+/* Aside menu item ACTIVE */
+.aside.aside-dark .menu .menu-item.here > .menu-link,
+.aside.aside-dark .menu .menu-item .menu-link.active {
+    background: linear-gradient(90deg, rgba(0, 184, 238, 0.18) 0%, rgba(0, 184, 238, 0.05) 100%) !important;
+    color: #FFFFFF !important;
+    border-left: 3px solid var(--psti-cyan) !important;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+}
+
+.aside.aside-dark .menu .menu-item.here > .menu-link .menu-title,
+.aside.aside-dark .menu .menu-item .menu-link.active .menu-title {
+    color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+.aside.aside-dark .menu .menu-item.here > .menu-link .menu-icon,
+.aside.aside-dark .menu .menu-item.here > .menu-link .menu-icon i,
+.aside.aside-dark .menu .menu-item .menu-link.active .menu-icon,
+.aside.aside-dark .menu .menu-item .menu-link.active .menu-icon i {
+    color: var(--psti-cyan) !important;
+}
+
+.aside.aside-dark .menu .menu-item.here > .menu-link .menu-icon svg path,
+.aside.aside-dark .menu .menu-item .menu-link.active .menu-icon svg path {
+    fill: var(--psti-cyan) !important;
+}
+
+/* Aside toggle button */
+#kt_aside_toggle:hover svg path {
+    fill: var(--psti-cyan) !important;
+}
+
+/* ----------------------------------------------------
+ * 2. PRIMARY BUTTONS & UTILITIES (PSTI Cyan)
+ * ---------------------------------------------------- */
+.btn-primary {
+    background-color: var(--psti-cyan-primary) !important;
+    border-color: var(--psti-cyan-primary) !important;
+    color: #FFFFFF !important;
+}
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary:active,
+.btn-primary.active,
+.show > .btn-primary.dropdown-toggle {
+    background-color: var(--psti-cyan-hover) !important;
+    border-color: var(--psti-cyan-hover) !important;
+    color: #FFFFFF !important;
+    box-shadow: 0 4px 14px rgba(0, 163, 224, 0.3) !important;
+}
+
+.btn-light-primary {
+    background-color: var(--psti-cyan-subtle) !important;
+    color: var(--psti-cyan-text) !important;
+    border-color: transparent !important;
+}
+
+.btn-light-primary:hover,
+.btn-light-primary:focus,
+.btn-light-primary:active {
+    background-color: var(--psti-cyan-light) !important;
+    color: var(--psti-navy) !important;
+}
+
+.btn-active-light-primary:hover {
+    background-color: var(--psti-cyan-subtle) !important;
+    color: var(--psti-cyan-primary) !important;
+}
+
+.btn-active-color-primary:hover,
+.btn-active-color-primary.active {
+    color: var(--psti-cyan-primary) !important;
+}
+
+/* Badges */
+.badge-light-primary {
+    background-color: var(--psti-cyan-subtle) !important;
+    color: var(--psti-cyan-text) !important;
+    border: 1px solid #C4ECFA !important;
+}
+
+.badge-primary {
+    background-color: var(--psti-cyan-primary) !important;
+    color: #FFFFFF !important;
+}
+
+.badge-navy {
+    background-color: var(--psti-navy) !important;
+    color: var(--psti-cyan) !important;
+    border: 1px solid rgba(0, 184, 238, 0.35);
+}
+
+/* Text & Links */
+.text-primary {
+    color: var(--psti-cyan-primary) !important;
+}
+
+.text-hover-primary:hover {
+    color: var(--psti-cyan-hover) !important;
+}
+
+.bg-light-primary {
+    background-color: var(--psti-cyan-subtle) !important;
+}
+
+.border-primary {
+    border-color: var(--psti-cyan-primary) !important;
+}
+
+/* Form inputs & checks */
+.form-check-input:checked {
+    background-color: var(--psti-cyan-primary) !important;
+    border-color: var(--psti-cyan-primary) !important;
+}
+
+.form-control:focus,
+.form-select:focus {
+    border-color: var(--psti-cyan-primary) !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 163, 224, 0.15) !important;
+}
+
+/* Pagination */
+.pagination .page-item.active .page-link {
+    background-color: var(--psti-cyan-primary) !important;
+    border-color: var(--psti-cyan-primary) !important;
+    color: #FFFFFF !important;
+}
+
+.pagination .page-link:hover {
+    color: var(--psti-cyan-primary) !important;
+}
+
+/* Select2 with Bootstrap 5 */
+.select2-container--bootstrap5 .select2-dropdown .select2-results__option--highlighted {
+    background-color: var(--psti-cyan-primary) !important;
+    color: #FFFFFF !important;
+}
+
+.select2-container--bootstrap5.select2-container--focus .form-select:not(.form-select-solid) {
+    border-color: var(--psti-cyan-primary) !important;
+    box-shadow: 0 0 0 0.25rem rgba(0, 163, 224, 0.15) !important;
+}
+
+/* ----------------------------------------------------
+ * 3. LOGO PLACEMENT & RESPONSIVENESS
+ * ---------------------------------------------------- */
+.psti-brand-logo {
+    height: 32px;
+    max-width: 145px;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.psti-brand-icon {
+    height: 30px;
+    width: 30px;
+    object-fit: contain;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* Metronic Aside Minimize Behavior */
+[data-kt-aside-minimize="on"] .aside .aside-logo .logo-default {
+    display: none !important;
+}
+
+[data-kt-aside-minimize="on"] .aside:not(:hover) .aside-logo .logo-minimize {
+    display: inline-block !important;
+}
+
+[data-kt-aside-minimize="on"] .aside:hover .aside-logo .logo-default {
+    display: inline-block !important;
+}
+
+[data-kt-aside-minimize="on"] .aside:hover .aside-logo .logo-minimize {
+    display: none !important;
+}
+
+/* Scrolltop button */
+.scrolltop {
+    background-color: var(--psti-navy) !important;
+}
+
+.scrolltop:hover {
+    background-color: var(--psti-cyan-primary) !important;
+}
+

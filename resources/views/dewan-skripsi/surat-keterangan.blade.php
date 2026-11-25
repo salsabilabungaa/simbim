@@ -59,15 +59,15 @@
         <!-- Kop Surat Resmi -->
         <div class="kop-surat d-flex align-items-center">
             <div class="me-4">
-                <img src="{{ asset('assets/media/logos/favicon.ico') }}" alt="Logo USK" style="width: 75px; height: 75px; object-fit: contain;" />
+                <img src="{{ asset('assets/media/logos/psti-icon.png') }}" alt="Logo PSTI UPI" style="width: 75px; height: 75px; object-fit: contain;" />
             </div>
             <div class="text-center flex-grow-1">
                 <h6 class="text-uppercase mb-0 fs-7 fw-bold" style="letter-spacing: 1px;">KEMENTERIAN PENDIDIKAN TINGGI, SAINS, DAN TEKNOLOGI</h6>
-                <h4 class="text-uppercase mb-0 fw-bolder fs-4" style="letter-spacing: 1.5px;">UNIVERSITAS SYIAH KUALA</h4>
-                <h5 class="text-uppercase mb-1 fw-bold fs-6">FAKULTAS TEKNIK — JURUSAN INFORMATIKA</h5>
+                <h4 class="text-uppercase mb-0 fw-bolder fs-4" style="letter-spacing: 1.5px;">{{ config('simbim.universitas_upper') }}</h4>
+                <h5 class="text-uppercase mb-1 fw-bold fs-6">{{ config('simbim.fakultas_unit') }}</h5>
                 <p class="mb-0 fs-8 text-muted">
-                    Jl. Syech Abdurrauf No. 7, Kopelma Darussalam, Banda Aceh 23111<br>
-                    Laman: informatika.usk.ac.id | Email: info@informatika.usk.ac.id
+                    {{ config('simbim.lokasi') }}<br>
+                    Laman: psti.upi.edu | Email: psti@{{ config('simbim.email_domain') }}
                 </p>
             </div>
         </div>
@@ -78,12 +78,12 @@
                 SURAT KETERANGAN LULUS SIDANG SKRIPSI
             </h4>
             <span class="fs-7 fw-bold text-dark font-monospace">
-                Nomor: {{ $skripsi->no_surat_keterangan ?: 'SKL/FT-USK/SKR/' . date('Y') . '/' . str_pad($skripsi->id, 3, '0', STR_PAD_LEFT) }}
+                Nomor: {{ $skripsi->no_surat_keterangan ?: 'SKL/PSTI-UPI/SKR/' . date('Y') . '/' . str_pad($skripsi->id, 3, '0', STR_PAD_LEFT) }}
             </span>
         </div>
 
         <p class="fs-7 mb-4 text-justify" style="line-height: 1.8;">
-            Dewan Sidang Skripsi Jurusan Informatika, Fakultas Teknik, Universitas Syiah Kuala dengan ini menerangkan bahwa mahasiswa yang tersebut di bawah ini:
+            Dewan Sidang Skripsi {{ config('simbim.prodi') }}, {{ config('simbim.universitas') }} dengan ini menerangkan bahwa mahasiswa yang tersebut di bawah ini:
         </p>
 
         <!-- Identitas Mahasiswa -->
@@ -161,7 +161,7 @@
             </div>
 
             <div class="text-center" style="width: 250px;">
-                <p class="mb-1 fs-8">Darussalam, {{ $skripsi->tanggal_lulus?->translatedFormat('d F Y') ?? date('d F Y') }}</p>
+                <p class="mb-1 fs-8">Bandung, {{ $skripsi->tanggal_lulus?->translatedFormat('d F Y') ?? date('d F Y') }}</p>
                 <p class="fw-bold fs-7 mb-15">Koordinator Dewan Skripsi</p>
                 <p class="fw-bolder fs-7 mb-0 text-dark" style="text-decoration: underline;">
                     {{ $dewanUser->name ?? 'Dr. Ir. Taufik Hidayat, M.Kom.' }}

@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <base href="{{ url('/') }}/">
-    <title>@yield('title', 'Beranda Mahasiswa') — SIMBIM</title>
+    <title>@yield('title', 'Beranda Mahasiswa') — BIMASTI UPI</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/simbim-theme.css') }}" rel="stylesheet" type="text/css" />
     @stack('styles')
 </head>
 <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed aside-enabled aside-fixed">
@@ -43,8 +44,8 @@
                     <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
                         <div class="text-dark order-2 order-md-1">
                             <span class="text-muted fw-bold me-1">{{ date('Y') }}&copy;</span>
-                            <span class="text-gray-800 fw-bold">SIMBIM</span>
-                            <span class="text-muted fs-8 ms-2">— Portal Mahasiswa {{ config('simbim.prodi_singkat') }} &bull; {{ config('simbim.universitas_singkat') }}</span>
+                            <span class="text-gray-800 fw-bold">BIMASTI</span>
+                            <span class="text-muted fs-8 ms-2">— Portal Mahasiswa &bull; {{ config('simbim.universitas') }}</span>
                         </div>
                     </div>
                 </div>
