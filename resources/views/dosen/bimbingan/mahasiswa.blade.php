@@ -143,10 +143,17 @@
         </div>
         <div class="card-toolbar">
             <div class="d-flex justify-content-end align-items-center gap-2 flex-wrap">
-                <div class="btn-group" role="group" aria-label="Filter Kategori">
-                    <button type="button" class="btn btn-sm btn-outline-primary active filter-btn" data-filter="all">Semua ({{ count($daftar_mahasiswa) }})</button>
-                    <button type="button" class="btn btn-sm btn-outline-primary filter-btn" data-filter="skripsi">Bimbingan Skripsi</button>
-                    <button type="button" class="btn btn-sm btn-outline-primary filter-btn" data-filter="akademik">Perwalian Akademik</button>
+                <div class="w-180px">
+                    <select id="filter_kategori_select" class="form-select form-select-sm form-select-solid" data-control="select2" data-hide-search="true">
+                        <option value="all">Semua Kategori ({{ count($daftar_mahasiswa) }})</option>
+                        <option value="skripsi">Bimbingan Skripsi</option>
+                        <option value="akademik">Perwalian Akademik</option>
+                    </select>
+                </div>
+                <div class="btn-group d-none d-md-inline-flex" role="group" aria-label="Filter Kategori">
+                    <button type="button" class="btn btn-sm btn-outline-primary active filter-btn" data-filter="all">Semua</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary filter-btn" data-filter="skripsi">Skripsi</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary filter-btn" data-filter="akademik">Akademik</button>
                 </div>
             </div>
         </div>
@@ -399,14 +406,28 @@
         btn.addEventListener('click', function() {
             document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
+            const filterVal = this.getAttribute('data-filter');
+            const selectEl = $('#filter_kategori_select');
+            if (selectEl.length && selectEl.val() !== filterVal) {
+                selectEl.val(filterVal).trigger('change.select2');
+            }
             filterTable();
         });
     });
 
+    $('#filter_kategori_select').on('change', function() {
+        const val = $(this).val();
+        document.querySelectorAll('.filter-btn').forEach(b => {
+            b.classList.toggle('active', b.getAttribute('data-filter') === val);
+        });
+        filterTable();
+    });
+
     function filterTable() {
         const query = document.getElementById('search_mahasiswa').value.toLowerCase().trim();
+        const selectVal = $('#filter_kategori_select').val();
         const activeFilterBtn = document.querySelector('.filter-btn.active');
-        const filterType = activeFilterBtn ? activeFilterBtn.getAttribute('data-filter') : 'all';
+        const filterType = selectVal || (activeFilterBtn ? activeFilterBtn.getAttribute('data-filter') : 'all');
 
         const rows = document.querySelectorAll('#table_mahasiswa tbody tr.mahasiswa-row');
         rows.forEach(row => {

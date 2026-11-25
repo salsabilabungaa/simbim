@@ -227,18 +227,23 @@
             </div>
 
             <div class="row g-3 align-items-center bg-light p-4 rounded border border-gray-200">
-                @if ($selectedStatus)
-                    <input type="hidden" name="status_perwalian" value="{{ $selectedStatus }}">
-                @endif
-
-                <div class="col-md-4">
+                <div class="col-md-3">
                     <div class="input-group input-group-solid bg-white border border-gray-300 rounded">
                         <span class="input-group-text bg-transparent border-0"><i class="fas fa-search text-gray-500"></i></span>
-                        <input type="text" name="search" value="{{ $search }}" class="form-control bg-transparent border-0 fs-7" placeholder="Cari nama mahasiswa, NIM, atau dosen wali..." />
+                        <input type="text" name="search" value="{{ $search }}" class="form-control bg-transparent border-0 fs-7" placeholder="Cari nama, NIM, dosen..." />
                     </div>
                 </div>
 
-                <div class="col-md-3">
+                <div class="col-md-2">
+                    <select name="status_perwalian" class="form-select form-select-solid bg-white border border-gray-300 fs-7" data-control="select2" data-placeholder="Semua Status">
+                        <option value="" {{ empty($selectedStatus) ? 'selected' : '' }}>Semua Status</option>
+                        <option value="selesai" {{ $selectedStatus === 'selesai' ? 'selected' : '' }}>Sudah Selesai</option>
+                        <option value="proses" {{ $selectedStatus === 'proses' ? 'selected' : '' }}>Proses / Menunggu</option>
+                        <option value="belum" {{ $selectedStatus === 'belum' ? 'selected' : '' }}>Belum Selesai</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
                     <select name="angkatan" class="form-select form-select-solid bg-white border border-gray-300 fs-7" data-control="select2" data-placeholder="Semua Angkatan">
                         <option value="">Semua Angkatan</option>
                         @foreach ($daftarAngkatan as $angkatanOption)
@@ -250,8 +255,8 @@
                 </div>
 
                 <div class="col-md-3">
-                    <select name="tahun_akademik" class="form-select form-select-solid bg-white border border-gray-300 fs-7" data-control="select2" data-placeholder="Semua Periode Akademik">
-                        <option value="" {{ $selectedTahunAkademik === null ? 'selected' : '' }}>Semua Periode Akademik</option>
+                    <select name="tahun_akademik" class="form-select form-select-solid bg-white border border-gray-300 fs-7" data-control="select2" data-placeholder="Semua Periode">
+                        <option value="" {{ $selectedTahunAkademik === null ? 'selected' : '' }}>Semua Periode</option>
                         @foreach ($daftarTahunAkademik as $tahunOption)
                             <option value="{{ $tahunOption }}" {{ $selectedTahunAkademik === $tahunOption ? 'selected' : '' }}>
                                 {{ $tahunOption }}
@@ -262,7 +267,7 @@
 
                 <div class="col-md-2 d-flex gap-2">
                     <button type="submit" class="btn btn-sm btn-primary fw-bolder flex-grow-1">Terapkan</button>
-                    @if ($selectedAngkatan || $selectedStatus || $search)
+                    @if ($selectedAngkatan || $selectedStatus || $search || $selectedTahunAkademik)
                         <a href="{{ route('gkm.beranda') }}" class="btn btn-sm btn-light border" title="Reset Filter">
                             <i class="fas fa-undo"></i>
                         </a>

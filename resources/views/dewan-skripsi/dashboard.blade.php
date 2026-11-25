@@ -155,16 +155,28 @@
                 </a>
             </div>
 
-            <!-- Search Form -->
-            <form action="{{ route('dewan-skripsi.dashboard') }}" method="GET" class="d-flex align-items-center position-relative my-1">
-                <input type="hidden" name="tahap" value="{{ $selectedTahap }}" />
-                <span class="svg-icon svg-icon-1 position-absolute ms-3">
-                    <i class="fas fa-search text-gray-500"></i>
-                </span>
-                <input type="text" name="search" value="{{ $search }}" class="form-control form-control-sm form-control-solid w-200px w-lg-250px ps-10" placeholder="Cari Mahasiswa/NIM/Judul..." />
-                @if($search)
-                    <a href="{{ route('dewan-skripsi.dashboard', ['tahap' => $selectedTahap]) }}" class="btn btn-sm btn-icon btn-light ms-1" title="Hapus pencarian">
-                        <i class="fas fa-times"></i>
+            <!-- Search and Select2 Filter Form -->
+            <form action="{{ route('dewan-skripsi.dashboard') }}" method="GET" class="d-flex align-items-center gap-2 flex-wrap my-1">
+                <div class="w-200px">
+                    <select name="tahap" class="form-select form-select-sm form-select-solid" data-control="select2" data-placeholder="Semua Tahap Skripsi" onchange="this.form.submit()">
+                        <option value="semua" {{ $selectedTahap === 'semua' ? 'selected' : '' }}>Semua Tahap ({{ $stats['total'] }})</option>
+                        <option value="Penyusunan Proposal" {{ $selectedTahap === 'Penyusunan Proposal' ? 'selected' : '' }}>Proposal ({{ $stats['proposal'] }})</option>
+                        <option value="Proses Bimbingan Aktif" {{ $selectedTahap === 'Proses Bimbingan Aktif' ? 'selected' : '' }}>Bimbingan ({{ $stats['bimbingan_aktif'] }})</option>
+                        <option value="Siap Sidang" {{ $selectedTahap === 'Siap Sidang' ? 'selected' : '' }}>Siap Sidang ({{ $stats['siap_sidang'] }})</option>
+                        <option value="Revisi Final" {{ $selectedTahap === 'Revisi Final' ? 'selected' : '' }}>Revisi Final ({{ $stats['revisi_final'] }})</option>
+                        <option value="Lulus/Selesai" {{ $selectedTahap === 'Lulus/Selesai' ? 'selected' : '' }}>Lulus ({{ $stats['lulus'] }})</option>
+                    </select>
+                </div>
+                <div class="position-relative">
+                    <span class="position-absolute top-50 translate-middle-y ms-3 text-gray-500">
+                        <i class="fas fa-search fs-6"></i>
+                    </span>
+                    <input type="text" name="search" value="{{ $search }}" class="form-control form-control-sm form-control-solid w-200px w-lg-220px ps-10" placeholder="Cari Mahasiswa/NIM/Judul..." />
+                </div>
+                <button type="submit" class="btn btn-sm btn-primary fw-bolder">Cari</button>
+                @if($search || $selectedTahap !== 'semua')
+                    <a href="{{ route('dewan-skripsi.dashboard') }}" class="btn btn-sm btn-icon btn-light" title="Reset filter">
+                        <i class="fas fa-undo"></i>
                     </a>
                 @endif
             </form>

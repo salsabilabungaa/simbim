@@ -143,12 +143,18 @@
         </div>
         <div class="card-toolbar">
             <div class="d-flex justify-content-end align-items-center gap-2 flex-wrap">
-                <div class="btn-group" role="group" aria-label="Filter Status Pengajuan">
-                    <button type="button" class="btn btn-sm btn-outline-primary active filter-status-btn" data-status="all">Semua ({{ count($daftar_pengajuan) }})</button>
-                    <button type="button" class="btn btn-sm btn-outline-primary filter-status-btn" data-status="menunggu">Menunggu ({{ $statistik['menunggu_konfirmasi'] }})</button>
-                    <button type="button" class="btn btn-sm btn-outline-primary filter-status-btn" data-status="disetujui">Terkonfirmasi ({{ $statistik['terkonfirmasi'] }})</button>
-                    <!-- <button type="button" class="btn btn-sm btn-outline-primary filter-status-btn" data-status="ditolak">Reschedule ({{ $statistik['selesai_ditolak'] }})</button>
-                </div> -->
+                <div class="w-180px">
+                    <select id="filter_status_select" class="form-select form-select-sm form-select-solid" data-control="select2" data-hide-search="true">
+                        <option value="all">Semua ({{ count($daftar_pengajuan) }})</option>
+                        <option value="menunggu">Menunggu ({{ $statistik['menunggu_konfirmasi'] }})</option>
+                        <option value="disetujui">Terkonfirmasi ({{ $statistik['terkonfirmasi'] }})</option>
+                    </select>
+                </div>
+                <div class="btn-group d-none d-md-inline-flex" role="group" aria-label="Filter Status Pengajuan">
+                    <button type="button" class="btn btn-sm btn-outline-primary active filter-status-btn" data-status="all">Semua</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary filter-status-btn" data-status="menunggu">Menunggu</button>
+                    <button type="button" class="btn btn-sm btn-outline-primary filter-status-btn" data-status="disetujui">Terkonfirmasi</button>
+                </div>
             </div>
         </div>
     </div>
@@ -388,14 +394,28 @@
         btn.addEventListener('click', function() {
             document.querySelectorAll('.filter-status-btn').forEach(b => b.classList.remove('active'));
             this.classList.add('active');
+            const statusVal = this.getAttribute('data-status');
+            const selectEl = $('#filter_status_select');
+            if (selectEl.length && selectEl.val() !== statusVal) {
+                selectEl.val(statusVal).trigger('change.select2');
+            }
             filterPengajuanTable();
         });
     });
 
+    $('#filter_status_select').on('change', function() {
+        const val = $(this).val();
+        document.querySelectorAll('.filter-status-btn').forEach(b => {
+            b.classList.toggle('active', b.getAttribute('data-status') === val);
+        });
+        filterPengajuanTable();
+    });
+
     function filterPengajuanTable() {
         const query = document.getElementById('search_pengajuan').value.toLowerCase().trim();
+        const selectVal = $('#filter_status_select').val();
         const activeBtn = document.querySelector('.filter-status-btn.active');
-        const status = activeBtn ? activeBtn.getAttribute('data-status') : 'all';
+        const status = selectVal || (activeBtn ? activeBtn.getAttribute('data-status') : 'all');
 
         const rows = document.querySelectorAll('#table_pengajuan tbody tr.pengajuan-row');
         rows.forEach(row => {

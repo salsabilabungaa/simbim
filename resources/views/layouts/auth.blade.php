@@ -55,7 +55,7 @@
                 <!-- Top Brand Logo -->
                 <div class="text-center mb-8">
                     <a href="{{ url('/') }}" class="d-inline-flex flex-column align-items-center text-decoration-none mb-2">
-                        <img alt="SIMBIM Logo" src="{{ asset('assets/media/logos/logo-1.svg') }}" class="h-45px mb-2" />
+                        <img alt="Logo" src="{{ asset('assets/media/logos/logo-1.svg') }}" class="h-45px mb-2" />
                     </a>
                     <div class="d-flex justify-content-center align-items-center gap-2">
                         <span class="badge badge-light-primary fw-bolder fs-8 px-3 py-1 text-uppercase ls-1">

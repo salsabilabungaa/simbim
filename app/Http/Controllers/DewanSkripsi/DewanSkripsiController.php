@@ -121,7 +121,7 @@ class DewanSkripsiController extends Controller
             });
         }
 
-        $skripsis = $query->paginate(10)->withQueryString();
+        $skripsis = $query->paginate(6)->withQueryString();
 
         // Daftar dosen untuk dropdown plotting
         $dosens = User::whereIn('role', ['dosen', 'dewan_skripsi'])
@@ -226,7 +226,7 @@ class DewanSkripsiController extends Controller
             });
         }
 
-        $skripsis = $query->paginate(10)->withQueryString();
+        $skripsis = $query->paginate(6)->withQueryString();
 
         $dosens = User::whereIn('role', ['dosen', 'dewan_skripsi'])
             ->orderBy('name')
@@ -334,7 +334,7 @@ class DewanSkripsiController extends Controller
             });
         }
 
-        $skripsis = $query->paginate(10)->withQueryString();
+        $skripsis = $query->paginate(6)->withQueryString();
 
         $dewanUser = User::where('role', 'dewan_skripsi')->first() ?? (object) [
             'name' => 'Dr. Ir. Taufik Hidayat, M.Kom.',

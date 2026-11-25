@@ -66,7 +66,7 @@
 <!-- Filter & Search Toolbar -->
 <div class="card card-flush shadow-sm mb-6">
     <div class="card-body pt-6 pb-6">
-        <form method="GET" action="{{ route('admin.users.index') }}" class="d-flex flex-column flex-md-row gap-4 align-items-md-center justify-content-between">
+        <div class="d-flex flex-column flex-md-row gap-4 align-items-md-center justify-content-between">
             <!-- Role Filter Pills -->
             <div class="d-flex flex-wrap gap-2">
                 <a href="{{ route('admin.users.index', array_filter(['search' => request('search')])) }}" 
@@ -95,17 +95,24 @@
                 </a>
             </div>
 
-            <!-- Search Input -->
-            <div class="d-flex align-items-center gap-2">
-                @if (request('role'))
-                    <input type="hidden" name="role" value="{{ request('role') }}">
-                @endif
+            <!-- Search and Filter Form with Select2 -->
+            <form action="{{ route('admin.users.index') }}" method="GET" class="d-flex align-items-center gap-2 flex-wrap">
+                <div class="w-160px">
+                    <select name="role" class="form-select form-select-solid form-select-sm" data-control="select2" data-placeholder="Semua Role" onchange="this.form.submit()">
+                        <option value="">Semua Role ({{ $counts['all'] }})</option>
+                        <option value="mahasiswa" {{ request('role') === 'mahasiswa' ? 'selected' : '' }}>Mahasiswa ({{ $counts['mahasiswa'] }})</option>
+                        <option value="dosen" {{ request('role') === 'dosen' ? 'selected' : '' }}>Dosen ({{ $counts['dosen'] }})</option>
+                        <option value="dewan_skripsi" {{ request('role') === 'dewan_skripsi' ? 'selected' : '' }}>Dewan Skripsi ({{ $counts['dewan_skripsi'] }})</option>
+                        <option value="gkm" {{ request('role') === 'gkm' ? 'selected' : '' }}>GKM ({{ $counts['gkm'] }})</option>
+                        <option value="admin" {{ request('role') === 'admin' ? 'selected' : '' }}>Admin ({{ $counts['admin'] }})</option>
+                    </select>
+                </div>
                 <div class="position-relative">
                     <span class="position-absolute top-50 translate-middle-y ms-3 text-gray-500">
                         <i class="fas fa-search fs-6"></i>
                     </span>
                     <input type="text" name="search" value="{{ request('search') }}" 
-                           class="form-control form-control-solid form-control-sm ps-10 w-250px" 
+                           class="form-control form-control-solid form-control-sm ps-10 w-220px" 
                            placeholder="Cari nama, email, NIM / NIP..." />
                 </div>
                 <button type="submit" class="btn btn-sm btn-primary fw-bolder">Cari</button>
@@ -114,8 +121,8 @@
                         <i class="fas fa-undo"></i>
                     </a>
                 @endif
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
 

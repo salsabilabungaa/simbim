@@ -51,16 +51,26 @@
                 </a>
             </div>
 
-            <!-- Search Form -->
-            <form action="{{ route('dewan-skripsi.validasi-sidang') }}" method="GET" class="d-flex align-items-center position-relative my-1">
-                <input type="hidden" name="status_pendaftaran" value="{{ $filterStatus }}" />
-                <span class="svg-icon svg-icon-1 position-absolute ms-3">
-                    <i class="fas fa-search text-gray-500"></i>
-                </span>
-                <input type="text" name="search" value="{{ $search }}" class="form-control form-control-sm form-control-solid w-200px w-lg-250px ps-10" placeholder="Cari nama / NIM / judul..." />
-                @if($search)
-                    <a href="{{ route('dewan-skripsi.validasi-sidang', ['status_pendaftaran' => $filterStatus]) }}" class="btn btn-sm btn-icon btn-light ms-1">
-                        <i class="fas fa-times"></i>
+            <!-- Search & Select2 Filter Form -->
+            <form action="{{ route('dewan-skripsi.validasi-sidang') }}" method="GET" class="d-flex align-items-center gap-2 flex-wrap my-1">
+                <div class="w-180px">
+                    <select name="status_pendaftaran" class="form-select form-select-sm form-select-solid" data-control="select2" data-placeholder="Semua Status" onchange="this.form.submit()">
+                        <option value="semua" {{ $filterStatus === 'semua' ? 'selected' : '' }}>Semua Status</option>
+                        <option value="Menunggu Persetujuan" {{ $filterStatus === 'Menunggu Persetujuan' ? 'selected' : '' }}>Menunggu Approval</option>
+                        <option value="Disetujui" {{ $filterStatus === 'Disetujui' ? 'selected' : '' }}>Disetujui (ACC)</option>
+                        <option value="Ditolak" {{ $filterStatus === 'Ditolak' ? 'selected' : '' }}>Ditolak</option>
+                    </select>
+                </div>
+                <div class="position-relative">
+                    <span class="position-absolute top-50 translate-middle-y ms-3 text-gray-500">
+                        <i class="fas fa-search text-gray-500"></i>
+                    </span>
+                    <input type="text" name="search" value="{{ $search }}" class="form-control form-control-sm form-control-solid w-200px w-lg-250px ps-10" placeholder="Cari nama / NIM / judul..." />
+                </div>
+                <button type="submit" class="btn btn-sm btn-primary fw-bolder">Cari</button>
+                @if($search || $filterStatus !== 'semua')
+                    <a href="{{ route('dewan-skripsi.validasi-sidang') }}" class="btn btn-sm btn-icon btn-light" title="Reset filter">
+                        <i class="fas fa-undo"></i>
                     </a>
                 @endif
             </form>

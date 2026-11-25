@@ -169,4 +169,3 @@ class ProfileController extends Controller
         return redirect()->route($targetRoute)->with('success', 'Data profil Anda berhasil diperbarui!');
     }
 }
-

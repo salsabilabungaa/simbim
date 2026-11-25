@@ -52,16 +52,27 @@
                 </a>
             </div>
 
-            <!-- Search Form -->
-            <form action="{{ route('dewan-skripsi.plotting') }}" method="GET" class="d-flex align-items-center position-relative my-1">
-                <input type="hidden" name="status_plotting" value="{{ $statusPlotting }}" />
-                <span class="svg-icon svg-icon-1 position-absolute ms-3">
-                    <i class="fas fa-search text-gray-500"></i>
-                </span>
-                <input type="text" name="search" value="{{ $search }}" class="form-control form-control-sm form-control-solid w-200px w-lg-250px ps-10" placeholder="Cari nama / NIM..." />
-                @if($search)
-                    <a href="{{ route('dewan-skripsi.plotting', ['status_plotting' => $statusPlotting]) }}" class="btn btn-sm btn-icon btn-light ms-1">
-                        <i class="fas fa-times"></i>
+            <!-- Search and Select2 Filter Form -->
+            <form action="{{ route('dewan-skripsi.plotting') }}" method="GET" class="d-flex align-items-center gap-2 flex-wrap my-1">
+                <div class="w-200px">
+                    <select name="status_plotting" class="form-select form-select-sm form-select-solid" data-control="select2" data-placeholder="Status Plotting" onchange="this.form.submit()">
+                        <option value="semua" {{ $statusPlotting === 'semua' ? 'selected' : '' }}>Semua Mahasiswa</option>
+                        <option value="belum_lengkap" {{ $statusPlotting === 'belum_lengkap' ? 'selected' : '' }}>Dosen Belum Lengkap</option>
+                        <option value="lengkap" {{ $statusPlotting === 'lengkap' ? 'selected' : '' }}>Dosen Lengkap</option>
+                        <option value="belum_terjadwal" {{ $statusPlotting === 'belum_terjadwal' ? 'selected' : '' }}>Belum Ada Jadwal</option>
+                        <option value="terjadwal" {{ $statusPlotting === 'terjadwal' ? 'selected' : '' }}>Sudah Terjadwal</option>
+                    </select>
+                </div>
+                <div class="position-relative">
+                    <span class="position-absolute top-50 translate-middle-y ms-3 text-gray-500">
+                        <i class="fas fa-search text-gray-500"></i>
+                    </span>
+                    <input type="text" name="search" value="{{ $search }}" class="form-control form-control-sm form-control-solid w-200px w-lg-220px ps-10" placeholder="Cari nama / NIM..." />
+                </div>
+                <button type="submit" class="btn btn-sm btn-primary fw-bolder">Cari</button>
+                @if($search || $statusPlotting !== 'semua')
+                    <a href="{{ route('dewan-skripsi.plotting') }}" class="btn btn-sm btn-icon btn-light" title="Reset filter">
+                        <i class="fas fa-undo"></i>
                     </a>
                 @endif
             </form>
@@ -200,7 +211,7 @@
                                             <div class="row g-3 mb-5">
                                                 <div class="col-md-6">
                                                     <label class="form-label fw-bold fs-7 required">Dosen Pembimbing 1 (Utama)</label>
-                                                    <select name="pembimbing_1_id" class="form-select form-select-solid" required>
+                                                    <select name="pembimbing_1_id" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_plotting_{{ $item->id }}" data-placeholder="-- Pilih Dosen Pembimbing 1 --" required>
                                                         <option value="">-- Pilih Dosen Pembimbing 1 --</option>
                                                         @foreach($dosens as $dosen)
                                                             <option value="{{ $dosen->id }}" {{ $item->pembimbing_1_id == $dosen->id ? 'selected' : '' }}>
@@ -211,7 +222,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label fw-bold fs-7">Dosen Pembimbing 2 (Pendamping)</label>
-                                                    <select name="pembimbing_2_id" class="form-select form-select-solid">
+                                                    <select name="pembimbing_2_id" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_plotting_{{ $item->id }}" data-placeholder="-- Pilih Dosen Pembimbing 2 --">
                                                         <option value="">-- Pilih Dosen Pembimbing 2 --</option>
                                                         @foreach($dosens as $dosen)
                                                             <option value="{{ $dosen->id }}" {{ $item->pembimbing_2_id == $dosen->id ? 'selected' : '' }}>
@@ -228,7 +239,7 @@
                                             <div class="row g-3 mb-5">
                                                 <div class="col-md-6">
                                                     <label class="form-label fw-bold fs-7">Dosen Penguji 1 (Ketua Penguji)</label>
-                                                    <select name="penguji_1_id" class="form-select form-select-solid">
+                                                    <select name="penguji_1_id" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_plotting_{{ $item->id }}" data-placeholder="-- Pilih Dosen Penguji 1 --">
                                                         <option value="">-- Pilih Dosen Penguji 1 --</option>
                                                         @foreach($dosens as $dosen)
                                                             <option value="{{ $dosen->id }}" {{ $item->penguji_1_id == $dosen->id ? 'selected' : '' }}>
@@ -239,7 +250,7 @@
                                                 </div>
                                                 <div class="col-md-6">
                                                     <label class="form-label fw-bold fs-7">Dosen Penguji 2 (Anggota Penguji)</label>
-                                                    <select name="penguji_2_id" class="form-select form-select-solid">
+                                                    <select name="penguji_2_id" class="form-select form-select-solid" data-control="select2" data-dropdown-parent="#modal_plotting_{{ $item->id }}" data-placeholder="-- Pilih Dosen Penguji 2 --">
                                                         <option value="">-- Pilih Dosen Penguji 2 --</option>
                                                         @foreach($dosens as $dosen)
                                                             <option value="{{ $dosen->id }}" {{ $item->penguji_2_id == $dosen->id ? 'selected' : '' }}>
