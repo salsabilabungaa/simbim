@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <base href="{{ url('/') }}/">
-    <title>@yield('title', 'Portal Dewan Skripsi') — SIMBIM</title>
+    <title>@yield('title', 'Portal Dewan Skripsi') — BIMASTI UPI</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/simbim-theme.css') }}" rel="stylesheet" type="text/css" />
     @stack('styles')
 </head>
 <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed aside-enabled aside-fixed">
@@ -32,8 +33,14 @@
             <div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '250px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
                 <div class="aside-logo flex-column-auto" id="kt_aside_logo">
                     <a href="{{ route('dewan-skripsi.beranda') }}" class="d-flex align-items-center">
+<<<<<<< HEAD
                         <img alt="Logo" src="{{ asset('assets/media/logos/logo-1-dark.svg') }}" class="h-25px logo me-2" />
                         <span class="badge badge-light-warning fw-bolder fs-8">DEWAN</span>
+=======
+                        <img alt="BIMASTI" src="{{ asset('assets/media/logos/psti-logo-dark.png') }}" class="psti-brand-logo logo-default me-2" />
+                        <img alt="BIMASTI" src="{{ asset('assets/media/logos/psti-icon.png') }}" class="psti-brand-icon logo-minimize d-none" />
+                        <span class="badge badge-navy fw-bolder fs-8 px-2 py-1 logo-default">DEWAN</span>
+>>>>>>> origin/main
                     </a>
                     <div id="kt_aside_toggle" class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="aside-minimize">
                         <span class="svg-icon svg-icon-1 rotate-180">
@@ -216,8 +223,8 @@
                     <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
                         <div class="text-dark order-2 order-md-1">
                             <span class="text-muted fw-bold me-1">{{ date('Y') }}&copy;</span>
-                            <span class="text-gray-800 fw-bold">SIMBIM</span>
-                            <span class="text-muted fs-8 ms-2">— Portal Dewan Skripsi {{ config('simbim.prodi_singkat') }} &bull; {{ config('simbim.universitas_singkat') }}</span>
+                            <span class="text-gray-800 fw-bold">BIMASTI</span>
+                            <span class="text-muted fs-8 ms-2">— Portal Dewan Skripsi &bull; {{ config('simbim.universitas') }}</span>
                         </div>
                     </div>
                 </div>
@@ -226,7 +233,6 @@
     </div>
 
     <script>var hostUrl = "{{ asset('assets') }}/";</script>
-    <script src="{{ asset('assets/plugins/global/plugins.bundle.css') }}"></script>
     <script src="{{ asset('assets/plugins/global/plugins.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/scripts.bundle.js') }}"></script>
     <script src="{{ asset('assets/js/simbim-ui.js') }}"></script>

@@ -13,14 +13,14 @@
 
         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
             <a href="{{ route('dosen.beranda') }}" class="d-lg-none">
-                <img alt="Logo" src="{{ asset('assets/media/logos/logo-2.svg') }}" class="h-30px" />
+                <img alt="BIMASTI" src="{{ asset('assets/media/logos/psti-icon.png') }}" class="h-30px" />
             </a>
         </div>
 
         <div class="d-flex align-items-stretch justify-content-between flex-lg-grow-1">
             <div class="d-flex align-items-center" id="kt_header_nav">
                 <span class="d-none d-md-inline-block text-gray-700 fw-bolder fs-6">
-                    <i class="fas fa-university text-primary me-2"></i> Portal Akademik & Pembimbing Dosen {{ config('simbim.prodi_singkat') }} &mdash; {{ config('simbim.universitas_singkat') }}
+                    <i class="fas fa-university text-primary me-2"></i> BIMASTI &mdash; Portal Akademik & Pembimbing Dosen {{ config('simbim.universitas_singkat') }}
                 </span>
             </div>
 
@@ -32,7 +32,7 @@
                         <span class="bullet bullet-dot bg-danger h-6px w-6px position-absolute translate-middle top-0 start-50 animation-blink"></span>
                     </div>
                     <div class="menu menu-sub menu-sub-dropdown menu-column w-350px w-lg-375px" data-kt-menu="true">
-                        <div class="d-flex flex-column bgi-no-repeat rounded-top p-6" style="background: linear-gradient(135deg, #1e1e2d 0%, #2b2b40 100%);">
+                        <div class="d-flex flex-column bgi-no-repeat rounded-top p-6" style="background: linear-gradient(135deg, #0E2046 0%, #162C5C 100%);">
                             <h3 class="text-white fw-bolder mb-1 fs-5">
                                 <i class="fas fa-bell text-warning me-2"></i> Notifikasi Mahasiswa
                             </h3>
@@ -75,10 +75,10 @@
                         <div class="menu-item px-3">
                             <div class="menu-content d-flex flex-column text-center px-3 py-2">
                                 <div class="fw-bolder text-gray-800 fs-6 text-uppercase mb-1" style="letter-spacing: 0.5px;">
-                                    {{ auth()->user()->name ?? ($dosen['nama'] ?? 'NAJWA RIZKI AMANULLAH') }}
+                                    {{ auth()->user()->name ?? ($dosen['nama'] ?? 'DR. SITI RAHMAWATI, M.KOM.') }}
                                 </div>
                                 <div class="text-muted fs-7 mb-1">
-                                    {{ auth()->user()->nomor_induk ?? ($dosen['nip'] ?? '2401839') }}
+                                    {{ auth()->user()->nomor_induk ?? ($dosen['nip'] ?? '198503152010122001') }}
                                 </div>
                                 <div class="text-muted fs-7" style="line-height: 1.3;">
                                     {{ auth()->user()?->program_studi ?: ($dosen['program_studi'] ?? config('simbim.prodi')) }}

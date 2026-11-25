@@ -396,7 +396,7 @@ class DewanSkripsiController extends Controller
         ]);
 
         $nomorSurat = $request->input('no_surat_keterangan')
-            ?: 'SKL/FT-USK/SKR/'.date('Y').'/'.str_pad((string) $skripsi->id, 3, '0', STR_PAD_LEFT);
+            ?: 'SKL/PSTI-UPI/SKR/'.date('Y').'/'.str_pad((string) $skripsi->id, 3, '0', STR_PAD_LEFT);
 
         $skripsi->update([
             'status_kelulusan' => 'Lulus/Selesai',

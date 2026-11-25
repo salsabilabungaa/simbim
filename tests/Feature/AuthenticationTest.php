@@ -40,7 +40,7 @@ class AuthenticationTest extends TestCase
         $response->assertStatus(200);
         $response->assertSee('Selamat Datang');
         $response->assertSee('Email atau NIM / NIP');
-        $response->assertSee('Masuk ke SIMBIM');
+        $response->assertSee('Masuk ke BIMASTI');
     }
 
     public function test_halaman_register_tidak_tersedia(): void
@@ -148,6 +148,16 @@ class AuthenticationTest extends TestCase
 
     public function test_login_dewan_skripsi_simbim_diarahkan_ke_dashboard_dewan_skripsi(): void
     {
+        User::updateOrCreate(
+            ['email' => 'dskripsi@simbim.ac.id'],
+            [
+                'name' => 'Dewan Skripsi',
+                'role' => 'dewan_skripsi',
+                'nomor_induk' => '197908202005011003',
+                'password' => bcrypt('password'),
+            ]
+        );
+
         $response = $this->post('/login', [
             'login' => 'dskripsi@simbim.ac.id',
             'password' => 'password',

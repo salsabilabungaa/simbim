@@ -2,7 +2,7 @@
 <html lang="id">
 <head>
     <base href="{{ url('/') }}/">
-    <title>@yield('title', 'Portal GKM') — SIMBIM</title>
+    <title>@yield('title', 'Portal GKM') — BIMASTI UPI</title>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700" />
     <link href="{{ asset('assets/plugins/global/plugins.bundle.css') }}" rel="stylesheet" type="text/css" />
     <link href="{{ asset('assets/css/style.bundle.css') }}" rel="stylesheet" type="text/css" />
+    <link href="{{ asset('assets/css/simbim-theme.css') }}" rel="stylesheet" type="text/css" />
     @stack('styles')
 </head>
 <body id="kt_body" class="header-fixed header-tablet-and-mobile-fixed aside-enabled aside-fixed">
@@ -31,8 +32,14 @@
             <div id="kt_aside" class="aside aside-dark aside-hoverable" data-kt-drawer="true" data-kt-drawer-name="aside" data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true" data-kt-drawer-width="{default:'200px', '300px': '255px'}" data-kt-drawer-direction="start" data-kt-drawer-toggle="#kt_aside_mobile_toggle">
                 <div class="aside-logo flex-column-auto" id="kt_aside_logo">
                     <a href="{{ route('gkm.beranda') }}" class="d-flex align-items-center">
+<<<<<<< HEAD
                         <img alt="Logo" src="{{ asset('assets/media/logos/logo-1-dark.svg') }}" class="h-25px logo me-2" />
                         <span class="badge badge-light-info fw-bolder fs-8 px-2 py-1">GKM</span>
+=======
+                        <img alt="BIMASTI" src="{{ asset('assets/media/logos/psti-logo-dark.png') }}" class="psti-brand-logo logo-default me-2" />
+                        <img alt="BIMASTI" src="{{ asset('assets/media/logos/psti-icon.png') }}" class="psti-brand-icon logo-minimize d-none" />
+                        <span class="badge badge-navy fw-bolder fs-8 px-2 py-1 logo-default">GKM</span>
+>>>>>>> origin/main
                     </a>
                     <div id="kt_aside_toggle" class="btn btn-icon w-auto px-0 btn-active-color-primary aside-toggle" data-kt-toggle="true" data-kt-toggle-state="active" data-kt-toggle-target="body" data-kt-toggle-name="aside-minimize">
                         <span class="svg-icon svg-icon-1 rotate-180">
@@ -96,7 +103,7 @@
 
                         <div class="d-flex align-items-center flex-grow-1 flex-lg-grow-0">
                             <a href="{{ route('gkm.beranda') }}" class="d-lg-none">
-                                <img alt="Logo" src="{{ asset('assets/media/logos/logo-2.svg') }}" class="h-30px" />
+                                <img alt="BIMASTI" src="{{ asset('assets/media/logos/psti-icon.png') }}" class="h-30px" />
                             </a>
                         </div>
 
@@ -106,51 +113,54 @@
                                     <i class="fas fa-shield-alt text-info me-1"></i> GUGUS KENDALI MUTU
                                 </span>
                                 <span class="text-gray-700 fw-bold fs-7 d-none d-md-inline">
-                                    Prodi PSTI &mdash; {{ config('simbim.universitas') }}
+                                    BIMASTI &mdash; Penjaminan Mutu Bimbingan Mahasiswa, {{ config('simbim.universitas') }}
                                 </span>
                             </div>
 
                             <div class="d-flex align-items-stretch flex-shrink-0">
                                 <div class="d-flex align-items-center ms-1 ms-lg-3" id="kt_header_user_menu_toggle">
                                     <div class="cursor-pointer d-flex align-items-center px-2 py-1 text-hover-primary" data-kt-menu-trigger="click" data-kt-menu-attach="parent" data-kt-menu-placement="bottom-end">
-                                        <div class="symbol symbol-30px symbol-circle me-2 bg-light-info text-info fw-bolder d-flex align-items-center justify-content-center">
+                                        <div class="symbol symbol-30px symbol-circle me-2 bg-light-success text-success fw-bolder d-flex align-items-center justify-content-center">
                                             {{ strtoupper(substr(auth()->user()->name ?? 'G', 0, 1)) }}
                                         </div>
-                                        <span class="text-gray-700 fw-bold fs-7 text-uppercase ls-1 me-1 d-none d-sm-inline">{{ auth()->user()->name ?? 'Tim GKM' }}</span>
-                                        <i class="fas fa-chevron-down fs-9 text-gray-500"></i>
+                                        <span class="text-gray-700 fw-bold fs-7 text-uppercase ls-1">{{ auth()->user()->name ?? 'Tim GKM' }}</span>
                                     </div>
 
-                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px" data-kt-menu="true">
+                                    <!-- Popout Card Dropdown (Persis Desain Gambar) -->
+                                    <div class="menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-800 menu-state-bg menu-state-primary fw-bold py-4 fs-6 w-275px w-md-300px" data-kt-menu="true">
+                                        <!-- 1. Header Informasi GKM (Center-aligned) -->
                                         <div class="menu-item px-3">
-                                            <div class="menu-content d-flex align-items-center px-3">
-                                                <div class="symbol symbol-50px symbol-circle me-4 bg-light-info text-info fw-bolder fs-2 d-flex align-items-center justify-content-center">
-                                                    {{ strtoupper(substr(auth()->user()->name ?? 'G', 0, 1)) }}
+                                            <div class="menu-content d-flex flex-column text-center px-3 py-2">
+                                                <div class="fw-bolder text-gray-800 fs-6 text-uppercase mb-1" style="letter-spacing: 0.5px;">
+                                                    {{ auth()->user()->name ?? 'Tim Gugus Kendali Mutu' }}
                                                 </div>
-                                                <div class="d-flex flex-column">
-                                                    <div class="fw-bolder fs-6 text-dark">
-                                                        {{ auth()->user()->name ?? 'Tim GKM' }}
-                                                    </div>
-                                                    <span class="badge badge-light-info fw-bolder fs-9 px-2 py-1 my-1 align-self-start">GKM (Kendali Mutu)</span>
-                                                    <span class="fw-semibold text-muted fs-8 text-truncate" style="max-width: 160px;">{{ auth()->user()->email ?? '' }}</span>
+                                                <div class="text-muted fs-7 mb-1">
+                                                    {{ auth()->user()->nomor_induk ?: (auth()->user()->email ?? 'gkm@upi.edu') }}
+                                                </div>
+                                                <div class="text-muted fs-7" style="line-height: 1.3;">
+                                                    {{ auth()->user()?->program_studi ?: config('simbim.prodi') }}
                                                 </div>
                                             </div>
                                         </div>
 
+                                        <!-- 2. Garis Pemisah (Divider) -->
                                         <div class="separator my-2"></div>
 
+                                        <!-- 3. Edit Profil -->
                                         <div class="menu-item px-5">
-                                            <a href="{{ route('profile.edit') }}" class="menu-link px-5">
-                                                <i class="fas fa-user-edit me-2 text-info fs-7"></i> Edit Profil
+                                            <a href="{{ route('profile.edit') }}" class="menu-link px-3 py-2 d-flex align-items-center">
+                                                <i class="bi bi-person-fill fs-3 me-3" style="color: #009688;"></i>
+                                                <span class="text-gray-700 fs-6 fw-semibold">Edit Profil</span>
                                             </a>
                                         </div>
 
-                                        <div class="separator my-2"></div>
-
+                                        <!-- 4. Sign Out -->
                                         <div class="menu-item px-5">
-                                            <form method="POST" action="{{ route('logout') }}" id="gkm_logout_form">
+                                            <form method="POST" action="{{ route('logout') }}" id="gkm_logout_form" class="m-0 p-0">
                                                 @csrf
-                                                <button type="submit" class="btn btn-sm btn-light-danger w-100 fw-bolder">
-                                                    <i class="fas fa-sign-out-alt me-2"></i> Keluar (Logout)
+                                                <button type="submit" class="menu-link px-3 py-2 d-flex align-items-center border-0 bg-transparent w-100 text-start cursor-pointer">
+                                                    <i class="bi bi-power fs-3 me-3" style="color: #009688;"></i>
+                                                    <span class="text-gray-700 fs-6 fw-semibold">Sign Out</span>
                                                 </button>
                                             </form>
                                         </div>
@@ -173,8 +183,8 @@
                     <div class="container-fluid d-flex flex-column flex-md-row align-items-center justify-content-between">
                         <div class="text-dark order-2 order-md-1">
                             <span class="text-muted fw-bold me-1">{{ date('Y') }}&copy;</span>
-                            <span class="text-gray-800 fw-bold">SIMBIM</span>
-                            <span class="text-muted fs-8 ms-2">— Portal GKM Prodi PSTI, {{ config('simbim.universitas') }}</span>
+                            <span class="text-gray-800 fw-bold">BIMASTI</span>
+                            <span class="text-muted fs-8 ms-2">— Portal GKM &bull; {{ config('simbim.universitas') }}</span>
                         </div>
                     </div>
                 </div>
